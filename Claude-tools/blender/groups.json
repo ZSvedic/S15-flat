@@ -1,0 +1,441 @@
+{
+ "_comment": "Lamp data per role, light groups (one render each; light adds up, so any on/off mix is the sum), and which groups each view needs. beam = half-intensity angle in degrees (null = all directions). profile = list of [peak candela, full cone angle] parts that are added.",
+ "lamps": {
+  "gu10": {
+   "kelvin": 2700,
+   "radius": 2.5,
+   "profile": [
+    [
+     456,
+     46.6
+    ],
+    [
+     144,
+     120
+    ]
+   ],
+   "source": "IKEA LEDARE LED1931R5, GU10, 4.1 W, 345 lm, 2700 K, 36 deg, 600 cd, dimmable (Zel's photo of the pack, 2026-11-19). Narrow core plus wide spill: sums to 345 lm, 600 cd peak, half intensity at 18 deg off axis."
+  },
+  "shield": {
+   "lumens": 300,
+   "kelvin": 2700,
+   "beam": 110,
+   "radius": 3,
+   "source": "assumed: wide shielded bedside / reading light"
+  },
+  "puck": {
+   "lumens": 180,
+   "kelvin": 3000,
+   "beam": 100,
+   "radius": 3,
+   "source": "assumed"
+  },
+  "bar": {
+   "lumens": 30,
+   "kelvin": 3000,
+   "beam": 120,
+   "radius": 1,
+   "source": "assumed 600 lm per metre (one source per 5 cm): kitchen light bar and the bar under the hall top cabinet"
+  },
+  "spot": {
+   "lumens": 400,
+   "kelvin": 3000,
+   "beam": 60,
+   "radius": 3,
+   "source": "assumed: as-built recessed spots"
+  },
+  "ceiling": {
+   "lumens": 1600,
+   "kelvin": 3000,
+   "beam": null,
+   "radius": 12,
+   "source": "assumed"
+  },
+  "bath": {
+   "lumens": 1200,
+   "kelvin": 3000,
+   "beam": null,
+   "radius": 12,
+   "source": "assumed"
+  },
+  "profile": {
+   "lumens": 17.5,
+   "kelvin": 2700,
+   "beam": 120,
+   "radius": 1,
+   "source": "assumed 350 lm per metre: LED profile with opal cover under each niche shelf"
+  },
+  "piclight": {
+   "lumens": 30,
+   "kelvin": 2700,
+   "beam": 110,
+   "radius": 1,
+   "source": "assumed 600 lm per metre: overhead picture light (60 cm = 360 lm, 45 cm = 270 lm)"
+  },
+  "pbar": {
+   "lumens": 55,
+   "kelvin": 2700,
+   "beam": 120,
+   "radius": 1.5,
+   "source": "IKEA PILSKOTT LED pendant 97 cm, 16.5 W, 1,100 lm, dimmable (ikea.com/hr, 304.778.78). 20 sources of 55 lm. Colour set to 2700 K (assumed); light direction down (assumed)."
+  },
+  "lowbar": {
+   "lumens": 35,
+   "kelvin": 2700,
+   "beam": 120,
+   "radius": 1.5,
+   "source": "IKEA PILSKOTT LED floor lamp 112 cm, 14.5 W, 700 lm, dimmable (ikea.com/hr, 904.781.20). 20 sources of 35 lm. Colour set to 2700 K (assumed); shines at the wall."
+  },
+  "tablelamp": {
+   "lumens": 400,
+   "kelvin": 2700,
+   "beam": null,
+   "radius": 8,
+   "source": "assumed: shaded table lamp"
+  }
+ },
+ "groups": [
+  {
+   "id": "ceiling",
+   "label": "Ceiling lamps (rooms, baths, laundry spots)"
+  },
+  {
+   "id": "hallspots",
+   "label": "Hall ceiling spots (5)"
+  },
+  {
+   "id": "corrspots",
+   "label": "Corridor ceiling spots (2)"
+  },
+  {
+   "id": "pendant",
+   "label": "Dining: PILSKOTT pendant"
+  },
+  {
+   "id": "wall",
+   "label": "Up/down wall lights in the rooms"
+  },
+  {
+   "id": "artE",
+   "label": "Living east painting: picture light"
+  },
+  {
+   "id": "artS",
+   "label": "Living south picture: 3 ceiling spots"
+  },
+  {
+   "id": "desk",
+   "label": "Living desk: ceiling work light (2 heads)"
+  },
+  {
+   "id": "tv",
+   "label": "TV shelf pucks (2)"
+  },
+  {
+   "id": "kitchen",
+   "label": "Kitchen light bar"
+  },
+  {
+   "id": "low",
+   "label": "Low lamps on switched sockets (3 PILSKOTT floor lamps, 1 table lamp)"
+  },
+  {
+   "id": "hallbench",
+   "label": "Hall seat: light bar under the top cabinet"
+  },
+  {
+   "id": "artH",
+   "label": "Hall artwork: picture light"
+  },
+  {
+   "id": "niche",
+   "label": "Niche: LED profile under each shelf"
+  }
+ ],
+ "sets": {
+  "living": [
+   "ceiling",
+   "pendant",
+   "artE",
+   "artS",
+   "desk",
+   "tv",
+   "kitchen",
+   "low"
+  ],
+  "bed": [
+   "ceiling",
+   "wall",
+   "low"
+  ],
+  "room": [
+   "ceiling",
+   "wall"
+  ],
+  "hall": [
+   "ceiling",
+   "hallspots",
+   "corrspots",
+   "hallbench",
+   "artH",
+   "niche"
+  ]
+ },
+ "views": {
+  "01-living-from-kitchen": "living",
+  "15-living-tv-wall": "living",
+  "16-living-sofa-corner": "living",
+  "19-kitchen-from-table": "living",
+  "20-living-south-wall": "living",
+  "04-master-bedroom": "bed",
+  "17-bedroom-bed-wall": "bed",
+  "21-bedroom-nw-corner": "bed",
+  "11-sara": "room",
+  "18-room5-desk-wall": "room",
+  "13-hall-to-living": "hall",
+  "23-hall-seat": "hall",
+  "24-hall-mirror-from-seat": "hall",
+  "22-hall-T-artwork": "hall",
+  "14-corridor-niche": "hall"
+ },
+ "top": "TOP:20,300,1470,1360",
+ "mirrors": [
+  [
+   146,
+   765,
+   105
+  ],
+  [
+   123,
+   309,
+   150
+  ]
+ ],
+ "sheets": {
+  "living": [
+   [
+    "Ceiling lamps + dining pendant",
+    [
+     "ceiling",
+     "pendant"
+    ]
+   ],
+   [
+    "Ambient: art, desk, TV, kitchen bar",
+    [
+     "artE",
+     "artS",
+     "desk",
+     "tv",
+     "kitchen"
+    ]
+   ],
+   [
+    "Low lamps only",
+    [
+     "low"
+    ]
+   ],
+   [
+    "Ambient + low lamps",
+    [
+     "artE",
+     "artS",
+     "desk",
+     "tv",
+     "kitchen",
+     "low"
+    ]
+   ],
+   [
+    "Ambient + low lamps + dining pendant",
+    [
+     "artE",
+     "artS",
+     "desk",
+     "tv",
+     "kitchen",
+     "low",
+     "pendant"
+    ]
+   ]
+  ],
+  "bed": [
+   [
+    "Ceiling lamp only",
+    [
+     "ceiling"
+    ]
+   ],
+   [
+    "Wall lights only",
+    [
+     "wall"
+    ]
+   ],
+   [
+    "Low lamp only",
+    [
+     "low"
+    ]
+   ],
+   [
+    "Wall lights + low lamp",
+    [
+     "wall",
+     "low"
+    ]
+   ],
+   [
+    "Everything on",
+    [
+     "ceiling",
+     "wall",
+     "low"
+    ]
+   ]
+  ],
+  "room": [
+   [
+    "Ceiling lamp only",
+    [
+     "ceiling"
+    ]
+   ],
+   [
+    "Wall lights only",
+    [
+     "wall"
+    ]
+   ],
+   [
+    "Both",
+    [
+     "ceiling",
+     "wall"
+    ]
+   ]
+  ],
+  "hall": [
+   [
+    "Ceiling spots only (hall + corridor)",
+    [
+     "hallspots",
+     "corrspots"
+    ]
+   ],
+   [
+    "Ambient: seat bar + artwork light + niche",
+    [
+     "hallbench",
+     "artH",
+     "niche"
+    ]
+   ],
+   [
+    "Seat bar only",
+    [
+     "hallbench"
+    ]
+   ],
+   [
+    "Artwork light + niche only",
+    [
+     "artH",
+     "niche"
+    ]
+   ],
+   [
+    "Everything on",
+    [
+     "ceiling",
+     "hallspots",
+     "corrspots",
+     "hallbench",
+     "artH",
+     "niche"
+    ]
+   ]
+  ]
+ },
+ "presets": [
+  {
+   "id": "P0",
+   "label": "Ceiling lights only",
+   "on": [
+    "ceiling",
+    "hallspots",
+    "corrspots",
+    "pendant"
+   ]
+  },
+  {
+   "id": "P1",
+   "label": "Ambient: all fixed ambient lights",
+   "on": [
+    "wall",
+    "artE",
+    "artS",
+    "desk",
+    "tv",
+    "kitchen",
+    "hallbench",
+    "artH",
+    "niche"
+   ]
+  },
+  {
+   "id": "P2",
+   "label": "Ambient + low lamps",
+   "on": [
+    "wall",
+    "artE",
+    "artS",
+    "desk",
+    "tv",
+    "kitchen",
+    "hallbench",
+    "artH",
+    "niche",
+    "low"
+   ]
+  },
+  {
+   "id": "P3",
+   "label": "Evening mood: P2 dimmed to 40 %",
+   "on": [
+    "wall",
+    "artE",
+    "artS",
+    "desk",
+    "tv",
+    "kitchen",
+    "hallbench",
+    "artH",
+    "niche",
+    "low"
+   ],
+   "w": 40
+  },
+  {
+   "id": "P4",
+   "label": "Everything on",
+   "on": [
+    "ceiling",
+    "hallspots",
+    "corrspots",
+    "pendant",
+    "wall",
+    "artE",
+    "artS",
+    "desk",
+    "tv",
+    "kitchen",
+    "low",
+    "hallbench",
+    "artH",
+    "niche"
+   ]
+  }
+ ]
+}

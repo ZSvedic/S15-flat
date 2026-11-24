@@ -1,0 +1,15 @@
+# name x y z yawDeg pitchDeg fovDeg   (yaw 0 = looking south, 90 = west, 180 = north, 270 = east)
+01-living-from-kitchen 650 745 160 241 6 78
+02-kitchen-wall 1180 640 160 100 6 72
+03-living-terrace-door 1150 420 160 2 6 72
+04-master-bedroom 345 640 160 185 8 78
+05-terrace-from-SE 1385 1330 176 128 6 80
+06-terrace-inner-corner 1120 1080 176 134 4 80
+07-balcony-north 45 245 176 245 4 80
+08-hallway-from-front-door 60 715 160 270 6 72
+09-bathroom 325 760 160 0 14 80
+10-ensuite 241 420 160 90 10 80
+11-sara 560 990 160 320 8 80
+12-room5 470 1100 160 30 8 80
+13-hall-to-living 150 712 160 270 4 72
+14-corridor-niche 528 898 160 57 4 72

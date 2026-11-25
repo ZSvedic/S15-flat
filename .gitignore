@@ -4,3 +4,5 @@ Claude-tools/jars/
 *.exr
 *.blend
 *.blend1
+render/
+private/

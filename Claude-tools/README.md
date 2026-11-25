@@ -19,7 +19,7 @@ Everything needed to edit, draw and render the Sweet Home 3D model without the G
 
 Gotchas: renders need `home.setCamera(observerCamera)` (already in S15Tool) or ceilings are missing; `-Dj3d.rend=noop` avoids native GL libs.
 
-Note (2026-11-18): `nano_banana.py` now falls back to Pillow when `sips` is missing. It still needs network access to openrouter.ai (see `../AGENTS.md`). Paths in the loop above are relative to `Interior-design/`; the photos are in `../Hrneticka-photos`.
+Note (2026-11-18): `nano_banana.py` now falls back to Pillow when `sips` is missing. It still needs network access to openrouter.ai (see `../AGENTS.md`). Paths in the loop above are relative to the repo root (`~/LOCAL/CODE-2026/S15-flat/`, the former `Interior-design/`); the photos are in the Drive folder `Hrneticka/Hrneticka-photos`.
 
 ## Added for v13 (2026-11-18)
 | File | What it does |
@@ -49,7 +49,7 @@ Note (2026-11-18): `nano_banana.py` now falls back to Pillow when `sips` is miss
 | `make_sh3d.py` | now takes extra files as `entry=path` |
 | `blender/groups.json` | replaces `variants.json`: lamp data, light groups, which groups each view needs, sheet panels, presets |
 | `blender/s15_blender.py` | now renders one linear picture per light group and view (`<group>/<view>.npy`); resumable |
-| `blender/mix.py`, `tm.py`, `mixer_template.html` | sums group renders into comparison sheets, lux maps, lux table and the self-contained `light-mixer.html` |
+| `blender/mix.py`, `tm.py`, `mixer_template.html` | sums group renders into comparison sheets, lux maps, lux table and the self-contained light mixer page; a version tag as the 4th argument goes into the file names (`light-mixer-v16.html`) |
 
 `blender/variants.json`, `compare.py` and `luxmap.py` are the v14 method (one render per fixed variant) and are no longer used.
 

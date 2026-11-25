@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
 """Builds everything Zel looks at from the per-group renders of s15_blender.py (light adds up, so a mix = a sum):
  compare_<view>.jpg sheets, luxmaps.png, lux_table.md and light-mixer.html (switches + dimmers, self-contained).
-Usage: mix.py <out dir with one folder per group> <result dir> [title]"""
+Usage: mix.py <out dir with one folder per group> <result dir> [title] [version tag, e.g. v16]
+With a version tag the files are compare-v16_<view>.jpg, luxmaps-v16.png, lux_table-v16.md and light-mixer-v16.html."""
 import sys, os, json, re, io, base64, numpy as np, cv2, matplotlib; matplotlib.use('Agg'); import matplotlib.pyplot as plt
 from matplotlib.colors import BoundaryNorm
 from PIL import Image, ImageDraw, ImageFont
 HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, HERE); from tm import WB, EV, tone
 OUT, RES = sys.argv[1], sys.argv[2]; TITLE = sys.argv[3] if len(sys.argv) > 3 else 'S15 lighting'
+TAG = '-' + sys.argv[4] if len(sys.argv) > 4 else ''
 os.makedirs(RES, exist_ok=True)
 cfg = json.load(open(os.path.join(HERE, 'groups.json'))); GID = [g['id'] for g in cfg['groups']]; GL = {g['id']: g['label'] for g in cfg['groups']}
 lum = json.load(open(os.path.join(OUT, 'lumens.json')))
@@ -26,8 +28,8 @@ for view, st in cfg['views'].items():
         x, y = (i % cols) * w, (i // cols) * (h + 30)
         sh.paste(Image.fromarray(tone(sum(imgs[g] for g in on))).resize((w, h), Image.LANCZOS), (x, y + 30)); d.text((x + 8, y + 4), label, fill='black', font=f)
     i = len(panels); x, y = (i % cols) * w + 20, (i // cols) * (h + 30) + 40
-    for k, t in enumerate([view, 'Same camera exposure in all pictures.', 'Real lamp data: IKEA LEDARE GU10 (345 lm, 36°),', 'PILSKOTT pendant (1,100 lm) and floor lamp (700 lm).', 'Other lamp data is assumed (see groups.json).', 'Try any other mix in light-mixer.html.']): d.text((x, y + 30 * k), t, fill='black', font=f)
-    sh.save(os.path.join(RES, 'compare_' + view + '.jpg'), quality=86)
+    for k, t in enumerate([view, 'Same camera exposure in all pictures.', 'Real lamp data: IKEA LEDARE GU10 (345 lm, 36°),', 'PILSKOTT pendant (1,100 lm) and floor lamp (700 lm).', 'Other lamp data is assumed (see groups.json).', 'Try any other mix in light-mixer' + TAG + '.html.']): d.text((x, y + 30 * k), t, fill='black', font=f)
+    sh.save(os.path.join(RES, 'compare' + TAG + '_' + view + '.jpg'), quality=86)
 
 # ---- lux maps and table ----------------------------------------------------------------------------------------------
 top = cfg['top']; x0, y0, x1, y1 = [float(t) for t in top[4:].split(',')]
@@ -47,11 +49,11 @@ if len(luxg) == len(GID):
         im = ax[i].imshow(lux, extent=(x0, x1, y1, y0), cmap='turbo', norm=BoundaryNorm(levels, 256)); ax[i].set_title(p['id'] + '  ' + p['label'], fontsize=12); ax[i].set_xticks([]); ax[i].set_yticks([])
         rows.append([p['id']] + [float(np.median(lux[int((c - y0) * sy):int((d - y0) * sy), int((a - x0) * sx):int((b - x0) * sx)])) for a, b, c, d in ROOMS.values()])
     for j in range(len(P), 6): ax[j].axis('off')
-    fig.colorbar(im, ax=ax[-1], ticks=levels, fraction=0.5, label='lux on floors and furniture tops'); plt.tight_layout(); plt.savefig(os.path.join(RES, 'luxmaps.png'), dpi=75); plt.close()
-    with open(os.path.join(RES, 'lux_table.md'), 'w') as fo:
+    fig.colorbar(im, ax=ax[-1], ticks=levels, fraction=0.5, label='lux on floors and furniture tops'); plt.tight_layout(); plt.savefig(os.path.join(RES, 'luxmaps' + TAG + '.png'), dpi=75); plt.close()
+    with open(os.path.join(RES, 'lux_table' + TAG + '.md'), 'w') as fo:
         fo.write('\n'.join('- **%s**: %s' % (p['id'], p['label']) for p in P) + '\n\n| Median lux | ' + ' | '.join(r[0] for r in rows) + ' |\n|---|' + '---|' * len(rows) + '\n')
         for k, n in enumerate(ROOMS): fo.write('| ' + n + ' | ' + ' | '.join('%.0f' % r[k + 1] for r in rows) + ' |\n')
-    print(open(os.path.join(RES, 'lux_table.md')).read())
+    print(open(os.path.join(RES, 'lux_table' + TAG + '.md')).read())
 
 # ---- HTML mixer -------------------------------------------------------------------------------------------------------
 GAMMA = 2.4
@@ -77,4 +79,4 @@ data = {'title': TITLE, 'groups': [{'id': g['id'], 'label': g['label'], 'lm': lu
         'wb': [float(v) for v in WB], 'ev': EV, 'gamma': GAMMA, 'levels': levels, 'pal': pal, 'rect': [x0, y0, x1, y1], 'zones': {k: list(v) for k, v in ROOMS.items()},
         'lamp': cfg['lamps']['gu10']['source']}
 html = open(os.path.join(HERE, 'mixer_template.html')).read().replace('/*DATA*/null', json.dumps(data))
-open(os.path.join(RES, 'light-mixer.html'), 'w').write(html); print('light-mixer.html', round(len(html) / 1e6, 1), 'MB,', len(views), 'views')
+open(os.path.join(RES, 'light-mixer' + TAG + '.html'), 'w').write(html); print('light-mixer' + TAG + '.html', round(len(html) / 1e6, 1), 'MB,', len(views), 'views')

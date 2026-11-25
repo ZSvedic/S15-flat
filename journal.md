@@ -128,3 +128,48 @@ Newest entries at the bottom. Each entry covers: what was done, files produced, 
 - **To delete by hand:** `Renders-v16/_to_delete/compare_19-kitchen-worktop.jpg` (old camera, blocked by the pendant; replaced by `19-kitchen-from-table`).
 - **Not done:** no new critic run on v16; critic points on softer up-lamps, bedside reading lights, room 5 spacing and a night light were not taken up by Zel.
 - **Open:** Zel's review of v16; real picture sizes; curtains near lights 1, 14, 16; whether the sofa needs a reading light (28–36 lux there in ambient); then the final drill sheet.
+
+## 2026-11-24: published to GitHub
+- Zel asked to share the lighting project. His choices: public repo, contents = renders + scripts + model + journal and AGENTS.md as they are, GitHub Pages on.
+- **Repo:** `github.com/ZSvedic/S15-flat` (public). **Site:** `zsvedic.github.io/S15-flat/` (landing page `index.html`, links to the v16 light mixer, 15 comparison sheets, lux table, lux maps, plan).
+- **Included:** `AGENTS.md`, `journal.md`, `Claude-tools/` without `jars/`, `Claude-vectors/` without `S15-handoff-prompt.md` (obsolete, contained Zel's e-mail in a path), `Renders-v15/`, `Renders-v16/` without `_to_delete/`, both `.sh3d` models. Added in the repo only: `README.md`, `index.html`, `.gitignore`, `.nojekyll`.
+- **Left out on purpose:** `Building-docs/`, `Hrneticka-photos/`, `Ugovori/`, `Zel-sketch-v1.jpeg`, SH3D jars.
+- **How it was pushed:** this cloud session cannot create or push to GitHub repos. The repo was created and pushed from the Mac with Zel's `gh` login. Working copy on the Mac: `~/LOCAL/S15-flat` (a copy, not linked to the Drive folder).
+- **To update the site later:** copy the changed files from Drive into `~/LOCAL/S15-flat` (via `~/LOCAL/S15-render`, since the Mac shell cannot read Drive), update `index.html` if the render folder name changes, commit and `git push`.
+
+
+## 2026-11-25: folder layout review (plan only, nothing moved)
+- Zel dislikes the split: working files in Drive `Interior-design/`, a copy in `~/LOCAL/S15-flat` (git), raw renders in `~/LOCAL/S15-render`. He wants one place, under `~/LOCAL/CODE-2026/`, with renders as a subfolder.
+- Checked: the Drive folder and the repo are the same except `AGENTS.md` and `journal.md` (Drive newer), Drive-only `Claude-tools/jars/`, `Zel-sketch-v1.jpeg`, `Claude-vectors/S15-handoff-prompt.md`, `Renders-v16/_to_delete/`, and repo-only `README.md`, `index.html`, `.gitignore`, `.nojekyll`. Repo is clean and equal to `origin/main`; it is public, Pages serves `main`.
+- **Proposed (waiting for Zel's OK):** one home `~/LOCAL/CODE-2026/S15-flat/` = git repo = working folder; raw renders in `render/` (git-ignored); jars and the sketch git-ignored; `Interior-design/` leaves Drive. The other Drive folders stay where they are. No symlink in Drive.
+- **Open:** Zel's choice of layout, repo visibility (public with `.gitignore`, or private, which needs a paid GitHub plan for Pages), and what to do with the old Drive folder and render leftovers. The v16 review items are unchanged.
+
+## 2026-11-25 (b): moved to one home, `~/LOCAL/CODE-2026/S15-flat/`
+- **Zel's decisions:** one home (this repo folder); public repo with `.gitignore`; keep the old Drive folder renamed for a while; add a symlink in Drive as a test; fixed folder names with the version in the file name, and delete v(NN−1) files once vNN is done.
+- **Done:**
+  - `~/LOCAL/S15-flat` → `~/LOCAL/CODE-2026/S15-flat` (git remote unchanged).
+  - `~/LOCAL/S15-render` → `render/` inside the repo, git-ignored.
+  - Copied from Drive: the newer `AGENTS.md` and `journal.md`, `Claude-tools/jars/` (git-ignored), `Zel-sketch-v1.jpeg` → `private/` (git-ignored).
+  - Drive: `Interior-design/` renamed to `Interior-design-OLD/` with a `MOVED.md` note; `Interior-design` is now a symlink to the repo folder.
+  - `AGENTS.md` rewritten for the new layout (folder map, environment, lighting steps 4–5, publishing); one path note in `Claude-tools/README.md`.
+- **Checked:** all 99 files of the old Drive folder that belong in the repo are byte-identical here (sha256); v16 loads with `S15Tool.java check` from the new place (walls 23, rooms 10, pieces 550). Not in the repo on purpose: `S15-handoff-prompt.md` (obsolete) and `Renders-v16/_to_delete/`, both still in `Interior-design-OLD/`.
+- **Not done:** nothing committed or pushed; nothing deleted; no folder renamed to the fixed-name scheme yet.
+- **Mac shell and Drive:** an `ls` of the Drive folder from the Mac-native shell hangs (no error). The shell runs as its own process under the Claude app, and macOS has not given it access to Google Drive files.
+- **Open:**
+  - Zel's OK for the change-over list sent in chat: fixed names (`Renders/`, `render/blender/in`, `render/blender/out`), and deletion of v15 and older files and the render leftovers.
+  - Zel watches whether Google Drive uploads through the symlink. Remove the link in Finder if it does.
+  - Commit and push when Zel says so.
+  - The v16 review items are unchanged.
+
+## 2026-11-25 (c): fixed folder names, clean-up, pushed
+- **Zel approved** the change-over list and asked for commit and push.
+- **Symlink test:** Google Drive shows `Interior-design` as a single file ("Downloaded") and did not upload the folder behind it (Zel's screenshot).
+- **Renamed (git mv, bytes unchanged):** `Renders-v16/blender-lighting/*` → `Renders/blender-lighting/` as `light-mixer-v16.html`, `compare-v16_<view>.jpg` (15), `luxmaps-v16.png`, `lux_table-v16.md`. Links in `index.html` and `README.md` updated; no broken local links.
+- **Raw renders:** `render/blender/v16/` → `render/blender/in/`, `render/blender/out16b/` → `render/blender/out/`.
+- **Removed from the repo (still in git history):** `Renders-v15/`, `S15-Hrneticka-v15.sh3d`, plan drawings v12–v15.
+- **Moved to the Mac Trash** (`~/.Trash/S15-cleanup-2026-11-25/`, 1.3 GB): raw data of v13–v15, the stopped first v16 batch (`out16`, `out16t`, `out16t2`, `obj16`), loose script copies and old test files from the former hand-over folder.
+- **Deleted for good:** Drive `.claude-tmp/` (82 MB of scratch from v11–v13).
+- **`mix.py`:** optional 4th argument, a version tag that goes into the output file names. Tested on `render/blender/out` with tag `v16`: 18 files with the new names, lux table identical to the published one.
+- **Known small flaw:** the v16 sheets were renamed, not re-made, so the text inside each picture still says `light-mixer.html`.
+- **Not done:** raw file names in `render/blender/out/` carry no version yet. This must be added to `s15_blender.py` and `mix.py` before the first v17 render (see AGENTS.md, lighting step 4).
+- **Open:** Zel deletes `Interior-design-OLD/` in Drive and empties the Trash when he is satisfied. The v16 review items are unchanged: picture sizes, curtains near lights 1, 14, 16, low-lamp corners, lamp data, sofa reading light.

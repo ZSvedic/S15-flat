@@ -1,5 +1,5 @@
 {
- "_comment": "Lamp data per role, light groups (one render each; light adds up, so any on/off mix is the sum), and which groups each view needs. beam = half-intensity angle in degrees (null = all directions). profile = list of [peak candela, full cone angle] parts that are added.",
+ "_comment": "Lamp data per role, the three light groups (one render each per view; light adds up, so any on/off mix is the sum), day settings, views with the rooms they see (used by rerender.py to decide what a model change makes stale), sheet panels and presets. beam = half-intensity angle in degrees (null = all directions). profile = list of [peak candela, full cone angle] parts that are added.",
  "lamps": {
   "gu10": {
    "kelvin": 2700,
@@ -92,113 +92,271 @@
    "beam": null,
    "radius": 8,
    "source": "assumed: shaded table lamp"
+  },
+  "mirror": {
+   "lumens": 600,
+   "kelvin": 3000,
+   "beam": 120,
+   "radius": 2,
+   "source": "assumed: light over the bathroom mirror"
+  },
+  "terrace": {
+   "lumens": 400,
+   "kelvin": 3000,
+   "beam": 120,
+   "radius": 3,
+   "source": "assumed: facade wall lamp on the terrace"
+  },
+  "desk": {
+   "lumens": 400,
+   "kelvin": 2700,
+   "beam": 90,
+   "radius": 4,
+   "source": "assumed: desk lamp"
+  },
+  "shelfup": {
+   "lumens": 7.5,
+   "kelvin": 2700,
+   "beam": 120,
+   "radius": 1,
+   "source": "assumed 150 lm per metre (one source per 5 cm): up-light bar behind the raised lip of the TV shelf; dimmer than the niche profile (350 lm/m) because the shelf is 250 long"
   }
  },
  "groups": [
   {
+   "id": "ambient",
+   "label": "1 Ambient: wall lights, picture lights, TV pucks and shelf up-light, kitchen bar, dining pendant, floor/table lamps, hall bar, niche (one switch, one dimmer)",
+   "members": [
+    "wall",
+    "artE",
+    "artS",
+    "tv",
+    "kitchen",
+    "pendant",
+    "low",
+    "hallbench",
+    "artH",
+    "niche",
+    "tvshelf"
+   ]
+  },
+  {
    "id": "ceiling",
-   "label": "Ceiling lamps (rooms, baths, laundry spots)"
+   "label": "2 Ceiling lights: room lamps, spots, desk work light, mirror, desk and terrace lamps",
+   "members": [
+    "ceiling",
+    "hallspots",
+    "corrspots",
+    "desk",
+    "other"
+   ]
   },
   {
-   "id": "hallspots",
-   "label": "Hall ceiling spots (5)"
-  },
-  {
-   "id": "corrspots",
-   "label": "Corridor ceiling spots (2)"
-  },
-  {
-   "id": "pendant",
-   "label": "Dining: PILSKOTT pendant"
-  },
-  {
-   "id": "wall",
-   "label": "Up/down wall lights in the rooms"
-  },
-  {
-   "id": "artE",
-   "label": "Living east painting: picture light"
-  },
-  {
-   "id": "artS",
-   "label": "Living south picture: picture light 100 on a wall strip"
-  },
-  {
-   "id": "desk",
-   "label": "Living desk: ceiling work light (2 heads)"
-  },
-  {
-   "id": "tv",
-   "label": "TV shelf pucks (2)"
-  },
-  {
-   "id": "kitchen",
-   "label": "Kitchen light bar"
-  },
-  {
-   "id": "low",
-   "label": "Low lamps on switched sockets (3 PILSKOTT floor lamps, 1 table lamp)"
-  },
-  {
-   "id": "hallbench",
-   "label": "Hall seat: light bar under the top cabinet"
-  },
-  {
-   "id": "artH",
-   "label": "Hall artwork: picture light"
-  },
-  {
-   "id": "niche",
-   "label": "Niche: LED profile under each shelf"
+   "id": "day",
+   "label": "3 Day: 15 May, 13:00, clear sky, no lamps, all shutters open",
+   "day": true
   }
  ],
- "sets": {
+ "day": {
+  "place": "Zagreb, Stenjevec (k.o. Stenjevec Jug)",
+  "lat": 45.81,
+  "lon": 15.89,
+  "date": "2026-05-15",
+  "time": "13:00",
+  "utc_offset": 2,
+  "plan_north_bearing": 25,
+  "_plan_north": "plan 'north' (up, -y) points to bearing 25 deg (NNE): site plan in Mapa 1, p. 131, building long side 25 deg off east-west",
+  "sun_lux": 95000,
+  "sky_lux": 15000,
+  "_lux": "direct sun on a surface facing it, and sky light on open ground without the sun (clear May noon, typical values)"
+ },
+ "rooms": {
   "living": [
-   "ceiling",
-   "pendant",
-   "artE",
-   "artS",
-   "desk",
-   "tv",
-   "kitchen",
-   "low"
+   613,
+   306,
+   1465,
+   774
   ],
-  "bed": [
-   "ceiling",
-   "wall",
-   "low"
+  "bedroom": [
+   233,
+   306,
+   603,
+   650
   ],
-  "room": [
-   "ceiling",
-   "wall"
+  "ensuite": [
+   41,
+   306,
+   223,
+   595
   ],
   "hall": [
-   "ceiling",
-   "hallspots",
-   "corrspots",
-   "hallbench",
-   "artH",
-   "niche"
+   41,
+   605,
+   613,
+   766
+  ],
+  "corridor": [
+   435,
+   766,
+   537,
+   1061
+  ],
+  "bathroom": [
+   225,
+   778,
+   425,
+   1001
+  ],
+  "laundry": [
+   547,
+   784,
+   822,
+   950
+  ],
+  "sara": [
+   547,
+   962,
+   822,
+   1348
+  ],
+  "room5": [
+   225,
+   1011,
+   537,
+   1348
   ]
  },
+ "_rooms": "inner faces (cm); an item belongs to every room whose box, grown by 20 cm, contains it; anything else is 'outside' (terrace, balcony)",
  "views": {
-  "01-living-from-kitchen": "living",
-  "15-living-tv-wall": "living",
-  "16-living-sofa-corner": "living",
-  "19-kitchen-from-table": "living",
-  "20-living-south-wall": "living",
-  "04-master-bedroom": "bed",
-  "17-bedroom-bed-wall": "bed",
-  "21-bedroom-nw-corner": "bed",
-  "11-sara": "room",
-  "18-room5-desk-wall": "room",
-  "13-hall-to-living": "hall",
-  "23-hall-seat": "hall",
-  "24-hall-mirror-from-seat": "hall",
-  "22-hall-T-artwork": "hall",
-  "14-corridor-niche": "hall",
-  "25-laundry-from-door": "room",
-  "26-laundry-from-terrace-door": "room"
+  "01-living-from-kitchen": {
+   "area": "Living room + kitchen",
+   "rooms": [
+    "living",
+    "outside"
+   ]
+  },
+  "15-living-tv-wall": {
+   "area": "Living room + kitchen",
+   "rooms": [
+    "living",
+    "outside"
+   ]
+  },
+  "16-living-from-kitchen-corner": {
+   "area": "Living room + kitchen",
+   "rooms": [
+    "living",
+    "outside"
+   ]
+  },
+  "19-living-from-sofa-corner": {
+   "area": "Living room + kitchen",
+   "rooms": [
+    "living",
+    "outside",
+    "laundry"
+   ]
+  },
+  "04-master-bedroom": {
+   "area": "Bedroom",
+   "rooms": [
+    "bedroom",
+    "outside",
+    "hall"
+   ]
+  },
+  "17-bedroom-bed-wall": {
+   "area": "Bedroom",
+   "rooms": [
+    "bedroom",
+    "ensuite"
+   ]
+  },
+  "21-bedroom-nw-corner": {
+   "area": "Bedroom",
+   "rooms": [
+    "bedroom",
+    "outside",
+    "ensuite"
+   ]
+  },
+  "11-sara": {
+   "area": "Sara, room 5, laundry",
+   "rooms": [
+    "sara",
+    "outside",
+    "corridor"
+   ]
+  },
+  "18-room5-desk-wall": {
+   "area": "Sara, room 5, laundry",
+   "rooms": [
+    "room5",
+    "outside"
+   ]
+  },
+  "25-laundry-from-door": {
+   "area": "Sara, room 5, laundry",
+   "rooms": [
+    "laundry",
+    "outside"
+   ]
+  },
+  "26-laundry-from-terrace-door": {
+   "area": "Sara, room 5, laundry",
+   "rooms": [
+    "laundry",
+    "corridor",
+    "hall"
+   ]
+  },
+  "13-hall-to-living": {
+   "area": "Hall + corridor",
+   "rooms": [
+    "hall",
+    "corridor",
+    "living",
+    "bedroom"
+   ]
+  },
+  "14-corridor-niche": {
+   "area": "Hall + corridor",
+   "rooms": [
+    "corridor",
+    "hall",
+    "bathroom",
+    "room5",
+    "laundry",
+    "sara"
+   ]
+  },
+  "22-hall-from-guest-room": {
+   "area": "Hall + corridor",
+   "rooms": [
+    "corridor",
+    "hall",
+    "bathroom",
+    "room5",
+    "laundry",
+    "sara",
+    "bedroom"
+   ]
+  },
+  "23-hall-seat": {
+   "area": "Hall + corridor",
+   "rooms": [
+    "hall",
+    "bedroom",
+    "corridor"
+   ]
+  },
+  "24-hall-mirror-from-seat": {
+   "area": "Hall + corridor",
+   "rooms": [
+    "hall",
+    "corridor"
+   ]
+  }
  },
  "top": "TOP:20,300,1470,1360",
  "mirrors": [
@@ -213,230 +371,62 @@
    150
   ]
  ],
- "sheets": {
-  "living": [
-   [
-    "Ceiling lamps + dining pendant",
-    [
-     "ceiling",
-     "pendant"
-    ]
-   ],
-   [
-    "Ambient: art, desk, TV, kitchen bar",
-    [
-     "artE",
-     "artS",
-     "desk",
-     "tv",
-     "kitchen"
-    ]
-   ],
-   [
-    "Low lamps only",
-    [
-     "low"
-    ]
-   ],
-   [
-    "Ambient + low lamps",
-    [
-     "artE",
-     "artS",
-     "desk",
-     "tv",
-     "kitchen",
-     "low"
-    ]
-   ],
-   [
-    "Ambient + low lamps + dining pendant",
-    [
-     "artE",
-     "artS",
-     "desk",
-     "tv",
-     "kitchen",
-     "low",
-     "pendant"
-    ]
-   ]
+ "sheets": [
+  [
+   "1 Ambient, 100 %",
+   {
+    "ambient": 100
+   }
   ],
-  "bed": [
-   [
-    "Ceiling lamp only",
-    [
-     "ceiling"
-    ]
-   ],
-   [
-    "Wall lights only",
-    [
-     "wall"
-    ]
-   ],
-   [
-    "Low lamp only",
-    [
-     "low"
-    ]
-   ],
-   [
-    "Wall lights + low lamp",
-    [
-     "wall",
-     "low"
-    ]
-   ],
-   [
-    "Everything on",
-    [
-     "ceiling",
-     "wall",
-     "low"
-    ]
-   ]
+  [
+   "1 Ambient dimmed to 30 %",
+   {
+    "ambient": 30
+   }
   ],
-  "room": [
-   [
-    "Ceiling lamp only",
-    [
-     "ceiling"
-    ]
-   ],
-   [
-    "Wall lights only",
-    [
-     "wall"
-    ]
-   ],
-   [
-    "Both",
-    [
-     "ceiling",
-     "wall"
-    ]
-   ]
+  [
+   "2 Ambient + ceiling lights",
+   {
+    "ambient": 100,
+    "ceiling": 100
+   }
   ],
-  "hall": [
-   [
-    "Ceiling spots only (hall + corridor)",
-    [
-     "hallspots",
-     "corrspots"
-    ]
-   ],
-   [
-    "Ambient: seat bar + artwork light + niche",
-    [
-     "hallbench",
-     "artH",
-     "niche"
-    ]
-   ],
-   [
-    "Seat bar only",
-    [
-     "hallbench"
-    ]
-   ],
-   [
-    "Artwork light + niche only",
-    [
-     "artH",
-     "niche"
-    ]
-   ],
-   [
-    "Everything on",
-    [
-     "ceiling",
-     "hallspots",
-     "corrspots",
-     "hallbench",
-     "artH",
-     "niche"
-    ]
-   ]
+  [
+   "3 Day: 15 May, 13:00",
+   {
+    "day": 100
+   }
   ]
- },
+ ],
  "presets": [
   {
-   "id": "P0",
-   "label": "Ceiling lights only",
+   "id": "1",
+   "label": "Ambient (100 %)",
    "on": [
-    "ceiling",
-    "hallspots",
-    "corrspots",
-    "pendant"
+    "ambient"
    ]
   },
   {
-   "id": "P1",
-   "label": "Ambient: all fixed ambient lights",
+   "id": "1b",
+   "label": "Ambient dimmed to 30 %",
    "on": [
-    "wall",
-    "artE",
-    "artS",
-    "desk",
-    "tv",
-    "kitchen",
-    "hallbench",
-    "artH",
-    "niche"
-   ]
-  },
-  {
-   "id": "P2",
-   "label": "Ambient + low lamps",
-   "on": [
-    "wall",
-    "artE",
-    "artS",
-    "desk",
-    "tv",
-    "kitchen",
-    "hallbench",
-    "artH",
-    "niche",
-    "low"
-   ]
-  },
-  {
-   "id": "P3",
-   "label": "Evening mood: P2 dimmed to 40 %",
-   "on": [
-    "wall",
-    "artE",
-    "artS",
-    "desk",
-    "tv",
-    "kitchen",
-    "hallbench",
-    "artH",
-    "niche",
-    "low"
+    "ambient"
    ],
-   "w": 40
+   "w": 30
   },
   {
-   "id": "P4",
-   "label": "Everything on",
+   "id": "2",
+   "label": "Ambient + ceiling lights",
    "on": [
-    "ceiling",
-    "hallspots",
-    "corrspots",
-    "pendant",
-    "wall",
-    "artE",
-    "artS",
-    "desk",
-    "tv",
-    "kitchen",
-    "low",
-    "hallbench",
-    "artH",
-    "niche"
+    "ambient",
+    "ceiling"
+   ]
+  },
+  {
+   "id": "3",
+   "label": "Day: 15 May, 13:00, no lamps",
+   "on": [
+    "day"
    ]
   }
  ]

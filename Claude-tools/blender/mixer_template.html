@@ -28,7 +28,7 @@ input[type=checkbox]{width:16px;height:16px;accent-color:var(--accent)}input[typ
   <div class="note">Pick a view, then switch light groups on and off or dim them. Every picture is the exact sum of one render per group, at one fixed camera exposure.</div>
   <h2>Presets</h2><div class="presets" id="presets"></div>
   <h2>Light groups</h2><div id="groups"></div>
-  <div class="note" style="margin-top:6px">Greyed groups are not rendered for this view (they don't reach it).</div>
+  <div class="note" style="margin-top:6px">The day picture uses its own, shorter camera exposure and a neutral white balance, so switch the lamps off when you look at it. Lux values are always real.</div>
   <h2>Camera exposure</h2><div class="row"><input type="range" id="ev" min="-2" max="2" step="0.1" value="0"><output id="evo">0</output></div>
   <div class="note" id="lamp" style="margin-top:12px"></div>
  </div>
@@ -39,7 +39,7 @@ const D = /*DATA*/null;
 const $ = id => document.getElementById(id);
 const state = {view: 0, w: {}, on: {}, ev: 0};
 D.groups.forEach(g => { state.w[g.id] = 100; state.on[g.id] = false; });
-D.presets[1].on.forEach(id => state.on[id] = true);
+D.presets[0].on.forEach(id => state.on[id] = true);
 const cache = {};            // view id -> {gid: {data: Uint8ClampedArray, w, h, m}}
 function loadImg(src) { return new Promise((res, rej) => { const im = new Image(); im.onload = () => res(im); im.onerror = rej; im.src = src; }); }
 async function loadView(v) {
@@ -93,7 +93,7 @@ function ui() {
 $('title').textContent = D.title; $('lamp').textContent = 'Real lamp data: IKEA LEDARE GU10 (345 lm, 2700 K, 36°, 600 cd), IKEA PILSKOTT pendant (97 cm, 1,100 lm) and floor lamp (112 cm, 700 lm). All other lamps use assumed values.';
 D.presets.forEach(p => { const b = document.createElement('button'); b.textContent = p.id + '  ' + p.label; b.onclick = () => { D.groups.forEach(g => { state.on[g.id] = p.on.includes(g.id); state.w[g.id] = p.w || 100; }); ui(); }; $('presets').appendChild(b); });
 D.groups.forEach(g => { const r = document.createElement('div'); r.className = 'g'; r.id = 'g_' + g.id;
-  r.innerHTML = '<input type="checkbox" id="c_' + g.id + '"><label for="c_' + g.id + '">' + g.label + '<small>' + g.lm + ' lm</small></label><input type="range" min="0" max="100" step="5" aria-label="dim ' + g.label + '"><output></output>';
+  r.innerHTML = '<input type="checkbox" id="c_' + g.id + '"><label for="c_' + g.id + '">' + g.label + '<small>' + (g.day ? 'sun + sky' : g.lm + ' lm') + '</small></label><input type="range" min="0" max="100" step="5" aria-label="dim ' + g.label + '"><output></output>';
   r.querySelector('input[type=checkbox]').onchange = e => { state.on[g.id] = e.target.checked; ui(); };
   r.querySelector('input[type=range]').oninput = e => { state.w[g.id] = +e.target.value; r.querySelector('output').textContent = e.target.value + '%'; draw(); };
   $('groups').appendChild(r); });

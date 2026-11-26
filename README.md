@@ -4,16 +4,16 @@ Where should the wall lights go before the electrician drills? This project rend
 
 **See it in the browser: https://zsvedic.github.io/S15-flat/**
 
-The page has the comparison sheets, the lux table and an interactive light mixer that switches and dims each group of lights in every view.
+The page has the comparison sheets, the lux table and an interactive light mixer with three light groups (ambient, ceiling, day) in every view.
 
-![Living room sofa corner under five lighting presets](Renders/blender-lighting/compare-v18_16-living-sofa-corner.jpg)
+![Living room from the sofa corner in the four scenes](Renders/blender-lighting/compare-v20_19-living-from-sofa-corner.jpg)
 
 ## What is in here
 
 | Path | What |
 |---|---|
-| `Renders/blender-lighting/` | Current results (v18): 15 comparison sheets, `light-mixer-v18.html`, `luxmaps-v18.png`, `lux_table-v18.md`. Earlier rounds are in the git history. |
-| `S15-Hrneticka-v19.sh3d` | The Sweet Home 3D model (open with Sweet Home 3D 7) |
+| `Renders/blender-lighting/` | Current results (v20): 16 comparison sheets, `light-mixer-v20.html`, `luxmaps-v20.png`, `lux_table-v20.md`. Earlier rounds are in the git history. |
+| `S15-Hrneticka-v20.sh3d` | The Sweet Home 3D model (open with Sweet Home 3D 7) |
 | `Claude-vectors/` | Floor plans per version, the wall-light points draft, design notes |
 | `Claude-tools/` | Scripts that build each model version and export it |
 | `Claude-tools/blender/` | The Blender pipeline: lamp data, scene builder, comparison sheets, light mixer |
@@ -23,8 +23,8 @@ The page has the comparison sheets, the lux table and an interactive light mixer
 
 1. The flat is modelled in Sweet Home 3D. That model is the only source of truth: walls, furniture and every lamp position live there.
 2. `Claude-tools/ExportObj.java` exports the model, and `blender/make_lights.py` reads the lamp positions from it.
-3. `blender/s15_blender.py` rebuilds a Blender scene from scratch, gives each lamp its lumens, colour temperature and beam angle, and renders every preset with Cycles.
-4. `blender/compare.py` and `blender/mix.py` turn the renders into comparison sheets, lux maps and the light mixer page.
+3. `blender/s15_blender.py` rebuilds a Blender scene from scratch, gives each lamp its lumens, colour temperature and beam angle, adds sun and sky for the day scene, and renders each light group with Cycles. `blender/rerender.py` re-renders only the views a model change affects.
+4. `blender/mix.py` turns the renders into comparison sheets, lux maps and the light mixer page; `make_site.py` writes the landing page.
 
 Nothing in Blender is edited by hand, so a change in the model is one rebuild away from new pictures.
 

@@ -21,7 +21,7 @@ th,td{padding:8px 12px;border-bottom:1px solid var(--line);text-align:right}
 th:first-child{text-align:left;font-weight:500}
 thead th{background:var(--panel);font-weight:600}
 tbody tr:last-child th,tbody tr:last-child td{border-bottom:0}
-ul.presets{padding-left:20px;margin:0 0 16px}
+ul{padding-left:20px;margin:0 0 16px}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:18px}
 figure{margin:0}figcaption{color:var(--dim);font-size:14px;margin-top:6px}
 .note{color:var(--dim);font-size:14px}
@@ -29,47 +29,45 @@ footer{margin-top:56px;padding-top:18px;border-top:1px solid var(--line);color:v
 </style></head>
 <body><main>
 <h1>S15 flat: lighting study</h1>
-<p class="lede">Where should the wall lights go before the electrician drills? Each lighting plan for the flat is rendered with real light units and compared room by room.</p>
-<a class="cta" href="Renders/blender-lighting/light-mixer-v18.html">Open the light mixer</a>
-<p class="note">The mixer switches and dims each group of lights in every view. It is a 7 MB page, so give it a moment to load.</p>
-<div class="hero"><a href="Renders/blender-lighting/compare-v18_16-living-sofa-corner.jpg"><img src="Renders/blender-lighting/compare-v18_16-living-sofa-corner.jpg" alt="Living room sofa corner rendered at night under five lighting presets"></a></div>
+<p class="lede">Where should the wall lights go before the electrician drills? The flat is rendered with real light units and compared room by room, at night and by day.</p>
+<a class="cta" href="Renders/blender-lighting/light-mixer-v20.html">Open the light mixer</a>
+<p class="note">The mixer switches and dims the light groups in every view. It is a large page, so give it a moment to load.</p>
+<div class="hero"><a href="Renders/blender-lighting/compare-v20_19-living-from-sofa-corner.jpg"><img src="Renders/blender-lighting/compare-v20_19-living-from-sofa-corner.jpg" alt="Living room from the sofa corner: the four scenes"></a></div>
 
-<h2>The five presets</h2>
-<ul class="presets">
-<li><strong>P0</strong>: ceiling lights only</li>
-<li><strong>P1</strong>: ambient, all fixed wall lights, shelf lights and light bars</li>
-<li><strong>P2</strong>: ambient plus low lamps on switched sockets</li>
-<li><strong>P3</strong>: evening mood, P2 dimmed to 40 %</li>
-<li><strong>P4</strong>: everything on</li>
-</ul>
+<h2>Light groups</h2>
+<ul><li>1 Ambient: wall lights, picture lights, TV pucks and shelf up-light, kitchen bar, dining pendant, floor/table lamps, hall bar, niche (one switch, one dimmer)</li><li>2 Ceiling lights: room lamps, spots, desk work light, mirror, desk and terrace lamps</li><li>3 Day: 15 May, 13:00, clear sky, no lamps, all shutters open</li></ul>
+<h2>Scenes</h2>
+<ul><li><strong>1</strong>: Ambient (100 %)</li><li><strong>1b</strong>: Ambient dimmed to 30 %</li><li><strong>2</strong>: Ambient + ceiling lights</li><li><strong>3</strong>: Day: 15 May, 13:00, no lamps</li></ul>
+<p class="note">Day: Zagreb, Stenjevec (k.o. Stenjevec Jug), 05-15 at 13:00, clear sky; sun and sky light from the real direction (plan north points to bearing 25°).</p>
 
 <h2>Light levels</h2>
-<p>Median illuminance in lux on floors and furniture tops, measured in the render. Lamp strengths are assumptions except where a real product was chosen, so read the numbers as a comparison between presets.</p>
-<div class="tablewrap"><table><thead><tr><th>Median lux</th><th>P0</th><th>P1</th><th>P2</th><th>P3</th><th>P4</th></tr></thead><tbody><tr><th scope="row">Living room (all)</th><td>59</td><td>40</td><td>48</td><td>19</td><td>115</td></tr><tr><th scope="row">Kitchen worktop N (front edge)</th><td>65</td><td>167</td><td>168</td><td>67</td><td>231</td></tr><tr><th scope="row">Dining table</th><td>317</td><td>39</td><td>40</td><td>16</td><td>358</td></tr><tr><th scope="row">Sofa area</th><td>49</td><td>28</td><td>36</td><td>14</td><td>91</td></tr><tr><th scope="row">Desk (living)</th><td>31</td><td>156</td><td>159</td><td>64</td><td>192</td></tr><tr><th scope="row">Bedroom</th><td>48</td><td>60</td><td>62</td><td>25</td><td>124</td></tr><tr><th scope="row">Hall entrance part</th><td>265</td><td>89</td><td>89</td><td>36</td><td>343</td></tr><tr><th scope="row">Corridor to the rooms</th><td>272</td><td>114</td><td>114</td><td>46</td><td>378</td></tr><tr><th scope="row">Sara</th><td>106</td><td>92</td><td>92</td><td>37</td><td>200</td></tr><tr><th scope="row">Sara desk</th><td>162</td><td>416</td><td>416</td><td>166</td><td>579</td></tr><tr><th scope="row">Room 5</th><td>60</td><td>100</td><td>100</td><td>40</td><td>160</td></tr><tr><th scope="row">Room 5 desk</th><td>60</td><td>203</td><td>203</td><td>81</td><td>273</td></tr><tr><th scope="row">Laundry</th><td>425</td><td>69</td><td>69</td><td>28</td><td>533</td></tr></tbody></table></div>
-<p class="note" style="margin-top:10px"><a href="Renders/blender-lighting/luxmaps-v18.png">Lux maps of the whole flat</a> · <a href="Claude-vectors/S15-v19-plan.png">Floor plan (v19)</a></p>
+<p>Median illuminance in lux on floors and furniture tops, measured in the render. Lamp strengths are assumptions except where a real product was chosen, so read the night numbers as a comparison between scenes.</p>
+<div class="tablewrap"><table><thead><tr><th>Median lux</th><th>1</th><th>1b</th><th>2</th><th>3</th></tr></thead><tbody><tr><th scope="row">Living room (all)</th><td>55</td><td>16</td><td>120</td><td>4430</td></tr><tr><th scope="row">Kitchen worktop N (front edge)</th><td>175</td><td>53</td><td>230</td><td>2379</td></tr><tr><th scope="row">Dining table</th><td>268</td><td>80</td><td>352</td><td>5046</td></tr><tr><th scope="row">Sofa area</th><td>34</td><td>10</td><td>101</td><td>5827</td></tr><tr><th scope="row">Desk (living)</th><td>34</td><td>10</td><td>233</td><td>5321</td></tr><tr><th scope="row">Bedroom</th><td>58</td><td>18</td><td>123</td><td>3719</td></tr><tr><th scope="row">Hall entrance part</th><td>90</td><td>27</td><td>359</td><td>363</td></tr><tr><th scope="row">Corridor to the rooms</th><td>108</td><td>33</td><td>372</td><td>1299</td></tr><tr><th scope="row">Sara</th><td>77</td><td>23</td><td>179</td><td>6397</td></tr><tr><th scope="row">Sara desk</th><td>251</td><td>75</td><td>415</td><td>7299</td></tr><tr><th scope="row">Room 5</th><td>96</td><td>29</td><td>161</td><td>4088</td></tr><tr><th scope="row">Room 5 desk</th><td>201</td><td>60</td><td>325</td><td>4185</td></tr><tr><th scope="row">Laundry</th><td>64</td><td>19</td><td>511</td><td>1833</td></tr></tbody></table></div>
+<p class="note" style="margin-top:10px"><a href="Renders/blender-lighting/luxmaps-v20.png">Lux maps of the whole flat</a> · <a href="Claude-vectors/S15-v20-plan.png">Floor plan (v20)</a></p>
 
 <h2>Room by room</h2>
-<p>Each sheet shows one camera view under the five presets, with the same camera exposure in every picture.</p>
+<p>Each sheet shows one camera view in the four scenes. The night pictures share one camera exposure; the day picture has its own.</p>
 <div class="grid">
-<figure><a href="Renders/blender-lighting/compare-v18_01-living-from-kitchen.jpg"><img loading="lazy" src="Renders/blender-lighting/compare-v18_01-living-from-kitchen.jpg" alt="Living room from the kitchen: five lighting presets side by side"></a><figcaption>Living room from the kitchen</figcaption></figure>
-<figure><a href="Renders/blender-lighting/compare-v18_04-master-bedroom.jpg"><img loading="lazy" src="Renders/blender-lighting/compare-v18_04-master-bedroom.jpg" alt="Bedroom, towards the balcony: five lighting presets side by side"></a><figcaption>Bedroom, towards the balcony</figcaption></figure>
-<figure><a href="Renders/blender-lighting/compare-v18_11-sara.jpg"><img loading="lazy" src="Renders/blender-lighting/compare-v18_11-sara.jpg" alt="Sara&#x27;s room: five lighting presets side by side"></a><figcaption>Sara&#x27;s room</figcaption></figure>
-<figure><a href="Renders/blender-lighting/compare-v18_13-hall-to-living.jpg"><img loading="lazy" src="Renders/blender-lighting/compare-v18_13-hall-to-living.jpg" alt="Hall, towards the living room: five lighting presets side by side"></a><figcaption>Hall, towards the living room</figcaption></figure>
-<figure><a href="Renders/blender-lighting/compare-v18_14-corridor-niche.jpg"><img loading="lazy" src="Renders/blender-lighting/compare-v18_14-corridor-niche.jpg" alt="Corridor niche: five lighting presets side by side"></a><figcaption>Corridor niche</figcaption></figure>
-<figure><a href="Renders/blender-lighting/compare-v18_15-living-tv-wall.jpg"><img loading="lazy" src="Renders/blender-lighting/compare-v18_15-living-tv-wall.jpg" alt="Living room, TV wall: five lighting presets side by side"></a><figcaption>Living room, TV wall</figcaption></figure>
-<figure><a href="Renders/blender-lighting/compare-v18_16-living-sofa-corner.jpg"><img loading="lazy" src="Renders/blender-lighting/compare-v18_16-living-sofa-corner.jpg" alt="Living room, sofa corner: five lighting presets side by side"></a><figcaption>Living room, sofa corner</figcaption></figure>
-<figure><a href="Renders/blender-lighting/compare-v18_17-bedroom-bed-wall.jpg"><img loading="lazy" src="Renders/blender-lighting/compare-v18_17-bedroom-bed-wall.jpg" alt="Bedroom, bed wall: five lighting presets side by side"></a><figcaption>Bedroom, bed wall</figcaption></figure>
-<figure><a href="Renders/blender-lighting/compare-v18_18-room5-desk-wall.jpg"><img loading="lazy" src="Renders/blender-lighting/compare-v18_18-room5-desk-wall.jpg" alt="Room 5, desk wall: five lighting presets side by side"></a><figcaption>Room 5, desk wall</figcaption></figure>
-<figure><a href="Renders/blender-lighting/compare-v18_19-kitchen-from-table.jpg"><img loading="lazy" src="Renders/blender-lighting/compare-v18_19-kitchen-from-table.jpg" alt="Kitchen from the dining table: five lighting presets side by side"></a><figcaption>Kitchen from the dining table</figcaption></figure>
-<figure><a href="Renders/blender-lighting/compare-v18_20-living-south-wall.jpg"><img loading="lazy" src="Renders/blender-lighting/compare-v18_20-living-south-wall.jpg" alt="Living room, south wall: five lighting presets side by side"></a><figcaption>Living room, south wall</figcaption></figure>
-<figure><a href="Renders/blender-lighting/compare-v18_21-bedroom-nw-corner.jpg"><img loading="lazy" src="Renders/blender-lighting/compare-v18_21-bedroom-nw-corner.jpg" alt="Bedroom, north-west corner: five lighting presets side by side"></a><figcaption>Bedroom, north-west corner</figcaption></figure>
-<figure><a href="Renders/blender-lighting/compare-v18_22-hall-T-artwork.jpg"><img loading="lazy" src="Renders/blender-lighting/compare-v18_22-hall-T-artwork.jpg" alt="Hall, artwork at the T: five lighting presets side by side"></a><figcaption>Hall, artwork at the T</figcaption></figure>
-<figure><a href="Renders/blender-lighting/compare-v18_23-hall-seat.jpg"><img loading="lazy" src="Renders/blender-lighting/compare-v18_23-hall-seat.jpg" alt="Hall, seat: five lighting presets side by side"></a><figcaption>Hall, seat</figcaption></figure>
-<figure><a href="Renders/blender-lighting/compare-v18_24-hall-mirror-from-seat.jpg"><img loading="lazy" src="Renders/blender-lighting/compare-v18_24-hall-mirror-from-seat.jpg" alt="Hall, mirror seen from the seat: five lighting presets side by side"></a><figcaption>Hall, mirror seen from the seat</figcaption></figure>
+<figure><a href="Renders/blender-lighting/compare-v20_01-living-from-kitchen.jpg"><img loading="lazy" src="Renders/blender-lighting/compare-v20_01-living-from-kitchen.jpg" alt="Living from kitchen: the four scenes side by side"></a><figcaption>Living room + kitchen · Living from kitchen</figcaption></figure>
+<figure><a href="Renders/blender-lighting/compare-v20_15-living-tv-wall.jpg"><img loading="lazy" src="Renders/blender-lighting/compare-v20_15-living-tv-wall.jpg" alt="Living tv wall: the four scenes side by side"></a><figcaption>Living room + kitchen · Living tv wall</figcaption></figure>
+<figure><a href="Renders/blender-lighting/compare-v20_16-living-from-kitchen-corner.jpg"><img loading="lazy" src="Renders/blender-lighting/compare-v20_16-living-from-kitchen-corner.jpg" alt="Living from kitchen corner: the four scenes side by side"></a><figcaption>Living room + kitchen · Living from kitchen corner</figcaption></figure>
+<figure><a href="Renders/blender-lighting/compare-v20_19-living-from-sofa-corner.jpg"><img loading="lazy" src="Renders/blender-lighting/compare-v20_19-living-from-sofa-corner.jpg" alt="Living from sofa corner: the four scenes side by side"></a><figcaption>Living room + kitchen · Living from sofa corner</figcaption></figure>
+<figure><a href="Renders/blender-lighting/compare-v20_04-master-bedroom.jpg"><img loading="lazy" src="Renders/blender-lighting/compare-v20_04-master-bedroom.jpg" alt="Master bedroom: the four scenes side by side"></a><figcaption>Bedroom · Master bedroom</figcaption></figure>
+<figure><a href="Renders/blender-lighting/compare-v20_17-bedroom-bed-wall.jpg"><img loading="lazy" src="Renders/blender-lighting/compare-v20_17-bedroom-bed-wall.jpg" alt="Bedroom bed wall: the four scenes side by side"></a><figcaption>Bedroom · Bedroom bed wall</figcaption></figure>
+<figure><a href="Renders/blender-lighting/compare-v20_21-bedroom-nw-corner.jpg"><img loading="lazy" src="Renders/blender-lighting/compare-v20_21-bedroom-nw-corner.jpg" alt="Bedroom nw corner: the four scenes side by side"></a><figcaption>Bedroom · Bedroom nw corner</figcaption></figure>
+<figure><a href="Renders/blender-lighting/compare-v20_11-sara.jpg"><img loading="lazy" src="Renders/blender-lighting/compare-v20_11-sara.jpg" alt="Sara: the four scenes side by side"></a><figcaption>Sara, room 5, laundry · Sara</figcaption></figure>
+<figure><a href="Renders/blender-lighting/compare-v20_18-room5-desk-wall.jpg"><img loading="lazy" src="Renders/blender-lighting/compare-v20_18-room5-desk-wall.jpg" alt="Room5 desk wall: the four scenes side by side"></a><figcaption>Sara, room 5, laundry · Room5 desk wall</figcaption></figure>
+<figure><a href="Renders/blender-lighting/compare-v20_25-laundry-from-door.jpg"><img loading="lazy" src="Renders/blender-lighting/compare-v20_25-laundry-from-door.jpg" alt="Laundry from door: the four scenes side by side"></a><figcaption>Sara, room 5, laundry · Laundry from door</figcaption></figure>
+<figure><a href="Renders/blender-lighting/compare-v20_26-laundry-from-terrace-door.jpg"><img loading="lazy" src="Renders/blender-lighting/compare-v20_26-laundry-from-terrace-door.jpg" alt="Laundry from terrace door: the four scenes side by side"></a><figcaption>Sara, room 5, laundry · Laundry from terrace door</figcaption></figure>
+<figure><a href="Renders/blender-lighting/compare-v20_13-hall-to-living.jpg"><img loading="lazy" src="Renders/blender-lighting/compare-v20_13-hall-to-living.jpg" alt="Hall to living: the four scenes side by side"></a><figcaption>Hall + corridor · Hall to living</figcaption></figure>
+<figure><a href="Renders/blender-lighting/compare-v20_14-corridor-niche.jpg"><img loading="lazy" src="Renders/blender-lighting/compare-v20_14-corridor-niche.jpg" alt="Corridor niche: the four scenes side by side"></a><figcaption>Hall + corridor · Corridor niche</figcaption></figure>
+<figure><a href="Renders/blender-lighting/compare-v20_22-hall-from-guest-room.jpg"><img loading="lazy" src="Renders/blender-lighting/compare-v20_22-hall-from-guest-room.jpg" alt="Hall from guest room: the four scenes side by side"></a><figcaption>Hall + corridor · Hall from guest room</figcaption></figure>
+<figure><a href="Renders/blender-lighting/compare-v20_23-hall-seat.jpg"><img loading="lazy" src="Renders/blender-lighting/compare-v20_23-hall-seat.jpg" alt="Hall seat: the four scenes side by side"></a><figcaption>Hall + corridor · Hall seat</figcaption></figure>
+<figure><a href="Renders/blender-lighting/compare-v20_24-hall-mirror-from-seat.jpg"><img loading="lazy" src="Renders/blender-lighting/compare-v20_24-hall-mirror-from-seat.jpg" alt="Hall mirror from seat: the four scenes side by side"></a><figcaption>Hall + corridor · Hall mirror from seat</figcaption></figure>
 </div>
 
 <h2>How it is made</h2>
-<p>The flat is modelled in Sweet Home 3D, which stays the only source of truth. A script exports the model, places every lamp in Blender with its lumens, colour temperature and beam angle, and renders each preset with Cycles. Nothing in Blender is edited by hand, so a change in the model is one rebuild away from new pictures.</p>
+<p>The flat is modelled in Sweet Home 3D, which stays the only source of truth. A script exports the model, places every lamp in Blender with its lumens, colour temperature and beam angle, adds the sun and sky for the day scene, and renders each light group with Cycles. Light adds up, so every scene is a sum of these renders. Nothing in Blender is edited by hand.</p>
 <p>The scripts, the model and the full work journal are in the <a href="https://github.com/ZSvedic/S15-flat">GitHub repository</a>.</p>
-<footer>Version 16 of the model, rendered 19 November 2026.</footer>
+<footer>Model v20, rendered 26 November 2026.</footer>
 </main></body></html>

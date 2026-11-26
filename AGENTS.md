@@ -3,10 +3,10 @@
 Read this file and `journal.md` (to the end) before doing anything. At the end of every session, add an entry to `journal.md`.
 
 ## Current state (2026-11-26)
-- **Latest model: `S15-Hrneticka-v19.sh3d`** (2026-11-26) = v18 + Zel's review of the v18 plan: the bedroom balcony door is the west panel and only the west leaf of Sara's south door opens (photos), ceiling lamps drawn as ⊗ in the plan, Sara's desk lamp out, pinboard, C side table and beanbag, laundry rack 10 west, two laundry views in the mixer. C9–C11 solved. v18 = interior doors drawn open, bathroom door clockwise with a stop, wardrobe 160, bed centred between the sockets, south picture light on a wall strip, east painting 10 higher, Sara's lights moved, intercom named.
+- **Latest model: `S15-Hrneticka-v20.sh3d`** (2026-11-26) = v19 + an up-light bar behind a raised lip on the TV shelf. v19 = Zel's review of the v18 plan: bedroom balcony door = west panel, Sara's south door opens only its west leaf (photos), Sara's desk lamp out, pinboard, C side table, beanbag, laundry rack 10 west; C9–C11 solved. v18 = interior doors drawn open, wardrobe 160, bed centred, south picture light on a wall strip.
 - **Current task:** find positions for ambient lights so Zel can tell the electrician where to drill. The deliverable at the end is a drill sheet (wall, distance from a corner, height). Draft: `Claude-vectors/S15-wall-light-points-DRAFT.md` (fixed lights, switched sockets, dimming groups, closet feeds).
-- **How Zel reviews lighting:** `Renders/blender-lighting/light-mixer-v19.html` (switches and dimmers per light group, any view, lux map) plus the `compare-v19_*.jpg` sheets and `luxmaps-v19.png`. He can't judge light in SH3D.
-- **Waiting for Zel:** review of v19 (and the rest of the v18 renders), confirmation of the interior door hinges. Open in the draft: real picture sizes (they set the picture-light heights), curtain positions near lights 1, 14, 17, low-lamp corners, lamp data for everything except the GU10 and the two PILSKOTT lamps.
+- **How Zel reviews lighting:** `Renders/blender-lighting/light-mixer-v20.html` (3 groups: ambient with dimmer, ceiling, day; 16 views; lux map) plus the `compare-v20_*.jpg` sheets and `luxmaps-v20.png`. He can't judge light in SH3D.
+- **Waiting for Zel:** review of v20 (new views 19 and 22, day scene, TV shelf up-light, three groups), confirmation of the interior door hinges. Then delete the v19 model and plan (v18 files are already gone). Open in the draft: real picture sizes (they set the picture-light heights), curtain positions near lights 1, 14, 17, low-lamp corners, lamp data for everything except the GU10 and the two PILSKOTT lamps.
 - **Layout (2026-11-25):** all design work lives in one place, `~/LOCAL/CODE-2026/S15-flat/` on the Mac. That folder is the git repo and the working folder. The Drive folder `Interior-design/` is retired. See "Folder map".
 - **Published:** public repo `github.com/ZSvedic/S15-flat`, site `https://zsvedic.github.io/S15-flat/` (mixer, sheets, lux table of the latest version). The site changes only when someone pushes. See "Publishing" below.
 - **Critique of v15:** `Claude-vectors/S15-v15-critique.md`. Zel accepted points 1–7 with changes (journal 2026-11-19 c). Not taken up: softer up-lamps, bedside reading lights, room 5 light spacing, night light.
@@ -23,7 +23,7 @@ Read this file and `journal.md` (to the end) before doing anything. At the end o
 - **Folder names stay fixed; the version goes in the file name** (Zel, 2026-11-25), for example `Renders/blender-lighting/light-mixer-v16.html`. Never make a `…-vNN/` folder. Once the vNN files are done and Zel has seen them, delete the v(NN−1) files (`git rm` for tracked ones; git keeps the history). List the deletions for Zel first.
 
 ## Folder map
-Two roots. Connect both to the session (`~/LOCAL` and the Drive folder).
+Two roots. Claude Code on the Mac reaches both.
 
 **Repo root: `~/LOCAL/CODE-2026/S15-flat/`** (on the Mac; git repo `ZSvedic/S15-flat`, public). All design work lives here, and relative paths in this file start here.
 | Path | What |
@@ -31,11 +31,11 @@ Two roots. Connect both to the session (`~/LOCAL` and the Drive folder).
 | `S15-Hrneticka-vNN.sh3d` | Sweet Home 3D model. The latest version is the source of truth. |
 | `Claude-tools/` | Toolchain: build scripts, plan drawing, headless renderer, Nano Banana. See its README. |
 | `Claude-tools/jars/` | Sweet Home 3D jars. Git-ignored; if missing, copy them from a Sweet Home 3D 7 installation. |
-| `Claude-tools/blender/` | Blender lighting pipeline: `make_lights.py`, `groups.json`, `s15_blender.py`, `mix.py`, `tm.py`, `mixer_template.html`, `calib.py` (`variants.json`, `compare.py`, `luxmap.py` are the old v14 method) |
+| `Claude-tools/blender/` | Blender lighting pipeline: `groups.json`, `make_lights.py`, `s15_blender.py`, `rerender.py`, `render_version.sh`, `mix.py`, `tm.py`, `mixer_template.html`, `calib.py`. See `Claude-tools/README.md` |
 | `Claude-vectors/` | Plan drawings (`S15-vNN-plan.svg/png`), `S15-interior-spec.md` (Zel's wishes), `S15-furnishing-notes.md` (design decisions per version) |
 | `Claude-vectors/S15-wall-light-points-DRAFT.md` | All proposed light points (Zel's 17 circles plus the later additions), with wall distances, heights and open points |
 | `Renders/` | Results for the current version, with the version in each file name: `blender-lighting/` (`compare-vNN_<view>.jpg` sheets, `luxmaps-vNN.png`, `lux_table-vNN.md`, `light-mixer-vNN.html`); `sh3d-low/` previews and `nano-banana-2/` photoreal renders when they are made |
-| `render/` | Raw render work, git-ignored, about 1 GB. `render/blender/in/` holds the Blender inputs (OBJ export, `lights.json`, `groups.json`, `cams.txt`, `s15_blender.py`) and `render/blender/out/` the raw renders (one folder per light group). Both hold v16 now. |
+| `render/` | Raw render work, git-ignored. `render/blender/in/` holds the Blender inputs (`objNN/` OBJ export, `Home-vNN.xml`, `lights.json`, copies of `groups.json`, `cams.txt`, `s15_blender.py`); `render/blender/out/<group>/<view>-vNN.npy` the raw renders (groups ambient, ceiling, day) and `state-vNN.json` for `rerender.py`. Holds v20 now. |
 | `private/` | Git-ignored. Holds `Zel-sketch-v1.jpeg`, Zel's furniture sketch. |
 | `README.md`, `index.html`, `.nojekyll` | Landing page and site files for GitHub Pages |
 
@@ -46,7 +46,7 @@ Two roots. Connect both to the session (`~/LOCAL` and the Drive folder).
 | `Building-docs/Electrical Installation Plan S15.png` | Electrical plan, lights and sockets (from `Mapa III_Elektrotehnički projekt.pdf`, which also has the legend) |
 | `Hrneticka-photos/<room>/` | Site photos, many with tape measures |
 | `Interior-design-OLD/` | The old working folder, retired on 2026-11-25. Don't use it; Zel deletes it when he is satisfied. |
-| `Interior-design` | Symlink to the repo root (2026-11-25). Google Drive lists it as a single file and did not upload the folder behind it. It works only on the Mac; in the bridge VM it is a dead link. |
+| `Interior-design` | Symlink to the repo root (2026-11-25). Google Drive lists it as a single file and did not upload the folder behind it. |
 
 ## Fixed facts (confirmed by Zel; don't re-litigate)
 - **Hallway → living room:** a door 82×210 after all (Zel, 2026-11-25); in the model hinged on the south jamb, opening into the living room.
@@ -95,43 +95,38 @@ Mappings (verified 2026-11-18):
 - Electrical plan (`Mapa III` p. 56, set page rotation to 0; legend p. 74): `x = 32.08 + (Y − 595.08)/0.28346`, `y = 296.88 + (621.36 − X)/0.28346`. Tool: `Claude-tools/electrical_grid.py`.
 
 ## Environment notes
-- **Zel's Mac:** reachable through the device bridge. If `~/LOCAL` (or the repo folder) is not connected, ask for it with the folder-access tool. The bridge shell (`device_bash`) is a Linux VM with Java 11, xvfb, Python and Pillow, and the folders mounted under `$HOME/mnt/` (the repo is `$HOME/mnt/LOCAL/CODE-2026/S15-flat` when `~/LOCAL` is connected). Run the SH3D tools there. It has no GPU and no internet. Files cannot be deleted in connected folders: write to a new name instead.
-- **Git:** run every git command that writes (add, commit, checkout, push) in the Mac-native shell. In the VM they leave lock files that cannot be removed. Read-only git in the VM needs `git -c safe.directory=* --no-optional-locks …`.
-- **Claude Code on the Mac (2026-11-25):** a Claude Code session in the desktop app runs Bash directly on the Mac and can read the Drive folder. Then: SH3D tools need `--add-exports java.desktop/com.apple.eio=ALL-UNNAMED -Duser.home=<writable dir> -Djava.awt.headless=true -Dj3d.rend=noop` with `/opt/homebrew/opt/openjdk/bin/java`; `ExportObj.java` works the same way; `plan_svg.py` and `mix.py` need a venv with matplotlib, pillow, numpy and opencv-python-headless (system python3 has none).
-- **Mac-native shell** (`MacOS-MCP Shell` tool): needed for Blender, YafaRay, git and `gh`.
-  - It reads and writes the repo folder directly, so nothing has to be copied between the VM and the Mac.
-  - It cannot read the Google Drive folder: macOS has not given that process permission, and the call hangs instead of failing. If a Mac-side script needs a Drive file, copy it into `render/` from the VM first.
-  - A call times out after about 80 s: start jobs with `nohup … &` and poll the log (the VM can read it with `sleep 170; grep …`).
-  - Installed: Blender 5.3 (`/Applications/Blender.app/Contents/MacOS/Blender`), OpenJDK (`/opt/homebrew/opt/openjdk/bin/java`). Mac is an Apple M4.
-- **Nano Banana (OpenRouter):** `openrouter.ai` is not reachable from the VM or the cloud container. It needs a Mac-native shell (Desktop Commander) or openrouter.ai on the allowed-domains list. The key is in `~/LOCAL/CODE-2026/TamedTable/.env` on the Mac; never print it.
-- **Google Drive sync** can serve a stale copy of a file you've just written. After copying, check the content (grep for a new line) before using it.
-- **SH3D rendering:**
-  - `S15Tool.java` sets the observer camera (otherwise ceilings are missing) and a fixed daytime: Java property `-Dt=<epoch ms>`.
-  - Light sources render at LOW and HIGH. Night: `JOPT="-Dt=1792616400000" ./run_render.sh …` (23:00). Day previews: build a copy with `lights_off.py` first.
-  - A bridge call lasts at most 180 s and background jobs die when it returns: render 3–4 views per call.
-  - Never leave `widthInPlan`/`depthInPlan`/`heightInPlan` on a resized door or window: SH3D cuts the wall hole from them.
+- **Everything runs on the Mac** in Claude Code's own Bash (since 2026-11-25): Java, Blender, git, `gh`, and reading the Drive folder. The old Linux VM bridge and the separate Mac shell are no longer used.
+- **Java (SH3D tools):** `/opt/homebrew/opt/openjdk/bin/java --add-exports java.desktop/com.apple.eio=ALL-UNNAMED -Duser.home=<writable dir> -Djava.awt.headless=true -Dj3d.rend=noop -cp "$(ls jars/*.jar | tr '\n' ':')" S15Tool.java …` from `Claude-tools/` (source-file mode; same for `ExportObj.java`). In zsh keep the command in a function or array, not a string.
+- **Python:** system `python3` has no libraries; `plan_svg.py` and `mix.py` need a venv with matplotlib, pillow, numpy and opencv-python-headless (make one in the session scratchpad).
+- **Installed:** Blender 5.3 (`/Applications/Blender.app/Contents/MacOS/Blender`, Metal GPU), OpenJDK, `pdftoppm`, ImageMagick, headless Chrome. Mac is an Apple M4.
+- **Long jobs:** run Blender in the background with `caffeinate -i` (the Mac sleeps otherwise) and wait for the task notification.
+- **Nano Banana (OpenRouter):** key in `~/LOCAL/CODE-2026/TamedTable/.env`; never print it. Mood pictures only.
+- **Google Drive sync** can serve a stale copy of a file you've just written; check the content before using it.
+- **SH3D rendering:** `S15Tool.java` sets the observer camera (otherwise ceilings are missing) and a fixed time (`-Dt=<epoch ms>`; 23:00 = `1792616400000`); `run_render_mac.sh` on the Mac. Never leave `widthInPlan`/`depthInPlan`/`heightInPlan` on a resized door or window: SH3D cuts the wall hole from them.
+- **Sun and north (2026-11-26):** the flat is in Zagreb, Stenjevec (k.o. Stenjevec Jug). Plan north (up, −y) points to bearing 25° (NNE): site plan in `Mapa 1_arhitektura`, p. 131. The SH3D compass still has the default Berlin values; the Blender day scene takes place and north from `groups.json` → `day`.
 
-## Workflow for lighting (Blender, from v15)
+## Workflow for lighting (Blender; three groups from v20)
 Light adds up, so each light group is rendered once per view and any on/off or dimmed mix is the sum. Never render fixed variants.
-1. Lights live in the `.sh3d`. The name prefix decides the light group and lamp type (table `RULES` in `blender/make_lights.py`): `AmbA up/down:` (wall), `ArtE/ArtH/ArtSw up/down:`, `ArtSc aim:`, `Desk aim:`, `TV puck:`, `Kitchen bar x|y:`, `Niche back z:`, `Niche puck:`, `Light: …` (ceiling, spots, pendants). A name ending in `-> x,y,z` aims the lamp at that model point.
-2. Lamp data, groups, which groups each view needs, sheet panels and presets are in `blender/groups.json`. Only the GU10 data is real; the rest is assumed.
-3. In the VM: `ExportObj.java <model.sh3d> <new dir>/s15.obj`, then `blender/make_lights.py Home.xml lights.json`.
-4. Copy the obj folder, `lights.json`, `groups.json`, `cams.txt` and `s15_blender.py` to `render/blender/in/`. On the Mac: `nohup Blender -b -P s15_blender.py -- . <obj dir> ../out 1024 768 128 [views] [groups] > log &`. At 1440×1080 about 27 s per render (v16: 97 renders, 45 minutes); Zel asked for this resolution or higher. Finished renders are skipped, so a new view needs a new name. **Version in the raw names (from v17):** run Blender with `S15_TAG=vNN` in the environment; raw files are then `<group>/<view>-vNN.npy` and `lumens-vNN.json`, so versions can sit side by side in `out/`. `mix.py … vNN` reads the tagged files (v16 files have no tag). Delete the v(NN−1) raw files once vNN is done.
-5. In the VM: `blender/mix.py render/blender/out Renders/blender-lighting "<title>" vNN` writes the sheets, `luxmaps-vNN.png`, `lux_table-vNN.md` and `light-mixer-vNN.html` (self-contained, 7 MB for v16).
-6. Check the page with headless Chrome on the Mac: `"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new --screenshot=x.png --window-size=1500,1100 --virtual-time-budget=8000 "file://…/light-mixer.html#view=lux"`.
-7. Units are verified (`calib.py`): lux values are exact for the given lamp data. Pictures use one fixed exposure and white balance (`blender/tm.py`).
-8. Known limits: lamps are invisible sources (fixtures don't glow, but LED sources show as dots in mirrors); if a new lamp changes a fixture's shape, re-render every group for the views that see it; no manufacturer beam files (IES); the kitchen worktop is partly hidden from the top view by the wall cabinets.
+1. Lights live in the `.sh3d`. The name prefix decides the lamp set and type (table `RULES` in `blender/make_lights.py`): `AmbA up/down:` (wall), `ArtE/ArtH/ArtS bar`, `Desk aim:`, `TV puck:`, `Shelf bar x:` (TV shelf up-light), `Kitchen bar x|y:`, `Niche bar`, `Low bar/lamp`, `Pendant bar`, `Light: …` (ceiling, spots, mirror, terrace). A name ending in `-> x,y,z` aims the lamp at that model point.
+2. `blender/groups.json` maps the lamp sets to **three groups (Zel, 2026-11-26): 1 ambient** (all wall, picture, TV, kitchen bar, dining pendant, floor/table lamps, hall bar, niche: one switch, one dimmer), **2 ceiling** (all other lamps; scene 2 = ambient + ceiling), **3 day** (no lamps; sun and clear sky on 15 May at 13:00, sky calibrated to 15,000 lx on open ground, sun 95,000 lx). Only the GU10 and PILSKOTT data are real.
+3. Views (16 + the top view for lux maps) and the rooms each one sees are in `groups.json` → `views`; cameras in `Claude-tools/cams.txt` (the only camera list).
+4. One command per version: `Claude-tools/blender/render_version.sh vPREV vNN [samples]` (export, lights, inputs, `rerender.py`, Blender in the background). `rerender.py` re-renders only the views that see a changed room (plus the top view) and hard-links the rest from vPREV; `--full` as 4th argument renders everything. Wait for `S15 done` in `render/blender/out/run-vNN.log`.
+5. `<venv>/bin/python Claude-tools/blender/mix.py render/blender/out Renders/blender-lighting "S15 lighting – vNN" vNN` writes the sheets, `luxmaps-vNN.png`, `lux_table-vNN.md` and `light-mixer-vNN.html`. Then `python3 Claude-tools/make_site.py vNN` writes `index.html`.
+6. Check the mixer with headless Chrome: `"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new --screenshot=x.png --window-size=1500,1100 --virtual-time-budget=8000 "file://…/light-mixer-vNN.html#view=lux"`.
+7. Units are verified (`calib.py`): lux values are exact for the given lamp data. Night pictures use one fixed exposure and white balance (`blender/tm.py`); the day pictures get a neutral white balance and their own exposure (factor printed by `mix.py`).
+8. Speed: about 25 s per render at 1440×1080 (v20: 51 renders). From v21 `s15_blender.py` keeps the scene between renders (persistent data), which should cut that further; not measured yet.
+9. Known limits: lamps are invisible sources (fixtures don't glow, LED sources show as dots in mirrors); no IES beam files; the kitchen worktop is partly hidden from the top view by the wall cabinets; `rerender.py` ignores light leaking through open doors into rooms no stale view lists.
 
 ## Publishing (GitHub, public)
 - Repo `github.com/ZSvedic/S15-flat`, branch `main`; GitHub Pages serves it at `https://zsvedic.github.io/S15-flat/`. Zel sends that link to other people.
-- This folder is the repo. Everything that `.gitignore` does not list becomes public on push, including `journal.md` and this file: keep private matters out of them.
-- **Git-ignored, never publish:** `render/`, `private/`, `Claude-tools/jars/`, `*.exr`, `*.blend`. Nothing from the Drive root (`Building-docs/`, `Hrneticka-photos/`, `Ugovori/`) goes into a tracked path. No keys or e-mail addresses.
-- **Commit and push only when Zel asks.** Use the Mac-native shell, where `gh` (`/opt/homebrew/bin/gh`) is logged in as ZSvedic. The cloud session cannot push.
-- **To update:** 1. for a new version, change the `-v16` file names in the links of `index.html` and `README.md`; 2. on the Mac run `git status` and check that nothing private is listed; 3. `git add -A && git commit && git push`; 4. check with `curl -I` from the Mac that the site and the mixer return 200 (Pages takes about a minute).
+- This folder is the repo. Everything that `.gitignore` does not list becomes public on push, including `journal.md` and this file: keep private matters out of them (no lock hardware, keys, e-mail addresses).
+- **Git-ignored, never publish:** `render/`, `private/`, `Claude-tools/jars/`, `Claude-tools/blender/lights.json`, `*.exr`, `*.blend`. Nothing from the Drive root (`Building-docs/`, `Hrneticka-photos/`, `Ugovori/`) goes into a tracked path.
+- **Commit and push only when Zel asks.** `gh` (`/opt/homebrew/bin/gh`) is logged in as ZSvedic.
+- **To update:** 1. `make_site.py vNN` (index) and the version in `README.md`; 2. `git status`, check nothing private is listed; 3. `git add -A && git commit && git push`; 4. wait for `gh api repos/ZSvedic/S15-flat/pages/builds/latest` to say `built`, then `curl` the site and the mixer for 200.
 
 ## Workflow for a model change
 1. Write `Claude-tools/build_vNN.py` that turns the previous version's Home.xml into the new one.
-2. Zip it into a new `.sh3d` with `Claude-tools/make_sh3d.py` (drops the `Home` and `ContentDigests` entries). From v15 add `v15/quarter_round.obj=models/quarter_round.obj`.
+2. Zip it into a new `.sh3d` with `Claude-tools/make_sh3d.py` from the previous `.sh3d` (it keeps all models, including `v15/quarter_round.obj` and `v19/beanbag.obj`; add a new own model as `entry=path`).
 3. Load it with `S15Tool.java check`.
 4. Make the plan with `plan_svg.py` into `Claude-vectors/`.
 5. Make low-quality previews into `Renders/sh3d-low/` with the version in the file names, then show Zel the overview. For lighting questions use the Blender workflow instead.

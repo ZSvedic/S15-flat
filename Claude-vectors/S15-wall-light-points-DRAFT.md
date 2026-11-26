@@ -1,6 +1,6 @@
 # S15 light points: DRAFT for review (not yet for the electrician)
 
-Model: `S15-Hrneticka-v19.sh3d` (2026-11-26: Zel's answers to the v18 review; changed rows say v18 or v19). Heights are to the centre of the fixture above the finished floor. Distances are along the wall, ±10 cm until checked on site. "Up/down" = cylinder wall light with two GU10 lamps (IKEA LEDARE LED1931R5, 345 lm, 2700 K, 36°).
+Model: `S15-Hrneticka-v20.sh3d` (2026-11-26; changed rows say v18, v19 or v20). Heights are to the centre of the fixture above the finished floor. Distances are along the wall, ±10 cm until checked on site. "Up/down" = cylinder wall light with two GU10 lamps (IKEA LEDARE LED1931R5, 345 lm, 2700 K, 36°).
 
 Numbers 1–17 are Zel's red circles from the plan sent to the electrician on 2026-11-18. Other entries were added in v15 and v16.
 
@@ -14,6 +14,7 @@ Numbers 1–17 are Zel's red circles from the plan sent to the electrician on 20
 | 5 | Living, **ceiling** over the desk | 75 from the north wall, 343 from the east wall | ceiling | track with 2 GU10 heads (desk and picture) | unchanged from v15 |
 | 6 | Living, north wall, TV | 275 from the east wall | shelf underside 186 | LED puck | unchanged |
 | 7 | Living, north wall, TV | 70 from the east wall | shelf underside 186 | LED puck | unchanged |
+| 7a | Living, north wall, TV shelf top | feed at the shelf (east end, near L2's socket) for the strip behind the lip; strip over the full 250 | 189 (shelf top), lip to 194 | **LED up-light bar** behind a raised 5 cm lip on the shelf's front edge, 150 lm/m (dimmer than the niche) | new in v20 (Zel) |
 | 8 | Living, east wall | centre 102 from the south wall | 217 (12 above the painting) | **picture light** 60 wide on an 18 cm arm | v18: painting 10 higher (bottom 135), clear of the switch below it. Painting assumed 150×70. Don't drill before the real painting is chosen |
 | 9 | Living, south wall (Canadair picture 210×60, 140–200) | feed at the drywall, 17 west of where it meets the concrete (258 from the corner at the hall door); wall strip from 5 west of the feed to 127 east of it (132 long); light centred on the picture (325 from that corner) | strip 213, tube 210 (16 under the AC) | **picture light 100** on two arms, 18 cm overhang, fixed to a horizontal wall strip that carries the cable from the drywall | v18: replaces the 3 ceiling spots (the AC would shade the wall) |
 | 10 | Laundry, **south wall** | 120 from the west wall (opposite Sara's socket) | 175 | up/down | v16: moved from the east wall |
@@ -40,18 +41,15 @@ Numbers 1–17 are Zel's red circles from the plan sent to the electrician on 20
 
 Sockets at normal socket height (about 30). Check the electrical plan first: an existing socket nearby can be rewired to a switch instead of adding one.
 
-## Switching and dimming (critique point 1, accepted by Zel)
-Every group below gets its own dimmer. Ask for a neutral wire and a deep box at each dimmer position. Test one dimmer with the real LEDARE lamps first: small LED loads (two lamps are 8 W) can flicker.
+## Switching and dimming (Zel, 2026-11-26: three groups)
+1. **Ambient**: all wall lights, picture lights, TV pucks and shelf up-light, kitchen bar, dining pendant, low-lamp sockets, hall seat bar, niche. One switch and one dimmer for all.
+2. **Ceiling**: all ceiling lamps and spots, desk work light, mirror lights. On/off; scene 2 = ambient + ceiling.
+3. **Day**: no lamps.
 
-| Room | Groups |
-|---|---|
-| Living + kitchen | ceiling lamps · dining pendant · art lights (8 + 9) · desk track (5) · TV pucks (6, 7) · kitchen bar (K) · low-lamp sockets (L1–L3) |
-| Hall + corridor | hall ceiling spots · corridor ceiling spots · seat bar (19) + picture light (18) + niche (11), two-way switched at the front door and at the bedrooms |
-| Bedroom | ceiling lamp · corner light (1) · bedside lights (2, 3), each switched from its own side · low-lamp socket (L4) |
-| Sara, room 5 | ceiling lamp(s) · desk wall lights · reading light |
-| Laundry | ceiling spots · wall light (10) |
+Ask for a neutral wire and a deep box at each dimmer position. Test the dimmer with the real LEDARE lamps first: small LED loads can flicker. The PILSKOTT lamps are dimmed by their own IKEA remote, not by the wall dimmer.
 
 ## Open points
+- **Ambient switch (v20):** one switch and one dimmer for the whole flat, or one per room with the same grouping? This sets how many dimmer boxes the electrician prepares.
 - **C9 (v18): solved in v19.** The balcony door is the west panel (photo IMG_1956), so it misses the bed; lights 2 and 3 stay where v18 put them.
 - **Switched sockets L1, L3** (a socket that a wall switch turns on, for a floor or table lamp): existing sockets at living south wall x 1364 (101 from the east wall, 44 high) and east wall 301 from the north wall (35 high) can be rewired as switched sockets instead of new ones.
 - **Art lights 8 and 18:** heights follow the picture: tube about 10 above the top edge. Width rule (Pooky guide): one third to one half of a landscape picture's width, about half for a portrait one.

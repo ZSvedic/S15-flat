@@ -348,3 +348,13 @@ Built by `Claude-tools/build_v19.py` from v18.
 | 3 Sara seating | Side table Ø45 → C side table 50×32×62, oak (its foot slides under the bed or the chair; sits at x 643–693, y 1234–1266, out of the door swing). East tub chair → beanbag Ø75 in the SE corner. West tub chair stays | Zel (photo of a C table) |
 | C11 | Laundry drying rack 10 west (x 633–753): the terrace door opens fully, 1.7 cm clear | Zel |
 | Light mixer | Two laundry views added: 25 from the hall door, 26 from the terrace door | Zel |
+
+## v20 (2026-11-26): TV shelf up-light, three light groups, day scene
+
+Built by `Claude-tools/build_v20.py` from v19.
+
+| Item | Before (v19) → after (v20) | Source |
+|---|---|---|
+| TV shelf | Raised lip 5 cm along the shelf's front (south) edge; an LED up-light bar behind it on the shelf top, pointing up at the wall, 150 lm/m (the niche profile is 350 lm/m; the shelf is 250 long, so it is kept dimmer) | Zel |
+| Light groups | 14 groups → 3: 1 ambient (one switch, one dimmer), 2 ceiling (all other lamps), 3 day (15 May, 13:00, no lamps) | Zel |
+| Views | 19 kitchen from the table and 20 living south wall → one view 19 living from the sofa corner; 16 renamed living from the kitchen corner; 22 hall T artwork → 22 hall from the guest room (corridor, south end, niche half in view) | Zel |

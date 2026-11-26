@@ -6,3 +6,7 @@ Claude-tools/jars/
 *.blend1
 render/
 private/
+
+# generated
+Claude-tools/blender/lights.json
+__pycache__/

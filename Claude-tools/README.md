@@ -1,60 +1,34 @@
-# S15 toolchain (fast iteration)
+# S15 toolchain
 
-Everything needed to edit, draw and render the Sweet Home 3D model without the GUI.
+Everything needed to edit, draw and render the Sweet Home 3D model without the GUI. All of it runs on the Mac (Claude Code's Bash). Older build scripts (v12–v17), the v14 render method and the Linux VM render script are in the git history.
 
-| File | What it does | Where it runs |
-|---|---|---|
-| `build_v12.py` | v10 Home.xml → v12 Home.xml (confirmed shell fixes). Pattern to copy for later versions. | any Python 3 |
-| `plan_svg.py` | Home.xml → vector plan (`.svg` + `.png`): walls, openings with w/h/sill, swings, rooms, furniture | Python 3 + matplotlib |
-| `S15Tool.java` | `check` (loads .sh3d with SH3D's own reader), `plan`, `render` (SunFlow photo renderer, LOW/HIGH) | Java 11 + `jars/` (copied from the SH3D app) |
-| `run_render.sh` | wraps `S15Tool.java render` in a virtual display (Linux: needs `xvfb-run`) | Linux |
-| `cams.txt` | named camera views: x y z(eye) yaw pitch fov. yaw 0 = looking south, 90 = west, 180 = north, 270 = east | |
-| `nano_banana.py` | SH3D previews → photoreal images with Nano Banana 2 (`google/gemini-3.1-flash-image`) via OpenRouter; adds a site photo as material reference per view. Key from `OPENROUTER_API_KEY` or TamedTable/.env | Mac (python3 + sips) |
-
-## Typical loop (≈2 min for 12 views)
-1. Edit Home.xml (script), zip back into `.sh3d` (drop `Home` and `ContentDigests` entries).
-2. `python3 plan_svg.py Home.xml S15-vNN-plan "title"` → ~5 s
-3. `./run_render.sh S15-vNN.sh3d cams.txt outdir 1024 768 LOW [view,view]` → 10–30 s per view
-4. `python3 nano_banana.py outdir ../Hrneticka-photos ../Renders-vNN/nano-banana-2 [view,...]` → ~10 s and ~$0.07 per view (6 in parallel)
-
-Gotchas: renders need `home.setCamera(observerCamera)` (already in S15Tool) or ceilings are missing; `-Dj3d.rend=noop` avoids native GL libs.
-
-Note (2026-11-18): `nano_banana.py` now falls back to Pillow when `sips` is missing. It still needs network access to openrouter.ai (see `../AGENTS.md`). Paths in the loop above are relative to the repo root (`~/LOCAL/CODE-2026/S15-flat/`, the former `Interior-design/`); the photos are in the Drive folder `Hrneticka/Hrneticka-photos`.
-
-## Added for v13 (2026-11-18)
 | File | What it does |
 |---|---|
-| `build_v13.py` | v12 Home.xml → v13 Home.xml: walls per architect plan, opening fixes, niche, shaft boxes, lights |
-| `lights_off.py` | makes a day copy of Home.xml with the v13 lights off (spots in windowless rooms stay on) |
-| `cams-v13.txt` | the 12 views plus `13-hall-to-living` and `14-corridor-niche` |
-| `overlay_architect.py` | draws a Home.xml over the architect plan (needs `arch300.png`: the plan PDF rendered at 300 dpi, in the working folder) |
-| `electrical_grid.py` | renders the S15 part of the electrical plan with a model-coordinate grid; arguments `32.08 296.88` |
+| `build_vNN.py` | previous Home.xml → version NN (one script per version; the last two are kept) |
+| `make_sh3d.py` | packs a Home.xml into a new `.sh3d` using the models of an existing one; extra files as `entry=path` (e.g. `v19/beanbag.obj=Claude-tools/models/beanbag.obj`, only when the model is new) |
+| `models/` | own models: `quarter_round.obj` (v15), `beanbag.obj` (v19) |
+| `S15Tool.java` | `check` (loads a .sh3d with SH3D's own reader), `plan`, `render` (SunFlow, LOW/HIGH) |
+| `ExportObj.java` | headless OBJ export of a `.sh3d` for Blender |
+| `plan_svg.py` | Home.xml → vector plan (`.svg` + `.png`): walls, openings, door swings, furniture, as-built points (red), ceiling lamps (amber ⊗) |
+| `cams.txt` | **the one camera list** (SH3D and Blender): x y z(eye) yaw pitch fov; yaw 0 = looking south, 90 = west, 180 = north, 270 = east |
+| `make_site.py` | writes `index.html` for one version from `blender/groups.json` and the result files |
+| `run_render_mac.sh` | SH3D render on the Mac, `ENGINE=yafaray` or `sunflow` |
+| `lights_off.py` | day copy of a Home.xml for SH3D previews |
+| `nano_banana.py` | SH3D previews → photoreal mood images via OpenRouter (never for lighting) |
+| `overlay_architect.py`, `electrical_grid.py` | model over the architect plan / the electrical plan with a model grid |
+| `jars/` | Sweet Home 3D jars (git-ignored; copy from a Sweet Home 3D 7 installation) |
 
-`run_render.sh` now passes `$JOPT` to Java, for example `JOPT="-Dt=1792616400000"` for a night render.
+Java on the Mac: `/opt/homebrew/opt/openjdk/bin/java --add-exports java.desktop/com.apple.eio=ALL-UNNAMED -Duser.home=<writable dir> -Djava.awt.headless=true -Dj3d.rend=noop -cp "$(ls jars/*.jar | tr '\n' ':')" S15Tool.java check <file>` (source-file mode, run from `Claude-tools/`). `plan_svg.py` and `mix.py` need a venv with matplotlib, pillow, numpy and opencv-python-headless.
 
-## Added for v14 and lighting (2026-11-18/19)
+## Blender lighting pipeline (`blender/`)
 | File | What it does |
 |---|---|
-| `build_v14.py` | v13 Home.xml → v14: light groups "AMBIENT A" (Zel's wall-light points) and "AMBIENT B" (kitchen under-cabinet) |
-| `make_sh3d.py` | packs a Home.xml into a new `.sh3d` using the models of an existing one |
-| `ExportObj.java` | headless OBJ export of a `.sh3d` for Blender (run like `S15Tool.java`, with xvfb) |
-| `run_render_mac.sh` | Mac-native SH3D render, `ENGINE=yafaray` or `sunflow` (needs OpenJDK) |
-| `blender/` | lighting pipeline; see "Workflow for lighting variants" in `../AGENTS.md` |
+| `groups.json` | lamp data per role; the **three light groups** (ambient, ceiling, day) with the lamp sets they contain; day settings (place, date, time, plan north, sun and sky lux); room boxes; views with their area and the rooms they see; sheet panels; presets |
+| `make_lights.py` | Home.xml → `lights.json`: name prefix → lamp set and role (table `RULES`); `-> x,y,z` aims a lamp; `… bar x|y|z:` = 4 sources 5 cm apart |
+| `s15_blender.py` | rebuilds the scene from the OBJ export and renders one linear picture per group and view (`<group>/<view>-<tag>.npy`); day = sun + calibrated sky, glass lets shadow rays through; skips files that exist |
+| `rerender.py` | incremental renders: finds the views a model change makes stale and hard-links all other renders from the previous version |
+| `render_version.sh` | one command: export, lights, inputs, `rerender.py`, Blender in the background |
+| `mix.py`, `tm.py`, `mixer_template.html` | sums group renders into comparison sheets, lux maps, lux table and the self-contained light mixer |
+| `calib.py` | unit check of the lux values against a scene with a known answer |
 
-## Added for v15 (2026-11-19)
-| File | What it does |
-|---|---|
-| `build_v15.py` | v14 Home.xml → v15: Zel's review items a–j (art lights, kitchen bar, niche shelves, desk work light, bedroom corner) |
-| `models/quarter_round.obj` | quarter-round seat model; pack it with `make_sh3d.py … v15/quarter_round.obj=models/quarter_round.obj` |
-| `make_sh3d.py` | now takes extra files as `entry=path` |
-| `blender/groups.json` | replaces `variants.json`: lamp data, light groups, which groups each view needs, sheet panels, presets |
-| `blender/s15_blender.py` | now renders one linear picture per light group and view (`<group>/<view>.npy`); resumable |
-| `blender/mix.py`, `tm.py`, `mixer_template.html` | sums group renders into comparison sheets, lux maps, lux table and the self-contained light mixer page; a version tag as the 4th argument goes into the file names (`light-mixer-v16.html`) |
-
-`blender/variants.json`, `compare.py` and `luxmap.py` are the v14 method (one render per fixed variant) and are no longer used.
-
-## Added for v16 (2026-11-19)
-- `build_v16.py`: v15 Home.xml → v16 (picture lights, low lamps, hall seat and mirror, niche profiles, curved pendant).
-- `blender/make_lights.py`: any light named `<Group> bar x|y|z:` is expanded into 4 sources 5 cm apart; rules table updated.
-- `blender/groups.json`: new lamp roles (`piclight`, `profile`, `pbar`, `lowbar`, `tablelamp`), `mirrors` (points where a frame's glass becomes a real mirror in Blender), presets can carry a dim level `w`.
-- Renders are now 1440×1080 (about 27 s each).
+A new version: `Claude-tools/blender/render_version.sh v20 v21` → wait for `S15 done` in `render/blender/out/run-v21.log` → `mix.py render/blender/out Renders/blender-lighting "S15 lighting – v21" v21` → `python3 Claude-tools/make_site.py v21`.

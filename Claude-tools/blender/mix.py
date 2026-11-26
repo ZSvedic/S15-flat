@@ -11,6 +11,7 @@ OUT, RES = sys.argv[1], sys.argv[2]; TITLE = sys.argv[3] if len(sys.argv) > 3 el
 TAG = '-' + sys.argv[4] if len(sys.argv) > 4 else ''
 os.makedirs(RES, exist_ok=True)
 cfg = json.load(open(os.path.join(HERE, 'groups.json'))); GID = [g['id'] for g in cfg['groups']]; GL = {g['id']: g['label'] for g in cfg['groups']}
+DAYG = next((g['id'] for g in cfg['groups'] if g.get('day')), None)
 _lj = os.path.join(OUT, 'lumens' + TAG + '.json')
 lum = json.load(open(_lj if os.path.exists(_lj) else os.path.join(OUT, 'lumens.json')))
 safe = lambda v: v.replace(':', '_').replace(',', '_')
@@ -24,16 +25,30 @@ if not os.path.exists(FONT):                                          # on the M
 f = ImageFont.truetype(FONT, 20); fs = ImageFont.truetype(FONT, 16)
 
 # ---- comparison sheets ---------------------------------------------------------------------------------------------
-for view, st in cfg['views'].items():
-    imgs = {g: load(g, view) for g in cfg['sets'][st]}
+# day pictures: neutral white balance (the lamp white balance would turn daylight blue) and one shorter exposure for all views,
+# so that a sunny room looks about as bright as the room with all lamps on (the eye adapts; lux values stay real)
+DAYK = 1.0
+if DAYG:
+    L = lambda x: (x * [0.2126, 0.7152, 0.0722]).sum(2); r = []
+    for view in cfg['views']:
+        a = [load(g, view) for g in GID]
+        if any(v is None for v in a): continue
+        night = sum(v for g, v in zip(GID, a) if g != DAYG); day = a[GID.index(DAYG)]
+        r.append(np.percentile(L(night), 90) / max(np.percentile(L(day), 90), 1e-9))
+    DAYK = float(np.median(r)) * 1.5 if r else 1.0
+    print('day exposure factor', DAYK)
+def prep(g, a): return a * (DAYK / WB) if g == DAYG else a
+for view in cfg['views']:
+    imgs = {g: load(g, view) for g in GID}
     if any(v is None for v in imgs.values()): print('missing renders for', view); continue
-    w, h = 800, 600; panels = cfg['sheets'][st]; cols = 3; rows = (len(panels) + 1 + cols - 1) // cols
+    imgs = {g: prep(g, a) for g, a in imgs.items()}
+    w, h = 800, 600; panels = cfg['sheets']; cols = 3; rows = (len(panels) + 1 + cols - 1) // cols
     sh = Image.new('RGB', (w * cols, (h + 30) * rows), 'white'); d = ImageDraw.Draw(sh)
     for i, (label, on) in enumerate(panels):
         x, y = (i % cols) * w, (i // cols) * (h + 30)
-        sh.paste(Image.fromarray(tone(sum(imgs[g] for g in on))).resize((w, h), Image.LANCZOS), (x, y + 30)); d.text((x + 8, y + 4), label, fill='black', font=f)
+        sh.paste(Image.fromarray(tone(sum(imgs[g] * wt / 100 for g, wt in on.items()))).resize((w, h), Image.LANCZOS), (x, y + 30)); d.text((x + 8, y + 4), label, fill='black', font=f)
     i = len(panels); x, y = (i % cols) * w + 20, (i // cols) * (h + 30) + 40
-    for k, t in enumerate([view, 'Same camera exposure in all pictures.', 'Real lamp data: IKEA LEDARE GU10 (345 lm, 36°),', 'PILSKOTT pendant (1,100 lm) and floor lamp (700 lm).', 'Other lamp data is assumed (see groups.json).', 'Try any other mix in light-mixer' + TAG + '.html.']): d.text((x, y + 30 * k), t, fill='black', font=f)
+    for k, t in enumerate([view, 'Same camera exposure in the night pictures;', 'the day picture has its own (×%.4f).' % DAYK, 'Real lamp data: IKEA LEDARE GU10 (345 lm, 36°),', 'PILSKOTT pendant (1,100 lm) and floor lamp (700 lm).', 'Other lamp data is assumed (see groups.json).', 'Try any other mix in light-mixer' + TAG + '.html.']): d.text((x, y + 30 * k), t, fill='black', font=f)
     sh.save(os.path.join(RES, 'compare' + TAG + '_' + view + '.jpg'), quality=86)
 
 # ---- lux maps and table ----------------------------------------------------------------------------------------------
@@ -41,7 +56,7 @@ top = cfg['top']; x0, y0, x1, y1 = [float(t) for t in top[4:].split(',')]
 ROOMS = {'Living room (all)': (613, 1465, 306, 774), 'Kitchen worktop N (front edge)': (680, 870, 347, 368), 'Dining table': (780, 960, 535, 635), 'Sofa area': (1150, 1450, 520, 750),
          'Desk (living)': (1085, 1158, 310, 450), 'Bedroom': (233, 603, 306, 650), 'Hall entrance part': (41, 435, 660, 766), 'Corridor to the rooms': (435, 537, 766, 1061),
          'Sara': (547, 822, 962, 1348), 'Sara desk': (772, 822, 1114, 1234), 'Room 5': (225, 537, 1071, 1348), 'Room 5 desk': (462, 537, 1185, 1345), 'Laundry': (547, 822, 784, 950)}
-levels = [0, 5, 10, 20, 30, 50, 75, 100, 150, 200, 300, 500, 1000]
+levels = [0, 5, 10, 20, 30, 50, 75, 100, 150, 200, 300, 500, 1000, 2000, 5000]
 luxg = {}
 for g in GID:
     a = load(g, top, '_lux')
@@ -69,18 +84,17 @@ def enc_rgb(lin):
 def enc_lux(a):
     M = float(a.max()) or 1e-6; b = (np.clip(a / M, 0, 1) ** (1 / GAMMA) * 255 + 0.5).astype('uint8'); buf = io.BytesIO(); Image.fromarray(b).save(buf, 'PNG', optimize=True)
     return {'m': round(M, 3), 'src': 'data:image/png;base64,' + base64.b64encode(buf.getvalue()).decode()}
-NAMES = {'living': 'Living room + kitchen', 'room': 'Bedrooms', 'bed': 'Bedrooms', 'hall': 'Hall + corridor', 'plan': 'Whole flat'}
 views = []
-for view, st in cfg['views'].items():
-    imgs = {g: load(g, view) for g in cfg['sets'][st]}
+for view, vc in cfg['views'].items():
+    imgs = {g: load(g, view) for g in GID}
     if any(v is None for v in imgs.values()): continue
-    views.append({'id': view, 'label': view[3:].replace('-', ' '), 'area': NAMES[st], 'kind': 'photo', 'g': {g: enc_rgb(a) for g, a in imgs.items()}})
+    views.append({'id': view, 'label': view[3:].replace('-', ' '), 'area': vc['area'], 'kind': 'photo', 'g': {g: enc_rgb(prep(g, a)) for g, a in imgs.items()}})
 tops = {g: load(g, top) for g in GID}
 if all(v is not None for v in tops.values()) and len(luxg) == len(GID):
-    views.append({'id': 'top', 'label': 'top view (ceiling removed)', 'area': NAMES['plan'], 'kind': 'photo', 'g': {g: enc_rgb(a) for g, a in tops.items()}})
-    views.append({'id': 'lux', 'label': 'lux map', 'area': NAMES['plan'], 'kind': 'lux', 'g': {g: enc_lux(a) for g, a in luxg.items()}})
+    views.append({'id': 'top', 'label': 'top view (ceiling removed)', 'area': 'Whole flat', 'kind': 'photo', 'g': {g: enc_rgb(prep(g, a)) for g, a in tops.items()}})
+    views.append({'id': 'lux', 'label': 'lux map', 'area': 'Whole flat', 'kind': 'lux', 'g': {g: enc_lux(a) for g, a in luxg.items()}})
 cm = plt.get_cmap('turbo'); pal = [[int(c * 255) for c in cm(i / (len(levels) - 1))[:3]] for i in range(len(levels))]
-data = {'title': TITLE, 'groups': [{'id': g['id'], 'label': g['label'], 'lm': lum.get(g['id'], 0)} for g in cfg['groups']], 'presets': cfg['presets'], 'views': views,
+data = {'title': TITLE, 'groups': [{'id': g['id'], 'label': g['label'], 'lm': lum.get(g['id'], 0), 'day': bool(g.get('day'))} for g in cfg['groups']], 'dayk': DAYK, 'presets': cfg['presets'], 'views': views,
         'wb': [float(v) for v in WB], 'ev': EV, 'gamma': GAMMA, 'levels': levels, 'pal': pal, 'rect': [x0, y0, x1, y1], 'zones': {k: list(v) for k, v in ROOMS.items()},
         'lamp': cfg['lamps']['gu10']['source']}
 html = open(os.path.join(HERE, 'mixer_template.html')).read().replace('/*DATA*/null', json.dumps(data))

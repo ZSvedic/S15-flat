@@ -11,5 +11,16 @@
 10-ensuite 236 420 160 90 10 80
 11-sara 560 990 160 320 8 80
 12-room5 470 1100 160 30 8 80
+13-hall-to-living 150 712 160 270 4 72
+14-corridor-niche 528 898 160 57 4 72
+15-living-tv-wall 1000 720 160 216 4 80
+16-living-from-kitchen-corner 720 400 160 290 5 78
+17-bedroom-bed-wall 262 440 160 263 5 82
+18-room5-desk-wall 250 1130 160 300 5 82
+19-living-from-sofa-corner 1420 752 160 122 6 85
+21-bedroom-nw-corner 520 600 160 135 6 72
+22-hall-from-guest-room 480 1040 160 180 2 70
+23-hall-seat 215 748 160 149 8 85
+24-hall-mirror-from-seat 146 648 115 0 0 85
 25-laundry-from-door 565 925 160 225 6 85
 26-laundry-from-terrace-door 812 905 160 80 6 85

@@ -6,14 +6,14 @@ Where should the wall lights go before the electrician drills? This project rend
 
 The page has the comparison sheets, the lux table and an interactive light mixer with three light groups (ambient, ceiling, day) in every view.
 
-![Living room from the sofa corner in the four scenes](Renders/blender-lighting/compare-v20_19-living-from-sofa-corner.jpg)
+![Living room from the sofa corner in the four scenes](Renders/blender-lighting/compare-v21_19-living-from-sofa-corner.jpg)
 
 ## What is in here
 
 | Path | What |
 |---|---|
-| `Renders/blender-lighting/` | Current results (v20): 16 comparison sheets, `light-mixer-v20.html`, `luxmaps-v20.png`, `lux_table-v20.md`. Earlier rounds are in the git history. |
-| `S15-Hrneticka-v20.sh3d` | The Sweet Home 3D model (open with Sweet Home 3D 7) |
+| `Renders/blender-lighting/` | Current results (v21): 16 comparison sheets, `light-mixer-v21.html`, `luxmaps-v21.png`, `lux_table-v21.md`, plus two lighting-expert alternatives (`*-v21-lighting-expert*`). Earlier rounds are in the git history. |
+| `S15-Hrneticka-v21.sh3d` | The Sweet Home 3D model (open with Sweet Home 3D 7) |
 | `Claude-vectors/` | Floor plans per version, the wall-light points draft, design notes |
 | `Claude-tools/` | Scripts that build each model version and export it |
 | `Claude-tools/blender/` | The Blender pipeline: lamp data, scene builder, comparison sheets, light mixer |

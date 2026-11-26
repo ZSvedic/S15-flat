@@ -137,18 +137,21 @@
     "hallbench",
     "artH",
     "niche",
-    "tvshelf"
+    "tvshelf",
+    "artD",
+    "xamb"
    ]
   },
   {
    "id": "ceiling",
-   "label": "2 Ceiling lights: room lamps, spots, desk work light, mirror, desk and terrace lamps",
+   "label": "2 Ceiling lights: room lamps, spots, mirror, desk and terrace lamps",
    "members": [
     "ceiling",
     "hallspots",
     "corrspots",
     "desk",
-    "other"
+    "other",
+    "xceil"
    ]
   },
   {

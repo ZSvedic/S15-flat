@@ -5,11 +5,12 @@ Name rules (prefix -> set, role):  a name ending in "-> x,y,z" is aimed at that 
 Bars and strips: each SH3D source stands for 20 cm of LED strip and becomes 4 sources 5 cm apart along the named axis."""
 import sys, json, math, re, xml.etree.ElementTree as ET
 RULES = [  # prefix, set, role
+    ('XA:', 'xamb', 'custom'), ('XC:', 'xceil', 'custom'),   # fixtures from build_lightset.py: lamp data in the name, {lm=.. beam=.. k=.. r=..}
     ('AmbA up', 'wall', 'gu10'), ('AmbA down', 'wall', 'gu10'), ('White light source', 'wall', 'shield'),
-    ('ArtE bar', 'artE', 'piclight'), ('ArtH bar', 'artH', 'piclight'), ('ArtS aim', 'artS', 'gu10'), ('ArtS bar', 'artS', 'piclight'), ('Desk aim', 'desk', 'gu10'),
+    ('ArtE bar', 'artE', 'piclight'), ('ArtH bar', 'artH', 'piclight'), ('ArtS aim', 'artS', 'gu10'), ('ArtS bar', 'artS', 'piclight'), ('ArtD bar', 'artD', 'piclight'), ('Desk aim', 'desk', 'gu10'),
     ('TV puck', 'tv', 'puck'), ('Kitchen bar', 'kitchen', 'bar'), ('Niche bar', 'niche', 'profile'), ('Shelf bar', 'tvshelf', 'shelfup'), ('HallBench bar', 'hallbench', 'bar'),
     ('Pendant bar', 'pendant', 'pbar'), ('Low bar', 'low', 'lowbar'), ('Low lamp', 'low', 'tablelamp'),
-    ('Light: spot – hall', 'hallspots', 'spot'), ('Light: spot – corridor', 'corrspots', 'spot'), ('Light: spot', 'ceiling', 'spot'),
+    ('Light: spot – laundry', 'ceiling', 'gu10'), ('Light: spot – hall', 'hallspots', 'spot'), ('Light: spot – corridor', 'corrspots', 'spot'), ('Light: spot', 'ceiling', 'spot'),
     ('Light: ceiling lamp', 'ceiling', 'ceiling'),
     ('Light: mirror', 'other', 'mirror'), ('Light: terrace', 'other', 'terrace'), ('Desk lamp', 'other', 'desk')]
 out = []
@@ -19,6 +20,10 @@ for l in ET.parse(sys.argv[1]).getroot().iter('light'):
     if hit is None: print('unclassified light:', name); continue
     st, role = hit
     if role == 'ceiling' and 'IP44' in name: role = 'bath'
+    lampdata = None
+    if role == 'custom':
+        kv = dict(re.findall(r'(\w+)=([\d.]+)', re.search(r'\{([^}]*)\}', name).group(1)))
+        lampdata = dict(lumens=float(kv['lm']), kelvin=float(kv.get('k', 2700)), beam=float(kv['beam']) if 'beam' in kv else None, radius=float(kv.get('r', 2)), source='expert fixture')
     x, y, el = float(a['x']), float(a['y']), float(a.get('elevation', 0))
     w, d, h, ang = float(a['width']), float(a['depth']), float(a['height']), float(a.get('angle', 0))
     aim = re.search(r'-> *([-\d.]+),([-\d.]+),([-\d.]+)$', name)
@@ -36,6 +41,9 @@ for l in ET.parse(sys.argv[1]).getroot().iter('light'):
             ax = 'xyz'.index(words[-1]); pts = []
             for o in (-7.5, -2.5, 2.5, 7.5):
                 p = [px, py, pz]; p[ax] += o; pts.append(tuple(p))
-        for p in pts: out.append(dict(name=name, set=st, role=role, x=round(p[0], 1), y=round(p[1], 1), z=round(p[2], 1), dir=[round(c, 4) for c in dr]))
+        for p in pts:
+            d = dict(name=name, set=st, role=role, x=round(p[0], 1), y=round(p[1], 1), z=round(p[2], 1), dir=[round(c, 4) for c in dr])
+            if lampdata: d['lamp'] = lampdata
+            out.append(d)
 json.dump(out, open(sys.argv[2], 'w'), indent=0, ensure_ascii=False)
 from collections import Counter; print(len(out), 'lights', dict(Counter((o['set'], o['role']) for o in out)))

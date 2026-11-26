@@ -1,6 +1,7 @@
 #!/bin/zsh
 # One command per model version: export, lights, inputs, incremental links, Blender in the background.
-# Usage (from the repo root): Claude-tools/blender/render_version.sh <prev tag> <new tag> [samples=128] [--full]
+# Usage (from the repo root): Claude-tools/blender/render_version.sh <prev tag> <new tag> [samples=128] [--full|--keep-day]
+#   --keep-day: the change is lights only, so the day renders of vPREV are linked (no day re-render)
 #   e.g. Claude-tools/blender/render_version.sh v20 v21
 # Then, when render/blender/out/run-<new tag>.log ends with "S15 done":
 #   <venv>/bin/python Claude-tools/blender/mix.py render/blender/out Renders/blender-lighting "S15 lighting – <new tag>" <new tag>
@@ -15,5 +16,11 @@ unzip -p $R/S15-Hrneticka-$N.sh3d Home.xml > $IN/Home-$N.xml
 python3 $T/blender/make_lights.py $IN/Home-$N.xml $IN/lights.json | tail -1
 cp $T/blender/groups.json $T/blender/s15_blender.py $T/cams.txt $IN/
 python3 $T/blender/rerender.py $R/S15-Hrneticka-$P.sh3d $R/S15-Hrneticka-$N.sh3d $P $N $OUT $FULL
-cd $IN && S15_TAG=$N nohup caffeinate -i /Applications/Blender.app/Contents/MacOS/Blender -b -P s15_blender.py -- . obj${N#v} ../out 1440 1080 $SMP > $OUT/run-$N.log 2>&1 &
-echo "Blender started; log: render/blender/out/run-$N.log"
+cd $IN
+if [[ -n $FG ]]; then                                   # FG=1: wait for Blender (for chained runs)
+  S15_TAG=$N caffeinate -i /Applications/Blender.app/Contents/MacOS/Blender -b -P s15_blender.py -- . obj${N#v} ../out 1440 1080 $SMP > $OUT/run-$N.log 2>&1
+  echo "Blender done; log: render/blender/out/run-$N.log"
+else
+  S15_TAG=$N nohup caffeinate -i /Applications/Blender.app/Contents/MacOS/Blender -b -P s15_blender.py -- . obj${N#v} ../out 1440 1080 $SMP > $OUT/run-$N.log 2>&1 &
+  echo "Blender started; log: render/blender/out/run-$N.log"
+fi

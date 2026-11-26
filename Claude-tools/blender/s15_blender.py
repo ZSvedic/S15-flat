@@ -62,7 +62,7 @@ print('S15 mirrors:', n)
 col = bpy.data.collections.new('Lights'); sc.collection.children.link(col)
 objs = []; flux = {}
 def add(l, tag, kind, energy, cone=None, blend=None):
-    lamp = cfg['lamps'][l['role']]
+    lamp = l.get('lamp') or cfg['lamps'][l['role']]
     ld = bpy.data.lights.new(l['name'][:40], kind); o = bpy.data.objects.new('%s %s' % (tag, l['name'][:50]), ld); col.objects.link(o)
     o.location = P3(l['x'], l['y'], l['z'])
     d = Vector((l['dir'][0], -l['dir'][1], l['dir'][2])); o.rotation_euler = d.to_track_quat('-Z', 'Y').to_euler()
@@ -72,7 +72,7 @@ def add(l, tag, kind, energy, cone=None, blend=None):
     except Exception: pass
     objs.append((l['set'], o))
 for i, l in enumerate(lights):
-    lamp = cfg['lamps'][l['role']]
+    lamp = l.get('lamp') or cfg['lamps'][l['role']]
     if 'profile' in lamp:          # sum of soft cones: peak candela I over a full cone angle, falling smoothly to zero at the edge (blend 1)
         lm = 0
         for j, (cd, cone) in enumerate(lamp['profile']):

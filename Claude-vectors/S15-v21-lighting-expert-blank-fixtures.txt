@@ -1,0 +1,46 @@
+id | action | room | type | x | y | z | lumens | beam | kelvin | aim | group | reason
+C1 | change | living | CEILING_DIFFUSE | 734 | 488 | 272 | 2000 |  | 2700 |  | ceiling | ceiling lamp – kitchen
+C2 | change | living | CEILING_DIFFUSE | 1297 | 536 | 272 | 2500 |  | 2700 |  | ceiling | ceiling lamp – living
+C3 | change | living | CEILING_DIFFUSE | 950 | 735 | 272 | 1500 |  | 2700 |  | ceiling | ceiling lamp – living, by the terrace door
+C4 | change | bedroom | CEILING_DIFFUSE | 418 | 478 | 272 | 1800 |  | 2700 |  | ceiling | ceiling lamp – bedroom
+C5 | change | ensuite | CEILING_DIFFUSE | 132 | 453 | 272 | 1200 |  | 2700 |  | ceiling | ceiling lamp – ensuite, IP44
+C6 | change | bathroom | CEILING_DIFFUSE | 326 | 889 | 272 | 1200 |  | 2700 |  | ceiling | ceiling lamp – bathroom, IP44
+C7 | change | sara | CEILING_DIFFUSE | 683 | 1156 | 272 | 1800 |  | 2700 |  | ceiling | ceiling lamp – Sara
+C8 | change | sara | CEILING_DIFFUSE | 790 | 1150 | 272 | 800 |  | 2700 |  | ceiling | ceiling lamp – Sara, by the east door; over desk
+C9 | change | room5 | CEILING_DIFFUSE | 382 | 1211 | 272 | 1800 |  | 2700 |  | ceiling | ceiling lamp – room 5
+M1 | change | ensuite | STRIP | 63 | 312 | 192 | 1200 |  | 2700 | 183,312 down | ambient | mirror – ensuite; face light, IP44
+M2 | change | bathroom | STRIP | 421 | 858 | 197 | 1200 |  | 2700 | 421,912 down | ambient | mirror – bathroom; face light, IP44
+F1 | change | terrace | WALL_DOWN | 1125 | 827 | 265 | 600 | 90 | 2700 |  | ambient | terrace wall lamp – living facade; shielded
+F2 | change | terrace | WALL_DOWN | 872 | 1135 | 265 | 600 | 90 | 2700 |  | ambient | terrace wall lamp – east facade; shielded
+K1 | add | living | STRIP | 646 | 372 | 149 | 900 |  | 2700 | 646,540 down | ambient | worktop west, under cabinets
+K2 | add | living | STRIP | 617 | 340 | 149 | 900 |  | 2700 | 711,340 down | ambient | worktop corner
+K3 | add | living | STRIP | 795 | 340 | 149 | 900 |  | 2700 | 871,340 down | ambient | worktop east of hob
+K4 | add | living | STRIP | 632 | 372 | 241 | 500 |  | 2700 | 632,659 up | ambient | ceiling glow on cabinet tops
+P1 | add | living | PENDANT | 872 | 585 | 150 | 1100 |  | 2700 |  | ambient | dining table; opaque shade; needs ceiling chase
+A1 | add | living | PICTURE | 872 | 756 | 212 | 500 |  | 2700 | 160 | ambient | Canadair panorama, under AC
+A2 | add | living | PICTURE | 1447 | 672 | 217 | 500 |  | 2700 | 110 | ambient | painting over sofa
+A3 | add | living | PICTURE | 1122 | 324 | 240 | 500 |  | 2700 | 50 | ambient | tandem patent
+L1 | add | living | STRIP | 1172 | 312 | 190 | 500 |  | 2700 | 1414,312 up | ambient | TV-wall wash, bias light
+L2 | add | living | TABLE_LAMP | 1420 | 492 | 85 | 400 |  | 2700 |  | ambient | sofa reading corner
+L3 | add | living | TABLE_LAMP | 1150 | 412 | 120 | 500 |  | 2700 |  | ambient | desk task
+L4 | add | living | WALL_UP | 1380 | 774 | 180 | 800 |  | 2700 |  | ambient | soft ceiling bounce behind sofa
+B1 | add | bedroom | SPOT | 603 | 372 | 120 | 200 | 40 | 2700 | 530,410,85 | ambient | reading, north side
+B2 | add | bedroom | SPOT | 603 | 552 | 120 | 200 | 40 | 2700 | 530,515,85 | ambient | reading, south side
+B3 | add | bedroom | PICTURE | 585 | 462 | 202 | 400 |  | 2700 | 100 | ambient | two prints over bed
+B4 | add | bedroom | PICTURE | 545 | 632 | 217 | 450 |  | 2700 | 45 | ambient | picture 60×80
+B5 | add | bedroom | STRIP | 262 | 490 | 238 | 400 |  | 2700 | 262,640 up | ambient | wardrobe-top glow
+H1 | add | hall | PICTURE | 459 | 678 | 207 | 500 |  | 2700 | 70 | ambient | vertical artwork; view end
+H2 | add | hall | WALL_UPDOWN | 68 | 766 | 170 | 300 | 60 | 2700 |  | ambient | mirror, west flank
+H3 | add | hall | WALL_UPDOWN | 222 | 766 | 170 | 300 | 60 | 2700 |  | ambient | mirror, east flank
+H4 | add | hall | STRIP | 74 | 648 | 189 | 500 |  | 2700 | 218,648 down | ambient | seat niche, under top cabinet
+H5 | add | hall | STRIP | 74 | 648 | 6 | 150 |  | 2700 | 218,648 down | ambient | night floor glow at entrance
+N1 | add | corridor | PICTURE | 453 | 881 | 200 | 350 |  | 2700 | 30 | ambient | photo frame; night guide
+N2 | add | corridor | PICTURE | 453 | 1033 | 200 | 350 |  | 2700 | 30 | ambient | photo frame; night guide
+G1 | add | bathroom | STRIP | 432 | 943 | 184 | 300 |  | 2700 | 432,999 down | ambient | niche art; bath glow, IP44
+S1 | add | sara | STRIP | 560 | 1098 | 199 | 500 |  | 2700 | 560,1240 down | ambient | under shelf: poster, bed reading
+S2 | add | sara | STRIP | 819 | 1124 | 158 | 600 |  | 2700 | 819,1224 down | ambient | desk and pinboard
+S3 | add | sara | TABLE_LAMP | 668 | 1250 | 85 | 120 |  | 2700 |  | ambient | night light on C table
+R1 | add | room5 | PICTURE | 243 | 1250 | 227 | 500 |  | 2700 | 50 | ambient | picture above sofa bed
+R2 | add | room5 | PICTURE | 519 | 1265 | 215 | 400 |  | 2700 | 35 | ambient | print over desk
+R3 | add | room5 | TABLE_LAMP | 520 | 1330 | 115 | 500 |  | 2700 |  | ambient | desk task
+R4 | add | room5 | FLOOR_LAMP | 250 | 1125 | 150 | 700 |  | 2700 |  | ambient | sofa reading, guest bedside

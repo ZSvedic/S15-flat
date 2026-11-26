@@ -358,3 +358,15 @@ Built by `Claude-tools/build_v20.py` from v19.
 | TV shelf | Raised lip 5 cm along the shelf's front (south) edge; an LED up-light bar behind it on the shelf top, pointing up at the wall, 150 lm/m (the niche profile is 350 lm/m; the shelf is 250 long, so it is kept dimmer) | Zel |
 | Light groups | 14 groups → 3: 1 ambient (one switch, one dimmer), 2 ceiling (all other lamps), 3 day (15 May, 13:00, no lamps) | Zel |
 | Views | 19 kitchen from the table and 20 living south wall → one view 19 living from the sofa corner; 16 renamed living from the kitchen corner; 22 hall T artwork → 22 hall from the guest room (corridor, south end, niche half in view) | Zel |
+
+## v21 (2026-11-26): desk spots → picture light, laundry, day exposure
+
+Built by `Claude-tools/build_v21.py` from v20.
+
+| Item | Before (v20) → after (v21) | Source |
+|---|---|---|
+| a Living desk | The two ceiling spots on their track over the desk are removed. A picture light 45 on an 18 cm arm now hangs over the bicycle picture (tube 241 high, 12 above the picture), as for the other two pictures. It is in the ambient group | Zel |
+| b Day pictures | Exposure 1.5 → 0.7 × the night/day brightness ratio, and a neutral, slightly warm white balance (mix only; lux values unchanged) | Zel |
+| c Laundry | Tall cabinet and shelf in oak. The six as-built spots use the real GU10 (LEDARE 345 lm, 36°) instead of the assumed 400 lm wide spot | Zel |
+
+Two expert branches were made from v21 for comparison, and nothing in them is decided: `S15-v21-lighting-expert-notes.md` and `S15-v21-lighting-expert-blank-notes.md`.

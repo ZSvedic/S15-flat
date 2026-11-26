@@ -24,6 +24,15 @@ grp = ''.join('<li>%s</li>' % html.escape(g['label']) for g in cfg['groups'])
 hero = B + 'compare-%s_19-living-from-sofa-corner.jpg' % TAG
 plan = 'Claude-vectors/S15-%s-plan.png' % TAG
 d = cfg['day']
+import glob
+ALT = {'lighting-expert': 'Lighting expert: critique of this design, with its changes', 'lighting-expert-blank': 'Lighting expert from scratch: only the light points of the electrical plan, no knowledge of the owner\'s design'}
+alts = ''
+for f in sorted(glob.glob(os.path.join(R, B, 'light-mixer-%s-*.html' % TAG))):
+    t = os.path.basename(f)[len('light-mixer-'):-5]; k = t[len(TAG) + 1:]
+    notes = 'Claude-vectors/S15-%s-notes.md' % t
+    alts += '<li><strong>%s</strong> (%s): <a href="%s">light mixer</a> · <a href="%slux_table-%s.md">lux table</a> · <a href="Claude-vectors/S15-%s-plan.png">plan</a>%s</li>' % (
+        html.escape(t), html.escape(ALT.get(k, k)), B + os.path.basename(f), B, t, t, (' · <a href="https://github.com/ZSvedic/S15-flat/blob/main/%s">notes</a>' % notes) if ex(notes) else '')
+altsec = ('<h2>Alternative designs (%s)</h2><ul>%s</ul>' % (TAG, alts)) if alts else ''
 page = f'''<!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>S15 flat: lighting study</title>
@@ -70,6 +79,8 @@ footer{{margin-top:56px;padding-top:18px;border-top:1px solid var(--line);color:
 <p>Median illuminance in lux on floors and furniture tops, measured in the render. Lamp strengths are assumptions except where a real product was chosen, so read the night numbers as a comparison between scenes.</p>
 <div class="tablewrap">{table}</div>
 <p class="note" style="margin-top:10px"><a href="{B}luxmaps-{TAG}.png">Lux maps of the whole flat</a> · <a href="{plan}">Floor plan ({TAG})</a></p>
+
+{altsec}
 
 <h2>Room by room</h2>
 <p>Each sheet shows one camera view in the four scenes. The night pictures share one camera exposure; the day picture has its own.</p>

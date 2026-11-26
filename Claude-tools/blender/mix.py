@@ -35,9 +35,10 @@ if DAYG:
         if any(v is None for v in a): continue
         night = sum(v for g, v in zip(GID, a) if g != DAYG); day = a[GID.index(DAYG)]
         r.append(np.percentile(L(night), 90) / max(np.percentile(L(day), 90), 1e-9))
-    DAYK = float(np.median(r)) * 1.5 if r else 1.0
+    DAYK = float(np.median(r)) * 0.7 if r else 1.0          # v21: was 1.5 (Zel: day pictures burnt out; the eye adapts)
     print('day exposure factor', DAYK)
-def prep(g, a): return a * (DAYK / WB) if g == DAYG else a
+DAYWB = np.array([1.05, 1.0, 0.9], 'float32') / WB           # neutral, a touch warm: sun 5500 K plus blue sky light
+def prep(g, a): return a * DAYK * DAYWB if g == DAYG else a
 for view in cfg['views']:
     imgs = {g: load(g, view) for g in GID}
     if any(v is None for v in imgs.values()): print('missing renders for', view); continue

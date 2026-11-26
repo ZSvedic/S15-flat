@@ -1,6 +1,6 @@
 # S15 light points: DRAFT for review (not yet for the electrician)
 
-Model: `S15-Hrneticka-v20.sh3d` (2026-11-26; changed rows say v18, v19 or v20). Heights are to the centre of the fixture above the finished floor. Distances are along the wall, ±10 cm until checked on site. "Up/down" = cylinder wall light with two GU10 lamps (IKEA LEDARE LED1931R5, 345 lm, 2700 K, 36°).
+Model: `S15-Hrneticka-v21.sh3d` (2026-11-26; changed rows say v18–v21). Heights are to the centre of the fixture above the finished floor. Distances are along the wall, ±10 cm until checked on site. "Up/down" = cylinder wall light with two GU10 lamps (IKEA LEDARE LED1931R5, 345 lm, 2700 K, 36°).
 
 Numbers 1–17 are Zel's red circles from the plan sent to the electrician on 2026-11-18. Other entries were added in v15 and v16.
 
@@ -11,7 +11,7 @@ Numbers 1–17 are Zel's red circles from the plan sent to the electrician on 20
 | 2 | Bedroom, east wall (bed) | 47 from the north wall | 158 | wide shielded bedside light | v18: 25 north with the bed (bed centred between the bedside sockets) |
 | 3 | Bedroom, east wall (bed) | 78 from the south wall | 158 | wide shielded bedside light | v18: 25 north with the bed |
 | 4 | Bedroom, west wall | – | – | **wardrobe interior light** that switches on when the door opens; power from the existing double socket behind the wardrobe (57 south of the ensuite door, 39 high) | v18: Zel – no separate feed needed |
-| 5 | Living, **ceiling** over the desk | 75 from the north wall, 343 from the east wall | ceiling | track with 2 GU10 heads (desk and picture) | unchanged from v15 |
+| 5 | Living, north wall, over the bicycle picture (72×91, 138–229) | centre 343 from the east wall | 241 (12 above the picture) | **picture light** 45 wide on an 18 cm arm | v21: replaces the ceiling track with 2 spots over the desk (Zel) |
 | 6 | Living, north wall, TV | 275 from the east wall | shelf underside 186 | LED puck | unchanged |
 | 7 | Living, north wall, TV | 70 from the east wall | shelf underside 186 | LED puck | unchanged |
 | 7a | Living, north wall, TV shelf top | feed at the shelf (east end, near L2's socket) for the strip behind the lip; strip over the full 250 | 189 (shelf top), lip to 194 | **LED up-light bar** behind a raised 5 cm lip on the shelf's front edge, 150 lm/m (dimmer than the niche) | new in v20 (Zel) |

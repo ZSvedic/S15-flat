@@ -6,7 +6,7 @@ Bars and strips: each SH3D source stands for 20 cm of LED strip and becomes 4 so
 import sys, json, math, re, xml.etree.ElementTree as ET
 RULES = [  # prefix, set, role
     ('AmbA up', 'wall', 'gu10'), ('AmbA down', 'wall', 'gu10'), ('White light source', 'wall', 'shield'),
-    ('ArtE bar', 'artE', 'piclight'), ('ArtH bar', 'artH', 'piclight'), ('ArtS aim', 'artS', 'gu10'), ('Desk aim', 'desk', 'gu10'),
+    ('ArtE bar', 'artE', 'piclight'), ('ArtH bar', 'artH', 'piclight'), ('ArtS aim', 'artS', 'gu10'), ('ArtS bar', 'artS', 'piclight'), ('Desk aim', 'desk', 'gu10'),
     ('TV puck', 'tv', 'puck'), ('Kitchen bar', 'kitchen', 'bar'), ('Niche bar', 'niche', 'profile'), ('HallBench bar', 'hallbench', 'bar'),
     ('Pendant bar', 'pendant', 'pbar'), ('Low bar', 'low', 'lowbar'), ('Low lamp', 'low', 'tablelamp'),
     ('Light: spot – hall', 'hallspots', 'spot'), ('Light: spot – corridor', 'corrspots', 'spot'), ('Light: spot', 'ceiling', 'spot'),

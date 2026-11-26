@@ -307,3 +307,30 @@ Checked without change: bathroom WC centre about 44 from the north wall (IMG_248
 ### Photos replaced on 2026-11-25
 The new photos of the same angle replaced these old ones (moved to the Mac Trash, `~/.Trash/S15-photos-replaced-2026-11-25/`). Evidence rows above that cite an old number now refer to the new one:
 IMG_2030 → IMG_2455 · IMG_2035 → IMG_2460 · IMG_2032 → IMG_2463 · IMG_1957 and IMG_2021 → IMG_2470 · IMG_2023 → IMG_2478 · IMG_1960 → IMG_2482 · IMG_1961 → IMG_2484 · IMG_2022 → IMG_2477 · IMG_2026 → IMG_2483.
+
+## v18 (2026-11-26): Zel's answers to the v17 review
+
+Built by `Claude-tools/build_v18.py` from v17.
+
+| Item | Before (v17) → after (v18) | Source |
+|---|---|---|
+| Doors | Interior door frames had no leaf → every interior door drawn open at 90°: a 4 cm leaf in 3D plus the swing in the plan. SH3D cannot open a door model, so the front door, the terrace doors and the balcony door stay closed in 3D; their swing is drawn in the plan | Zel |
+| Bathroom door | Hinge west, opens clockwise into the bathroom; open leaf 7.7 cm before the WC; floor stop near the hinge, west of the open leaf (out of the way of feet at the WC) | Zel |
+| Other hinges | Claude's choice: the hinge is on the side away from the as-built switch, so the switch is on the latch side. Bedroom: hinge west (open leaf parks along the wardrobe front). Ensuite: hinge south, opens into the ensuite (switch inside on the latch side; hinge north would park the leaf 24 from the basin). Room 5: hinge east. Laundry: hinge south. Sara: hinge north. Hall → living: hinge south (v17) | photos IMG_2459–2477 |
+| C1 | Bedroom wardrobe 180 → 160 (y 485–645): the ensuite switch (y 473) is free; the double socket (y 517) stays behind the wardrobe and feeds its light | Zel |
+| C2 | Bed, nightstands, bedside lights 2/3, the two pictures and the rug 25 north: bed centre y 462.5, centred between the bedside sockets | Zel |
+| C3 | No change; floor stop 80 from the hinge so the open front door and its handle stay off the mirror (opens about 82°). A stop at the hinge pin would keep the floor clear | Zel |
+| C4 | Three ceiling spots 9d–f → picture light 100 over the Canadair picture, tube 210 high and 18 from the wall, on two arms fixed to a horizontal wall strip (x 800–932, 213 high). The strip's west end sits on the drywall between laundry and kitchen (drywall ends at x 822), where the feed comes in (x 805). The tube is 16 below the AC, so the AC throws no shadow on the picture. Indoor plant by the terrace door removed | Zel |
+| C5 | East painting bottom 125 → 135; picture light 8 207 → 217 | Zel |
+| C6 | Sara: reading light 15 20 south (148 from the north wall). Wall light 16 → east wall over the desk centre (174 from the south wall). Wall light 17 → south wall, west pier, 51 from the west wall | Zel |
+| C7 | No change. Checked: the mirror 140×70 (115–185) does NOT cover the outlet (x 95, centre 200): the outlet is 10 above the mirror top | check for Zel |
+| Boxes | Living south wall x 710, 152 = video intercom. Laundry west wall cover at 150 = covered outlet or planned floor-heating control | Zel |
+
+### New conflicts (v18, for Zel)
+| # | Where | Conflict | Options |
+|---|---|---|---|
+| C9 | Bedroom balcony door | With the bed 25 north (C2), the bed's foot corner (x 393, y 377) is inside the swing of the balcony door (middle panel, hinge west, leaf 94). The door can open only about 55° | A bed back 12 north only (door opens about 80°) · B bed back where it was, electrician moves the south bedside socket 25 south (it is the one behind the frame) · C bed centred on the wall (y 478, also the ceiling lamp's line): door opens about 85°, south socket 2 cm clear of the frame |
+| C10 | Sara south double door (opens inward) | The open west leaf hits the side table Ø45 (x 685, y 1315) and the east leaf hits the east tub chair (x 778, y 1307): each opens only about 28° | A move table and east chair out of the swing (y < 1275) · B one chair only, in the west corner |
+| C11 | Laundry terrace door (240 high on a 20 threshold) | The leaf (top 260) hits the ceiling drying rack (x 643–763, 215 high): it opens only about 63° | A rack 10 west |
+
+Smaller points from the check: the open hall → living leaf parks 24 from any wall, so it needs a magnetic holder or floor stop; the open laundry leaf parks 5.6 in front of the heating-manifold cover; the south picture light's tube sits just under the AC's front edge, so the AC's air blows on it (harmless for an LED tube, but don't hang anything lighter there); the living east window's swing passes over table lamp L3 (older).

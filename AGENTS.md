@@ -2,13 +2,13 @@
 
 Read this file and `journal.md` (to the end) before doing anything. At the end of every session, add an entry to `journal.md`.
 
-## Current state (2026-11-19, late evening)
-- **Latest model: `S15-Hrneticka-v17.sh3d`** (2026-11-25) = v16 + hall → living door, front-door hinge south, AC unit, as-built switches/sockets from photos IMG_2455–2488; conflicts C1–C8 wait for Zel (furnishing notes, v17). v16 = v15 + Zel's answers to the critique: picture lights over paintings, low lamps on switched sockets, kitchen bar 12 from the wall, laundry light on the south wall, niche shelf profiles, hall seat + mirror + T-wall artwork, IKEA PILSKOTT pendant. Waiting for his review.
+## Current state (2026-11-26)
+- **Latest model: `S15-Hrneticka-v18.sh3d`** (2026-11-26) = v17 + Zel's answers to the v17 review: interior doors drawn open, bathroom door clockwise with a stop, wardrobe 160, bed centred between the sockets, south picture light on a wall strip instead of ceiling spots, east painting 10 higher, Sara's lights moved, intercom named. New conflict C9 (balcony door vs bed) waits for Zel (furnishing notes, v18). v17 = v16 + hall → living door, front-door hinge south, AC unit, as-built switches/sockets from photos IMG_2455–2488.
 - **Current task:** find positions for ambient lights so Zel can tell the electrician where to drill. The deliverable at the end is a drill sheet (wall, distance from a corner, height). Draft: `Claude-vectors/S15-wall-light-points-DRAFT.md` (fixed lights, switched sockets, dimming groups, closet feeds).
-- **How Zel reviews lighting:** `Renders/blender-lighting/light-mixer-v17.html` (switches and dimmers per light group, any view, lux map) plus the `compare-v17_*.jpg` sheets and `luxmaps-v17.png`. He can't judge light in SH3D.
-- **Waiting for Zel:** review of v16. Open in the draft: real picture sizes (they set the picture-light heights), curtain positions near lights 1, 14, 16, low-lamp corners, lamp data for everything except the GU10 and the two PILSKOTT lamps.
+- **How Zel reviews lighting:** `Renders/blender-lighting/light-mixer-v18.html` (switches and dimmers per light group, any view, lux map) plus the `compare-v18_*.jpg` sheets and `luxmaps-v18.png`. He can't judge light in SH3D.
+- **Waiting for Zel:** review of v18 and C9. Open in the draft: real picture sizes (they set the picture-light heights), curtain positions near lights 1, 14, 17, low-lamp corners, lamp data for everything except the GU10 and the two PILSKOTT lamps.
 - **Layout (2026-11-25):** all design work lives in one place, `~/LOCAL/CODE-2026/S15-flat/` on the Mac. That folder is the git repo and the working folder. The Drive folder `Interior-design/` is retired. See "Folder map".
-- **Published:** public repo `github.com/ZSvedic/S15-flat`, site `https://zsvedic.github.io/S15-flat/` (v16 mixer, sheets, lux table). The site changes only when someone pushes. See "Publishing" below.
+- **Published:** public repo `github.com/ZSvedic/S15-flat`, site `https://zsvedic.github.io/S15-flat/` (mixer, sheets, lux table of the latest version). The site changes only when someone pushes. See "Publishing" below.
 - **Critique of v15:** `Claude-vectors/S15-v15-critique.md`. Zel accepted points 1–7 with changes (journal 2026-11-19 c). Not taken up: softer up-lamps, bedside reading lights, room 5 light spacing, night light.
 
 ## Owner rules (Zel)
@@ -50,6 +50,7 @@ Two roots. Connect both to the session (`~/LOCAL` and the Drive folder).
 
 ## Fixed facts (confirmed by Zel; don't re-litigate)
 - **Hallway → living room:** a door 82×210 after all (Zel, 2026-11-25); in the model hinged on the south jamb, opening into the living room.
+- **Interior doors (v18):** bathroom hinged west, opens clockwise into the bathroom, floor stop before the WC (Zel). Front door gets a floor stop off the mirror (Zel). Other hinges are Claude's choice (latch side at the as-built switch) until Zel says otherwise.
 - **Second bathroom:**
   - The door is in the north wall, from the hallway, 70 wide. Both the architect and electrical plans show it wrong.
   - WC on the west wall, basin on the east wall, bath across the south.
@@ -73,6 +74,7 @@ Two roots. Connect both to the session (`~/LOCAL` and the Drive folder).
 - **Other real lamps (links from Inge, 2026-11-19):** IKEA PILSKOTT LED pendant 97 cm, 1,100 lm, 16.5 W (304.778.78) over the dining table; IKEA PILSKOTT LED floor lamp 112 cm, 700 lm, 14.5 W (904.781.20). Both are smart lamps dimmed by IKEA remote; IKEA lists no colour temperature (2700 K assumed).
 - **Paintings get overhead picture lights** (tube on an arm, as in Zel's Pooky example), not GU10 cylinders. Zel: the GU10 lamps are not good for paintings.
 - **Circle 4 (bedroom west wall) and a point on the laundry north wall** are feeds for closet interior lights that switch on when the door opens, not wall lights.
+- **Video intercom:** living south wall, x 710, 152 high (Zel, 2026-11-26).
 - **Fuse and network boxes:** hall south wall, west of the bathroom door (photos IMG_1958, IMG_2019). Confirmed by Zel on 2026-11-19.
 
 ## Coordinates (model, v13 and later)

@@ -1,6 +1,6 @@
 # S15 light points: DRAFT for review (not yet for the electrician)
 
-Model: `S15-Hrneticka-v16.sh3d` (2026-11-19, after Zel's answers to the critique). Heights are to the centre of the fixture above the finished floor. Distances are along the wall, ±10 cm until checked on site. "Up/down" = cylinder wall light with two GU10 lamps (IKEA LEDARE LED1931R5, 345 lm, 2700 K, 36°).
+Model: `S15-Hrneticka-v17.sh3d` (2026-11-25: v16 light points unchanged; as-built switches and sockets from the site photos added). Heights are to the centre of the fixture above the finished floor. Distances are along the wall, ±10 cm until checked on site. "Up/down" = cylinder wall light with two GU10 lamps (IKEA LEDARE LED1931R5, 345 lm, 2700 K, 36°).
 
 Numbers 1–17 are Zel's red circles from the plan sent to the electrician on 2026-11-18. Other entries were added in v15 and v16.
 
@@ -52,8 +52,27 @@ Every group below gets its own dimmer. Ask for a neutral wire and a deep box at 
 | Laundry | ceiling spots · wall light (10) |
 
 ## Open points
+- **Conflicts with as-built switches and sockets (site photos 2026-11-25):** light 15 sits ~20 cm from Sara's thermostat and switch; light 8's painting sits just above a switch; the 9d–f spots and the picture sit under the new AC unit; the bedside sockets suggest the bed 26 cm further north (lights 2, 3 would move with it). Details: `S15-furnishing-notes.md`, v17, C1–C8.
+- **Switched sockets L1, L3:** existing sockets at living south wall x 1364 (101 from the east wall, 44 high) and east wall 301 from the north wall (35 high) can be rewired as switched sockets instead of new ones.
 - **Art lights 8 and 18:** heights follow the picture: tube about 10 above the top edge. Width rule (Pooky guide): one third to one half of a landscape picture's width, about half for a portrait one.
 - **Sara 16/17:** 15 cm inside the desk ends (the terrace door blocks a wider spacing). The critic notes that 16 sits where a curtain would stack.
 - **Room 5 13/14:** 14 is 21 from the corner, also where a curtain stacks. The critic suggests 128 and 38 from the south wall instead.
 - **Low-lamp positions** are my choice of corners; move them freely.
 - Real lamp data: GU10 (IKEA LEDARE), pendant and floor lamps (IKEA PILSKOTT; both are dimmed wirelessly with IKEA's own remote, so their sockets and ceiling point need a plain switch, not a wall dimmer). Everything else is assumed.
+
+## As-built wall points from the site photos (2026-11-25, ±15 along the wall)
+Measured from photos IMG_2455–2488 by scaling from door and window openings; heights ±10 unless marked. In the model they are the group "AS BUILT" (red dots in the plan). Positions: distance from the named corner.
+
+| Room, wall | Item, height |
+|---|---|
+| Living, south wall | wire box 152 (purpose unknown), thermostat 142, switch 111, socket 42: 163–177 from the west corner by the hall door (x 710–724) · switch 111, 29 west of the terrace door · socket 44, 101 from the east wall · AC unit 228–261, x 853–937 |
+| Living, north wall | socket 47, 39 from the NW corner · switch 110, 28 east of the window · 2 sockets 43 behind the TV unit (87 and 118 from the NE corner) · kitchen exhaust duct under the ceiling, 50 from the NW corner |
+| Living, east wall | switch 109 and socket 35, 301 from the north wall (30 south of the window) |
+| Kitchen, west wall | sockets: 119 (73 from the north wall), 58 (159), 57 (320, fridge) · sink water connections 48 (184) |
+| Hall | north wall: switch 110, 10 east of the bedroom door · south wall: switch ~100 under the distribution board |
+| Bedroom | east wall: switch 109 (14 from the north wall), sockets 62 (50) and 60 (263) · south wall, between door and shaft: thermostat 140, switch 110, socket 30 · west wall: switch 110, 13 south of the ensuite door; double socket 39, 57 south of the door |
+| Ensuite | north wall: mirror-light outlet 200, 54 from the west wall (above the west basin) · east wall, between corner and door: switch and thermostat (~120–130, ±20) |
+| Bathroom | north wall, west of the door: thermostat 140 · east wall: switch ~130, 36 north of the basin centre |
+| Laundry | west wall, north of the door: switch 110, round cover 150 · north wall: tap 88, drain 36, sockets 100 at 126 and 187 from the west wall · south wall: floor-heating manifold box 90×55, west end, 5–60 high |
+| Room 5 | south wall: switch 105, 25 east of the window · east wall: double socket 40 under the desk (62 from the south wall) · face west of the door: thermostat 140, switch 110, socket 30 · west wall: socket 30 near the north end |
+| Sara | west wall, just south of the door: thermostat 139, switch 110, socket 39 · north wall: socket 30, 110 from the west wall · east wall: switch ~100 (15 south of the terrace door), double socket 40 under the desk · south wall: switch 110 west of the double door |

@@ -275,3 +275,35 @@ Built by `Claude-tools/build_v16.py` from v15. Numbers are Zel's numbering in hi
 | 10 | Dining: 2 dome pendants → one IKEA PILSKOTT LED pendant 97 long (1,100 lm), west half at 168, east half at 158 (undersides) | Zel's photo, model from Inge (ikea.com/hr 304.778.78) |
 
 SH3D groups: "AMBIENT A", "AMBIENT B" (kitchen bar), "ART SOUTH", "NICHE – shelves", "NICHE – LED profile", "DINING – curved linear pendant", "LOW LAMPS", "HALL – seat…".
+
+## v17 (2026-11-25): site photos IMG_2455–2488, door hall → living
+
+Built by `Claude-tools/build_v17.py` from v16. Photos are in Drive `Hrneticka-photos/<room>/`. Only facts from the photos and Zel's new door were changed; design conflicts the photos revealed are listed below and NOT changed (they wait for Zel).
+
+| Item | Before (v16) → after (v17) | Source |
+|---|---|---|
+| 1 | Hall → living passage: open, wall header from 210 → door 82×210 (frame like the other interior doors; the wall now runs over it). Hinged on the south jamb, opens into the living room (Claude's choice: keeps the hall artwork and the corridor entrance clear) | Zel, 2026-11-25 |
+| 2 | Front door hinged on the north jamb → **south** jamb, opens inward against the hall south wall | IMG_2473, IMG_2474, IMG_1958 |
+| 3 | Living south wall: nothing → AC indoor unit 85×20×33, x 853–937, 228–261 above floor | IMG_2482, IMG_2478 |
+| 4 | Terrace wall light on the living facade: x 1060 → 1125 (just west of the sliding door's meeting stile) | IMG_2483 |
+| 5 | New group "AS BUILT": 53 markers for switches, thermostats, sockets, outlets, the laundry heating manifold and the kitchen exhaust duct (red dots in the plan) | photos, see each name |
+
+Checked without change: bathroom WC centre about 44 from the north wall (IMG_2485 tape; model 45); laundry washer/dryer sockets match the machines; kitchen sink connections at y ≈ 490 (model sink centre 471, within the ±15 estimate); room 5 and Sara desk sockets are under the desks.
+
+### Conflicts found in the photos (not changed, for Zel)
+| # | Where | Conflict | Options |
+|---|---|---|---|
+| C1 | Bedroom west wall | Wardrobe 180 (y 465–645) covers the ensuite light switch (y ≈ 473, 110 high) and a double socket (y ≈ 517) | A wardrobe 160 (y 485–645) · B electrician moves the switch · C cut-out in the wardrobe side |
+| C2 | Bedroom bed wall | Bedside sockets at y ≈ 356 and ≈ 569 (centre 462); bed centre is 488, so the south socket is behind the bed frame | A move bed, nightstands and lights 2/3 26 north · B move the south socket ~15 south |
+| C3 | Hall | Front door opens against the south wall; the open leaf (x 41–146) overlaps the mirror 120×170 (x 86–206) | A narrower mirror at x 150–235 (left of the distribution board) · B door stop at about 80° · C mirror on another wall |
+| C4 | Living south wall | AC unit (228–261) sits above the east half of the Canadair picture; spots 9e/9f light the AC's underside and the AC blows onto the picture | A move picture and spots west of the AC (wall points at x 710–728 are in the way) · B keep, spots further from the wall · C another place for the picture |
+| C5 | Living east wall | Switch at y ≈ 607, 109 high, 11 below the painting's NW corner (painting y 597–747, bottom 125) and just above the sofa back | A painting 15 south · B painting higher |
+| C6 | Sara west wall | Reading light 15 (y 1090, 128 high) is ~20 from the thermostat (y ≈ 1072, 139) and switch (y ≈ 1068, 110) at the bed head | A light 15 to y ≈ 1115 · B bed head to the south |
+| C7 | Ensuite | Mirror-light outlet is above the west basin (x ≈ 95), not at the mirror centre (132); tiles are finished | A light off-centre on the outlet · B LED mirror covering the outlet · C cable behind the mirror |
+| C8 | Living low lamps | Planned switched sockets L1 (south wall x 1440) and L3 (east wall y 492) are near existing sockets at x 1364 and y 607 | Rewire the existing sockets as switched instead of new ones |
+| ? | Living south wall x 710, 152 high | Box with loose wires, purpose unknown (intercom?) | ask the electrician |
+| ? | Laundry west wall, above the switch | Round cover at about 150, purpose unknown | ask the electrician |
+
+### Photos replaced on 2026-11-25
+The new photos of the same angle replaced these old ones (moved to the Mac Trash, `~/.Trash/S15-photos-replaced-2026-11-25/`). Evidence rows above that cite an old number now refer to the new one:
+IMG_2030 → IMG_2455 · IMG_2035 → IMG_2460 · IMG_2032 → IMG_2463 · IMG_1957 and IMG_2021 → IMG_2470 · IMG_2023 → IMG_2478 · IMG_1960 → IMG_2482 · IMG_1961 → IMG_2484 · IMG_2022 → IMG_2477 · IMG_2026 → IMG_2483.

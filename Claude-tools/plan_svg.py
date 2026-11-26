@@ -139,6 +139,9 @@ for e in items:
     if n.startswith(SKIP_PREFIX):
         continue
     x, y, w, d, a = f(e, 'x'), f(e, 'y'), f(e, 'width'), f(e, 'depth'), f(e, 'angle')
+    if n.startswith('As built:'):                       # v17: switches, sockets etc. read from site photos -> small red dot
+        ax.plot([x], [y], 'o', ms=2.2, mfc='#D0342C', mec='white', mew=0.3, zorder=8)
+        continue
     if min(w, d) < 1.5 and max(w, d) > 50:
         continue
     shaft = n.startswith(('Installation shaft', 'WC installation', 'Terrace upstand', 'Balcony parapet'))
@@ -164,7 +167,7 @@ ax.plot([sx, sx + 200], [sy, sy], color='k', lw=2)
 for k in range(0, 201, 100):
     ax.plot([sx + k, sx + k], [sy - 6, sy + 6], color='k', lw=1)
 ax.text(sx + 100, sy - 14, '2 m', ha='center', fontsize=8)
-ax.text(sx, sy + 26, 'Openings: width/height in cm, p = sill/threshold above floor. Grey = shafts, upstands, parapets.',
+ax.text(sx, sy + 26, 'Openings: width/height in cm, p = sill/threshold above floor. Grey = shafts, upstands, parapets. Red dots = as-built switches, sockets, thermostats, outlets.',
         fontsize=7, color='#444')
 fig.tight_layout()
 fig.savefig(OUT + '.svg')

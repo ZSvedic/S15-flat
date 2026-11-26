@@ -61,15 +61,15 @@ NOTES = {
     '12-room5': 'Small home office / guest room: light oak floor, blue accent wall behind a grey sofa bed, desk with monitor and office chair, double window with anthracite frame, framed picture.',
 }
 REF = {
-    '03-living-terrace-door': 'Terrace/IMG_2026.jpeg',
+    '03-living-terrace-door': 'Terrace/IMG_2483.jpeg',
     '04-master-bedroom': 'Master-bedroom/IMG_2005.jpeg',
     '05-terrace-from-SE': 'Terrace/IMG_2027.jpeg',
-    '06-terrace-inner-corner': 'Terrace/IMG_2026.jpeg',
+    '06-terrace-inner-corner': 'Terrace/IMG_2483.jpeg',
     '07-balcony-north': 'Terrace/IMG_2010.jpeg',
-    '09-bathroom': 'Other/IMG_2022.jpeg',
-    '10-ensuite': 'Other/IMG_2022.jpeg',
-    '11-sara': 'Saras-room/IMG_2032.jpeg',
-    '12-room5': 'Guest-room/IMG_2035.jpeg',
+    '09-bathroom': 'Other/IMG_2475.jpeg',
+    '10-ensuite': 'Master-bedroom/IMG_2470.jpeg',
+    '11-sara': 'Saras-room/IMG_2463.jpeg',
+    '12-room5': 'Guest-room/IMG_2460.jpeg',
 }
 
 def run(name):

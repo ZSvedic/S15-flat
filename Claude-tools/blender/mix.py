@@ -11,12 +11,17 @@ OUT, RES = sys.argv[1], sys.argv[2]; TITLE = sys.argv[3] if len(sys.argv) > 3 el
 TAG = '-' + sys.argv[4] if len(sys.argv) > 4 else ''
 os.makedirs(RES, exist_ok=True)
 cfg = json.load(open(os.path.join(HERE, 'groups.json'))); GID = [g['id'] for g in cfg['groups']]; GL = {g['id']: g['label'] for g in cfg['groups']}
-lum = json.load(open(os.path.join(OUT, 'lumens.json')))
+_lj = os.path.join(OUT, 'lumens' + TAG + '.json')
+lum = json.load(open(_lj if os.path.exists(_lj) else os.path.join(OUT, 'lumens.json')))
 safe = lambda v: v.replace(':', '_').replace(',', '_')
 def load(g, v, suffix=''):
-    p = os.path.join(OUT, g, safe(v) + suffix + '.npy')
+    p = os.path.join(OUT, g, safe(v) + TAG + suffix + '.npy')          # raw names carry the version from v17 on
+    if not os.path.exists(p) and TAG in ('', '-v16'): p = os.path.join(OUT, g, safe(v) + suffix + '.npy')   # v16 raw files have none
     return np.load(p).astype('float32') if os.path.exists(p) else None
-f = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', 20); fs = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', 16)
+FONT = '/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf'
+if not os.path.exists(FONT):                                          # on the Mac: the DejaVu copy that ships with matplotlib
+    import matplotlib; FONT = os.path.join(os.path.dirname(matplotlib.__file__), 'mpl-data', 'fonts', 'ttf', 'DejaVuSans.ttf')
+f = ImageFont.truetype(FONT, 20); fs = ImageFont.truetype(FONT, 16)
 
 # ---- comparison sheets ---------------------------------------------------------------------------------------------
 for view, st in cfg['views'].items():

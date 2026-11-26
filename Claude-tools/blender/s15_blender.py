@@ -3,6 +3,7 @@
 # combination by summing these renders.
 # Usage: Blender -b -P s15_blender.py -- <src dir> <obj subdir> <outdir> W H samples [views, comma] [groups, comma]
 #   src dir holds lights.json (make_lights.py), groups.json (lamp data, groups, views) and cams.txt
+#   env S15_TAG=v17 puts the model version into the raw names: <view>-v17.npy, lumens-v17.json (from v17 on)
 #   output: <outdir>/<group>/<view>.npy (float16 RGB, scene-linear) and for the top view also <view>_lux.npy. Existing files are skipped.
 import bpy, sys, json, math, os, time, functools
 from mathutils import Vector
@@ -12,6 +13,7 @@ SRC, OBJ, OUT = argv[0], argv[1], argv[2]
 W, H, SAMPLES = int(argv[3]), int(argv[4]), int(argv[5])
 ONLYV = argv[6].split(',') if len(argv) > 6 and argv[6] != '-' else None
 ONLYG = argv[7].split(',') if len(argv) > 7 else None
+TAG = ('-' + os.environ['S15_TAG']) if os.environ.get('S15_TAG') else ''
 K = 683.0                      # lm/W convention; cancels out in lux results (measured: E = P / (4 pi d^2), see calib.py)
 def P3(x, y, z): return Vector((x / 100.0, -y / 100.0, z / 100.0))     # model cm (x, y south, elevation) -> Blender m
 
@@ -75,7 +77,7 @@ for i, l in enumerate(lights):
         add(l, '%03d' % i, 'POINT', lamp['lumens'] / K); lm = lamp['lumens']
     flux[l['set']] = flux.get(l['set'], 0) + lm
 print('S15 lumens per group:', json.dumps({k: round(v) for k, v in flux.items()}))
-os.makedirs(OUT, exist_ok=True); json.dump({k: round(v) for k, v in flux.items()}, open(os.path.join(OUT, 'lumens.json'), 'w'))
+os.makedirs(OUT, exist_ok=True); json.dump({k: round(v) for k, v in flux.items()}, open(os.path.join(OUT, 'lumens' + TAG + '.json'), 'w'))
 
 w = bpy.data.worlds.new('night'); sc.world = w; w.use_nodes = True
 bg = w.node_tree.nodes['Background']; bg.inputs[0].default_value = (0.05, 0.07, 0.12, 1); bg.inputs[1].default_value = 0.0      # black outside: group renders must add up exactly
@@ -120,7 +122,7 @@ jobs = [(v, cfg['sets'][s]) for v, s in cfg['views'].items()] + [(cfg['top'], [g
 todo = [(v, g) for v, gs in jobs for g in gs if (not ONLYV or v in ONLYV or (v.startswith('TOP') and 'TOP' in ONLYV)) and (not ONLYG or g in ONLYG)]
 print('S15 renders to do:', len(todo)); done = 0
 for view, grp in todo:
-    safe = view.replace(':', '_').replace(',', '_'); out = os.path.join(OUT, grp); os.makedirs(out, exist_ok=True)
+    safe = view.replace(':', '_').replace(',', '_') + TAG; out = os.path.join(OUT, grp); os.makedirs(out, exist_ok=True)
     npy = os.path.join(out, safe + '.npy'); done += 1
     if os.path.exists(npy): continue
     for st, o in objs: o.hide_render = (st != grp)
@@ -136,5 +138,5 @@ for view, grp in todo:
         np.save(os.path.join(out, safe + '_lux.npy'), lux.astype('float32'))
     np.save(npy + '.tmp.npy', np.clip(parts['Combined'], 0, 60000).astype('float16')); os.replace(npy + '.tmp.npy', npy); os.remove(exr)
     print('S15 rendered %d/%d' % (done, len(todo)), grp, view, 'in', round(dt), 's')
-bpy.ops.wm.save_as_mainfile(filepath=os.path.join(OUT, 's15.blend'))
+bpy.ops.wm.save_as_mainfile(filepath=os.path.join(OUT, 's15' + TAG + '.blend'))
 print('S15 done')

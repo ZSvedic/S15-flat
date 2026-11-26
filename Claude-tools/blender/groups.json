@@ -196,7 +196,9 @@
   "23-hall-seat": "hall",
   "24-hall-mirror-from-seat": "hall",
   "22-hall-T-artwork": "hall",
-  "14-corridor-niche": "hall"
+  "14-corridor-niche": "hall",
+  "25-laundry-from-door": "room",
+  "26-laundry-from-terrace-door": "room"
  },
  "top": "TOP:20,300,1470,1360",
  "mirrors": [

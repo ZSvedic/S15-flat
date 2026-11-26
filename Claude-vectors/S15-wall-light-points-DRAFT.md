@@ -1,6 +1,6 @@
 # S15 light points: DRAFT for review (not yet for the electrician)
 
-Model: `S15-Hrneticka-v18.sh3d` (2026-11-26: Zel's answers to the v17 review; changed rows say v18). Heights are to the centre of the fixture above the finished floor. Distances are along the wall, ±10 cm until checked on site. "Up/down" = cylinder wall light with two GU10 lamps (IKEA LEDARE LED1931R5, 345 lm, 2700 K, 36°).
+Model: `S15-Hrneticka-v19.sh3d` (2026-11-26: Zel's answers to the v18 review; changed rows say v18 or v19). Heights are to the centre of the fixture above the finished floor. Distances are along the wall, ±10 cm until checked on site. "Up/down" = cylinder wall light with two GU10 lamps (IKEA LEDARE LED1931R5, 345 lm, 2700 K, 36°).
 
 Numbers 1–17 are Zel's red circles from the plan sent to the electrician on 2026-11-18. Other entries were added in v15 and v16.
 
@@ -22,8 +22,8 @@ Numbers 1–17 are Zel's red circles from the plan sent to the electrician on 20
 | 13 | Room 5, east wall | 145 from the south wall | 175 | up/down | unchanged from v15 |
 | 14 | Room 5, east wall | 21 from the south wall | 175 | up/down | unchanged from v15 |
 | 15 | Sara, west wall (bed) | 148 from the north wall | 128 | wide shielded reading light | v18: 20 south, away from the thermostat and switch |
-| 16 | Sara, east wall | 174 from the south wall (over the desk centre) | 175 | up/down (white) | v18: moved over the desk |
-| 17 | Sara, **south wall** | 51 from the west wall (west of the double door, above the corner chair) | 175 | up/down (white) | v18: moved from the east wall |
+| 16 | Sara, east wall | 174 from the south wall (over the desk centre) | 175 | up/down (white) | v18: moved over the desk. v19: pinboard below it (91–151), desk lamp removed |
+| 17 | Sara, **south wall** | 51 from the west wall (west of the double door, above the corner chair) | 175 | up/down (white) | v18: moved from the east wall. v19: only the west door leaf opens; it sweeps from 109 to 186 from the west wall, so the light is 58 clear of it |
 | 18 | Hall, north wall at the T | centre 77 east of the bedroom door opening | 207 (12 above the artwork) | **picture light** 45 wide | v16: replaces the two lights by the front door. Artwork assumed 90×140, bottom at 55 |
 | 19 | Hall, wardrobe niche | feed at the niche, cabinet underside at 190 | 190 | LED light bar 140 hidden behind the front of the top cabinet | new in v16 |
 | K | Kitchen, under the wall cabinets | LED bars 12 from the wall (1/3 of the cabinet depth): north 56 + 78, west 168 | 150 | LED light bar | v16: moved from the back edge |
@@ -52,7 +52,7 @@ Every group below gets its own dimmer. Ask for a neutral wire and a deep box at 
 | Laundry | ceiling spots · wall light (10) |
 
 ## Open points
-- **C9 (v18):** with the bed centred between the sockets, the balcony door opens only about 55° before it hits the bed. If the bed goes back, lights 2 and 3 go with it. See `S15-furnishing-notes.md`, v18.
+- **C9 (v18): solved in v19.** The balcony door is the west panel (photo IMG_1956), so it misses the bed; lights 2 and 3 stay where v18 put them.
 - **Switched sockets L1, L3** (a socket that a wall switch turns on, for a floor or table lamp): existing sockets at living south wall x 1364 (101 from the east wall, 44 high) and east wall 301 from the north wall (35 high) can be rewired as switched sockets instead of new ones.
 - **Art lights 8 and 18:** heights follow the picture: tube about 10 above the top edge. Width rule (Pooky guide): one third to one half of a landscape picture's width, about half for a portrait one.
 - **Room 5 13/14:** 14 is 21 from the corner, also where a curtain stacks. The critic suggests 128 and 38 from the south wall instead.

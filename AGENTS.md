@@ -3,10 +3,10 @@
 Read this file and `journal.md` (to the end) before doing anything. At the end of every session, add an entry to `journal.md`.
 
 ## Current state (2026-11-26)
-- **Latest model: `S15-Hrneticka-v18.sh3d`** (2026-11-26) = v17 + Zel's answers to the v17 review: interior doors drawn open, bathroom door clockwise with a stop, wardrobe 160, bed centred between the sockets, south picture light on a wall strip instead of ceiling spots, east painting 10 higher, Sara's lights moved, intercom named. New conflict C9 (balcony door vs bed) waits for Zel (furnishing notes, v18). v17 = v16 + hall → living door, front-door hinge south, AC unit, as-built switches/sockets from photos IMG_2455–2488.
+- **Latest model: `S15-Hrneticka-v19.sh3d`** (2026-11-26) = v18 + Zel's review of the v18 plan: the bedroom balcony door is the west panel and only the west leaf of Sara's south door opens (photos), ceiling lamps drawn as ⊗ in the plan, Sara's desk lamp out, pinboard, C side table and beanbag, laundry rack 10 west, two laundry views in the mixer. C9–C11 solved. v18 = interior doors drawn open, bathroom door clockwise with a stop, wardrobe 160, bed centred between the sockets, south picture light on a wall strip, east painting 10 higher, Sara's lights moved, intercom named.
 - **Current task:** find positions for ambient lights so Zel can tell the electrician where to drill. The deliverable at the end is a drill sheet (wall, distance from a corner, height). Draft: `Claude-vectors/S15-wall-light-points-DRAFT.md` (fixed lights, switched sockets, dimming groups, closet feeds).
-- **How Zel reviews lighting:** `Renders/blender-lighting/light-mixer-v18.html` (switches and dimmers per light group, any view, lux map) plus the `compare-v18_*.jpg` sheets and `luxmaps-v18.png`. He can't judge light in SH3D.
-- **Waiting for Zel:** review of v18 and C9. Open in the draft: real picture sizes (they set the picture-light heights), curtain positions near lights 1, 14, 17, low-lamp corners, lamp data for everything except the GU10 and the two PILSKOTT lamps.
+- **How Zel reviews lighting:** `Renders/blender-lighting/light-mixer-v19.html` (switches and dimmers per light group, any view, lux map) plus the `compare-v19_*.jpg` sheets and `luxmaps-v19.png`. He can't judge light in SH3D.
+- **Waiting for Zel:** review of v19 (and the rest of the v18 renders), confirmation of the interior door hinges. Open in the draft: real picture sizes (they set the picture-light heights), curtain positions near lights 1, 14, 17, low-lamp corners, lamp data for everything except the GU10 and the two PILSKOTT lamps.
 - **Layout (2026-11-25):** all design work lives in one place, `~/LOCAL/CODE-2026/S15-flat/` on the Mac. That folder is the git repo and the working folder. The Drive folder `Interior-design/` is retired. See "Folder map".
 - **Published:** public repo `github.com/ZSvedic/S15-flat`, site `https://zsvedic.github.io/S15-flat/` (mixer, sheets, lux table of the latest version). The site changes only when someone pushes. See "Publishing" below.
 - **Critique of v15:** `Claude-vectors/S15-v15-critique.md`. Zel accepted points 1–7 with changes (journal 2026-11-19 c). Not taken up: softer up-lamps, bedside reading lights, room 5 light spacing, night light.
@@ -56,10 +56,10 @@ Two roots. Connect both to the session (`~/LOCAL` and the Drive folder).
   - WC on the west wall, basin on the east wall, bath across the south.
 - **Ceiling:** 280.
 - **Windows:** 170 high with a 90 cm sill.
-- **Bedroom north opening:** 300×245 three-panel window on a 15 cm sill; the middle panel opens to the balcony.
+- **Bedroom north opening:** 300×245 three-panel window on a 15 cm sill; the **west** panel opens to the balcony (hinge west), the other two are fixed (IMG_1956, Zel 2026-11-26).
 - **Sara's room:** two terrace exits:
   - east door 80×240 on a 20 cm threshold;
-  - south double door 160×250 on a 10 cm sill.
+  - south double door 160×250 on a 10 cm sill; only the west leaf opens (inward, hinge west), the east leaf is fixed (IMG_1962, Zel 2026-11-26).
 - **Laundry terrace door:** 80×240 on a 20 cm threshold.
 - **Terrace and balcony floor:** +16 cm above inside.
 - **Balcony parapet:** 100 cm.

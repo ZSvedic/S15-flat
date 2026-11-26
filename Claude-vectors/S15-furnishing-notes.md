@@ -334,3 +334,17 @@ Built by `Claude-tools/build_v18.py` from v17.
 | C11 | Laundry terrace door (240 high on a 20 threshold) | The leaf (top 260) hits the ceiling drying rack (x 643–763, 215 high): it opens only about 63° | A rack 10 west |
 
 Smaller points from the check: the open hall → living leaf parks 24 from any wall, so it needs a magnetic holder or floor stop; the open laundry leaf parks 5.6 in front of the heating-manifold cover; the south picture light's tube sits just under the AC's front edge, so the AC's air blows on it (harmless for an LED tube, but don't hang anything lighter there); the living east window's swing passes over table lamp L3 (older).
+
+## v19 (2026-11-26): Zel's review of the v18 plan
+
+Built by `Claude-tools/build_v19.py` from v18.
+
+| Item | Before (v18) → after (v19) | Source |
+|---|---|---|
+| 1a Bedroom balcony door | The middle of the three panels opened → the **west** panel opens (hinge west, handle at the joint with the middle panel); middle and east panels fixed. The leaf (94) sweeps x 300–394 along the west part of the window and misses the bed and the corner seat. **C9 is gone**; the bed stays centred between the sockets (v18) | photo IMG_1956, Zel |
+| 1b Sara south double door | Both leaves opened → only the **west** leaf opens (inward, hinge west); east leaf fixed. **C10 is gone**: the west leaf misses the west tub chair and the new C table | photo IMG_1962, Zel |
+| 1c "Plant base" in the plan | It was the as-built ceiling lamp by the terrace door, drawn like a floor box. All ceiling lamps and recessed spots are now drawn as an amber ⊗ in the plan | check for Zel |
+| 3 Sara desk | Green desk lamp removed. Pinboard 100×60 on the east wall centred over the desk, half-way between the desk top (75) and the bottom of wall light 16 (167): 91–151 | Zel |
+| 3 Sara seating | Side table Ø45 → C side table 50×32×62, oak (its foot slides under the bed or the chair; sits at x 643–693, y 1234–1266, out of the door swing). East tub chair → beanbag Ø75 in the SE corner. West tub chair stays | Zel (photo of a C table) |
+| C11 | Laundry drying rack 10 west (x 633–753): the terrace door opens fully, 1.7 cm clear | Zel |
+| Light mixer | Two laundry views added: 25 from the hall door, 26 from the terrace door | Zel |

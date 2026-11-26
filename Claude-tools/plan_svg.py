@@ -144,6 +144,19 @@ for e in items:
         continue
     if min(w, d) < 1.5 and max(w, d) > 50:
         continue
+    if e.tag == 'light' and max(w, d) <= 3.1:          # bare light sources: the fixture piece is drawn instead
+        continue
+    if n.startswith(('Ceiling lamp', 'Recessed spot')) and f(e, 'elevation') >= 240:   # v19: ceiling fixture symbol, not a floor box
+        r = max(w, d) / 2
+        ax.add_patch(matplotlib.patches.Circle((x, y), r, fc='none', ec='#C98A12', lw=0.8, zorder=7.5))
+        k = r * 0.7071
+        ax.plot([x - k, x + k], [y - k, y + k], color='#C98A12', lw=0.6, zorder=7.5)
+        ax.plot([x - k, x + k], [y + k, y - k], color='#C98A12', lw=0.6, zorder=7.5)
+        continue
+    if n.startswith('Beanbag'):                        # v19: round
+        ax.add_patch(matplotlib.patches.Ellipse((x, y), w, d, fc='#FFFFFF', ec='#777', lw=0.5, alpha=0.9, zorder=4.5))
+        ax.text(x, y, label_of(n), ha='center', va='center', fontsize=4.6, color='#333', zorder=6)
+        continue
     shaft = n.startswith(('Installation shaft', 'WC installation', 'Terrace upstand', 'Balcony parapet'))
     rug = f(e, 'height') <= 1.5
     fc = '#8C8C8C' if shaft else ('#F3EEE4' if rug else '#FFFFFF')
@@ -167,7 +180,7 @@ ax.plot([sx, sx + 200], [sy, sy], color='k', lw=2)
 for k in range(0, 201, 100):
     ax.plot([sx + k, sx + k], [sy - 6, sy + 6], color='k', lw=1)
 ax.text(sx + 100, sy - 14, '2 m', ha='center', fontsize=8)
-ax.text(sx, sy + 26, 'Openings: width/height in cm, p = sill/threshold above floor. Grey = shafts, upstands, parapets. Red dots = as-built switches, sockets, thermostats, outlets.',
+ax.text(sx, sy + 26, 'Openings: width/height in cm, p = sill/threshold above floor. Grey = shafts, upstands, parapets. Red dots = as-built switches, sockets, thermostats, outlets. Amber ⊗ = ceiling lamps and spots.',
         fontsize=7, color='#444')
 fig.tight_layout()
 fig.savefig(OUT + '.svg')

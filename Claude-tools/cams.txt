@@ -11,3 +11,5 @@
 10-ensuite 236 420 160 90 10 80
 11-sara 560 990 160 320 8 80
 12-room5 470 1100 160 30 8 80
+25-laundry-from-door 565 925 160 225 6 85
+26-laundry-from-terrace-door 812 905 160 80 6 85

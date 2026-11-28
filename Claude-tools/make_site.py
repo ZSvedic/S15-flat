@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 """Writes index.html (the GitHub Pages landing page) for one version from groups.json and Renders/blender-lighting/*-<tag>*.
-Usage (repo root): python3 Claude-tools/make_site.py v20"""
+Usage (repo root): python3 Claude-tools/make_site.py v22"""
 import sys, os, json, html, datetime
 TAG = sys.argv[1]; R = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 cfg = json.load(open(os.path.join(R, 'Claude-tools', 'blender', 'groups.json')))
 B = 'Renders/blender-lighting/'
+REPO = 'ZSvedic/Hrneticka-flat'                     # GitHub repository (owner/name); the site is https://<owner>.github.io/<name>/
 def ex(p): return os.path.exists(os.path.join(R, p))
 lux = open(os.path.join(R, B, 'lux_table-%s.md' % TAG)).read().split('\n')
 rows = [l for l in lux if l.startswith('|') and not l.startswith('|---')]
@@ -22,20 +23,20 @@ for v, vc in cfg['views'].items():
 pre = ''.join('<li><strong>%s</strong>: %s</li>' % (html.escape(p['id']), html.escape(p['label'])) for p in cfg['presets'])
 grp = ''.join('<li>%s</li>' % html.escape(g['label']) for g in cfg['groups'])
 hero = B + 'compare-%s_19-living-from-sofa-corner.jpg' % TAG
-plan = 'Claude-vectors/S15-%s-plan.png' % TAG
+plan = 'Claude-vectors/Hrneticka-%s-plan.png' % TAG
 d = cfg['day']
 import glob
 ALT = {'lighting-expert': 'Lighting expert: critique of this design, with its changes', 'lighting-expert-blank': 'Lighting expert from scratch: only the light points of the electrical plan, no knowledge of the owner\'s design'}
 alts = ''
 for f in sorted(glob.glob(os.path.join(R, B, 'light-mixer-%s-*.html' % TAG))):
     t = os.path.basename(f)[len('light-mixer-'):-5]; k = t[len(TAG) + 1:]
-    notes = 'Claude-vectors/S15-%s-notes.md' % t
-    alts += '<li><strong>%s</strong> (%s): <a href="%s">light mixer</a> · <a href="%slux_table-%s.md">lux table</a> · <a href="Claude-vectors/S15-%s-plan.png">plan</a>%s</li>' % (
-        html.escape(t), html.escape(ALT.get(k, k)), B + os.path.basename(f), B, t, t, (' · <a href="https://github.com/ZSvedic/S15-flat/blob/main/%s">notes</a>' % notes) if ex(notes) else '')
+    notes = 'Claude-vectors/Hrneticka-%s-notes.md' % t
+    alts += '<li><strong>%s</strong> (%s): <a href="%s">light mixer</a> · <a href="%slux_table-%s.md">lux table</a> · <a href="Claude-vectors/Hrneticka-%s-plan.png">plan</a>%s</li>' % (
+        html.escape(t), html.escape(ALT.get(k, k)), B + os.path.basename(f), B, t, t, (' · <a href="https://github.com/%s/blob/main/%s">notes</a>' % (REPO, notes)) if ex(notes) else '')
 altsec = ('<h2>Alternative designs (%s)</h2><ul>%s</ul>' % (TAG, alts)) if alts else ''
 page = f'''<!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>S15 flat: lighting study</title>
+<title>Hrnetička flat: lighting study</title>
 <style>
 :root{{--bg:#15171a;--panel:#1e2125;--line:#2e3238;--text:#e8e6e1;--dim:#a3a39c;--accent:#f2b561}}
 *{{box-sizing:border-box}}
@@ -63,7 +64,7 @@ figure{{margin:0}}figcaption{{color:var(--dim);font-size:14px;margin-top:6px}}
 footer{{margin-top:56px;padding-top:18px;border-top:1px solid var(--line);color:var(--dim);font-size:14px}}
 </style></head>
 <body><main>
-<h1>S15 flat: lighting study</h1>
+<h1>Hrnetička flat: lighting study</h1>
 <p class="lede">Where should the wall lights go before the electrician drills? The flat is rendered with real light units and compared room by room, at night and by day.</p>
 <a class="cta" href="{B}light-mixer-{TAG}.html">Open the light mixer</a>
 <p class="note">The mixer switches and dims the light groups in every view. It is a large page, so give it a moment to load.</p>
@@ -89,7 +90,7 @@ footer{{margin-top:56px;padding-top:18px;border-top:1px solid var(--line);color:
 
 <h2>How it is made</h2>
 <p>The flat is modelled in Sweet Home 3D, which stays the only source of truth. A script exports the model, places every lamp in Blender with its lumens, colour temperature and beam angle, adds the sun and sky for the day scene, and renders each light group with Cycles. Light adds up, so every scene is a sum of these renders. Nothing in Blender is edited by hand.</p>
-<p>The scripts, the model and the full work journal are in the <a href="https://github.com/ZSvedic/S15-flat">GitHub repository</a>.</p>
+<p>The scripts, the model and the full work journal are in the <a href="https://github.com/{REPO}">GitHub repository</a>.</p>
 <footer>Model {TAG}, rendered {datetime.date.today():%d %B %Y}.</footer>
 </main></body></html>
 '''

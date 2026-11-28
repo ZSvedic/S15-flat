@@ -1,16 +1,18 @@
-# AGENTS.md: S15 Hrnetićka interior design
+# AGENTS.md: Hrnetička interior design
 
 Read this file and `journal.md` (to the end) before doing anything. At the end of every session, add an entry to `journal.md`.
 
-## Current state (2026-11-26)
-- **Latest model: `S15-Hrneticka-v21.sh3d`** (2026-11-26) = v20 + picture light over the bicycle picture instead of the desk ceiling spots, oak laundry cabinet and shelf, real GU10 in the laundry spots; day pictures at a lower exposure. v20 = TV shelf up-light, three light groups and a day scene. v19 = west panels open (bedroom, Sara), Sara's furniture, C9–C11 solved.
-- **Expert branches (2026-11-26, not decisions):** `S15-Hrneticka-v21-lighting-expert.sh3d` (an expert agent's 15 changes to v21) and `S15-Hrneticka-v21-lighting-expert-blank.sh3d` (an expert agent's design from the electrical-plan points only, made in a sandbox without Zel's files). Notes, fixture lists and plans in `Claude-vectors/S15-v21-lighting-expert*`; mixers `light-mixer-v21-lighting-expert*.html`. Build tool: `Claude-tools/build_lightset.py` (fixture list → lights; lamp data in the light name `XA:`/`XC:` `{lm= beam= k=}`).
-- **Current task:** find positions for ambient lights so Zel can tell the electrician where to drill. The deliverable at the end is a drill sheet (wall, distance from a corner, height). Draft: `Claude-vectors/S15-wall-light-points-DRAFT.md` (fixed lights, switched sockets, dimming groups, closet feeds).
+## Current state (2026-11-28)
+- **Latest model: `Hrneticka-v22.sh3d`** (2026-11-28) = v21 + draft rows 1–17: mirror border lights in both bathrooms, wardrobe-top up-lights (bedroom, Sara), wall lights turned with the base on the wall, Sara 3 ambient lights (17 out, 15 moved south), room 5 one desk light, wide-beam GU10 over the desks, lamp data (niche 200, hall bar 300, kitchen 900 lm/m, all ambient 2700 K), laundry light 10 on its own switch. `Hrneticka-v21.sh3d` is kept as vPREV until Zel has seen v22.
+- **Naming (Zel, 2026-11-28):** no "S15" in file names, page titles or the repo name any more (people confused flat S15 with version 15): `Hrneticka-vNN.sh3d`, `Claude-vectors/Hrneticka-*`, repo `ZSvedic/Hrneticka-flat` (renamed 2026-11-28; the old site URL `zsvedic.github.io/S15-flat/` no longer works, GitHub redirects only the repo pages and git). Internal code names (`S15Tool.java`, `s15_blender.py`, `S15_TAG`, the log line `S15 done`) stay. The local folder is still `~/LOCAL/CODE-2026/S15-flat/` (rename it outside a session if wanted; the Drive symlink `Interior-design` points to it).
+- **Electrician files (v22, Croatian):** `Claude-vectors/Hrneticka-elektricar-v22.md/.pdf` (Popis izvoda) and `Hrneticka-elektricar-v22-shema.svg/.png/.pdf` (plan with routes + wall elevations), from `Claude-tools/electrician.py`. 5 points wait ("NE BUŠITI"): 5, 9 (real picture sizes), 8, 18 (pictures not chosen), T (carpenter). Walls marked "provjeriti" until Zel confirms the material.
+- **Dimming (decided 2026-11-28):** smart dimmer modules in the wall boxes behind push buttons; **four ambient dimmers**: A living + kitchen + hall + corridor, B bedroom, C Sara, D guest room (room 5); **wired push buttons at the beds** (TB1, TB2, TC, TD). Renders keep one ambient group.
+- **Current task:** the drill sheet for the electrician (done as a first version in v22; open points above). Draft: `Claude-vectors/Hrneticka-wall-light-points-DRAFT.md`.
 - **How Zel reviews lighting:** `Renders/blender-lighting/light-mixer-v21.html` (3 groups: ambient with dimmer, ceiling, day; 16 views; lux map), the `compare-v21_*.jpg` sheets and `luxmaps-v21.png`, and the two expert mixers. He can't judge light in SH3D.
-- **Waiting for Zel:** review of v21 and of the two expert branches (which expert points to take over), confirmation of the interior door hinges, one ambient dimmer for the flat or one per room. Then delete the v19/v20 model and plan files. Open in the draft: real picture sizes, curtain positions near lights 1, 14, 17, lamp data for everything except the GU10 and the two PILSKOTT lamps.
 - **Layout (2026-11-25):** all design work lives in one place, `~/LOCAL/CODE-2026/S15-flat/` on the Mac. That folder is the git repo and the working folder. The Drive folder `Interior-design/` is retired. See "Folder map".
-- **Published:** public repo `github.com/ZSvedic/S15-flat`, site `https://zsvedic.github.io/S15-flat/` (mixer, sheets, lux table of the latest version). The site changes only when someone pushes. See "Publishing" below.
 - **Critique of v15:** `Claude-vectors/S15-v15-critique.md`. Zel accepted points 1–7 with changes (journal 2026-11-19 c). Not taken up: softer up-lamps, bedside reading lights, room 5 light spacing, night light.
+- **Mixer on a phone (v22):** under 700 px wide the mixer shows Scene and View dropdowns above the picture (checked at 430×740 and 1500×1100).
+- **Published:** public repo `github.com/ZSvedic/Hrneticka-flat`, site `https://zsvedic.github.io/Hrneticka-flat/`. The site changes only when someone pushes. See "Publishing" below.
 
 ## Owner rules (Zel)
 - Ask for confirmation before any drastic change to models or files. Propose a before → after list with the evidence for each item, then wait.
@@ -20,21 +22,21 @@ Read this file and `journal.md` (to the end) before doing anything. At the end o
   3. Old files, the marketing catalogue and screenshots.
 - If a conflict can't be settled by evidence, list it and ask. Never pick silently.
 - Short answers, metric units, options labelled A/B/C, steps 1/2/3.
-- Never edit a model in place: each version is a new file, `S15-Hrneticka-vNN.sh3d`.
+- Never edit a model in place: each version is a new file, `Hrneticka-vNN.sh3d`.
 - **Folder names stay fixed; the version goes in the file name** (Zel, 2026-11-25), for example `Renders/blender-lighting/light-mixer-v16.html`. Never make a `…-vNN/` folder. Once the vNN files are done and Zel has seen them, delete the v(NN−1) files (`git rm` for tracked ones; git keeps the history). List the deletions for Zel first.
 
 ## Folder map
 Two roots. Claude Code on the Mac reaches both.
 
-**Repo root: `~/LOCAL/CODE-2026/S15-flat/`** (on the Mac; git repo `ZSvedic/S15-flat`, public). All design work lives here, and relative paths in this file start here.
+**Repo root: `~/LOCAL/CODE-2026/S15-flat/`** (on the Mac; git repo `ZSvedic/Hrneticka-flat`, public). All design work lives here, and relative paths in this file start here.
 | Path | What |
 |---|---|
-| `S15-Hrneticka-vNN.sh3d` | Sweet Home 3D model. The latest version is the source of truth. |
+| `Hrneticka-vNN.sh3d` | Sweet Home 3D model. The latest version is the source of truth. |
 | `Claude-tools/` | Toolchain: build scripts, plan drawing, headless renderer, Nano Banana. See its README. |
 | `Claude-tools/jars/` | Sweet Home 3D jars. Git-ignored; if missing, copy them from a Sweet Home 3D 7 installation. |
 | `Claude-tools/blender/` | Blender lighting pipeline: `groups.json`, `make_lights.py`, `s15_blender.py`, `rerender.py`, `render_version.sh`, `mix.py`, `tm.py`, `mixer_template.html`, `calib.py`. See `Claude-tools/README.md` |
-| `Claude-vectors/` | Plan drawings (`S15-vNN-plan.svg/png`), `S15-interior-spec.md` (Zel's wishes), `S15-furnishing-notes.md` (design decisions per version) |
-| `Claude-vectors/S15-wall-light-points-DRAFT.md` | All proposed light points (Zel's 17 circles plus the later additions), with wall distances, heights and open points |
+| `Claude-vectors/` | Plan drawings (`Hrneticka-vNN-plan.svg/png`), `Hrneticka-interior-spec.md` (Zel's wishes), `Hrneticka-furnishing-notes.md` (design decisions per version) |
+| `Claude-vectors/Hrneticka-wall-light-points-DRAFT.md` | All proposed light points (Zel's 17 circles plus the later additions), with wall distances, heights and open points |
 | `Renders/` | Results for the current version, with the version in each file name: `blender-lighting/` (`compare-vNN_<view>.jpg` sheets, `luxmaps-vNN.png`, `lux_table-vNN.md`, `light-mixer-vNN.html`); `sh3d-low/` previews and `nano-banana-2/` photoreal renders when they are made |
 | `render/` | Raw render work, git-ignored. `render/blender/in/` holds the Blender inputs (`objNN/` OBJ export, `Home-vNN.xml`, `lights.json`, copies of `groups.json`, `cams.txt`, `s15_blender.py`); `render/blender/out/<group>/<view>-vNN.npy` the raw renders (groups ambient, ceiling, day) and `state-vNN.json` for `rerender.py`. Holds v20 now. |
 | `private/` | Git-ignored. Holds `Zel-sketch-v1.jpeg`, Zel's furniture sketch. |
@@ -112,18 +114,18 @@ Light adds up, so each light group is rendered once per view and any on/off or d
 2. `blender/groups.json` maps the lamp sets to **three groups (Zel, 2026-11-26): 1 ambient** (all wall, picture, TV, kitchen bar, dining pendant, floor/table lamps, hall bar, niche: one switch, one dimmer), **2 ceiling** (all other lamps; scene 2 = ambient + ceiling), **3 day** (no lamps; sun and clear sky on 15 May at 13:00, sky calibrated to 15,000 lx on open ground, sun 95,000 lx). Only the GU10 and PILSKOTT data are real.
 3. Views (16 + the top view for lux maps) and the rooms each one sees are in `groups.json` → `views`; cameras in `Claude-tools/cams.txt` (the only camera list).
 4. One command per version: `Claude-tools/blender/render_version.sh vPREV vNN [samples]` (export, lights, inputs, `rerender.py`, Blender in the background). `rerender.py` re-renders only the views that see a changed room (plus the top view) and hard-links the rest from vPREV; `--full` as 4th argument renders everything. Wait for `S15 done` in `render/blender/out/run-vNN.log`.
-5. `<venv>/bin/python Claude-tools/blender/mix.py render/blender/out Renders/blender-lighting "S15 lighting – vNN" vNN` writes the sheets, `luxmaps-vNN.png`, `lux_table-vNN.md` and `light-mixer-vNN.html`. Then `python3 Claude-tools/make_site.py vNN` writes `index.html`.
+5. `<venv>/bin/python Claude-tools/blender/mix.py render/blender/out Renders/blender-lighting "Hrnetička lighting – vNN" vNN` writes the sheets, `luxmaps-vNN.png`, `lux_table-vNN.md` and `light-mixer-vNN.html`. Then `python3 Claude-tools/make_site.py vNN` writes `index.html`.
 6. Check the mixer with headless Chrome: `"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new --screenshot=x.png --window-size=1500,1100 --virtual-time-budget=8000 "file://…/light-mixer-vNN.html#view=lux"`.
-7. Units are verified (`calib.py`): lux values are exact for the given lamp data. Night pictures use one fixed exposure and white balance (`blender/tm.py`); the day pictures get a neutral white balance and their own exposure (factor printed by `mix.py`).
-8. Speed: about 26 s per render at 1440×1080, nearly independent of samples (64 or 128) and of persistent data (measured v20/v21), so the time is not path tracing; check denoising and scene sync next. v20 full: 51 renders, about 24 min; v21 incremental: 30 renders, 13 min 21 s.
+7. Units are verified (`calib.py`): lux values are exact for the given lamp data. Night pictures use one fixed exposure and white balance (`blender/tm.py`); the day pictures get a neutral white balance and one fixed exposure for all views and versions, `DAYK = 0.0234` in `mix.py` (v22 on).
+8. Speed (measured 2026-11-28): about 30 s per render at 1440×1080 and 64 samples on the M4 GPU; it is path tracing (1 sample 4 s, 256 samples 134 s; denoiser and noise threshold change nothing; CPU 176 s). Table in `Claude-tools/README.md`. v22 full: 51 renders. Gains come only from incremental renders or fewer samples.
 9. Known limits: lamps are invisible sources (fixtures don't glow, LED sources show as dots in mirrors); no IES beam files; the kitchen worktop is partly hidden from the top view by the wall cabinets; `rerender.py` ignores light leaking through open doors into rooms no stale view lists.
 
 ## Publishing (GitHub, public)
-- Repo `github.com/ZSvedic/S15-flat`, branch `main`; GitHub Pages serves it at `https://zsvedic.github.io/S15-flat/`. Zel sends that link to other people.
+- Repo `github.com/ZSvedic/Hrneticka-flat`, branch `main`; GitHub Pages serves it at `https://zsvedic.github.io/Hrneticka-flat/`. Zel sends that link to other people.
 - This folder is the repo. Everything that `.gitignore` does not list becomes public on push, including `journal.md` and this file: keep private matters out of them (no lock hardware, keys, e-mail addresses).
 - **Git-ignored, never publish:** `render/`, `private/`, `Claude-tools/jars/`, `Claude-tools/blender/lights.json`, `*.exr`, `*.blend`. Nothing from the Drive root (`Building-docs/`, `Hrneticka-photos/`, `Ugovori/`) goes into a tracked path.
 - **Commit and push only when Zel asks.** `gh` (`/opt/homebrew/bin/gh`) is logged in as ZSvedic.
-- **To update:** 1. `make_site.py vNN` (index) and the version in `README.md`; 2. `git status`, check nothing private is listed; 3. `git add -A && git commit && git push`; 4. wait for `gh api repos/ZSvedic/S15-flat/pages/builds/latest` to say `built`, then `curl` the site and the mixer for 200.
+- **To update:** 1. `make_site.py vNN` (index) and the version in `README.md`; 2. `git status`, check nothing private is listed; 3. `git add -A && git commit && git push`; 4. wait for `gh api repos/ZSvedic/Hrneticka-flat/pages/builds/latest` to say `built`, then `curl` the site and the mixer for 200.
 
 ## Workflow for a model change
 1. Write `Claude-tools/build_vNN.py` that turns the previous version's Home.xml into the new one.
@@ -132,4 +134,4 @@ Light adds up, so each light group is rendered once per view and any on/off or d
 4. Make the plan with `plan_svg.py` into `Claude-vectors/`.
 5. Make low-quality previews into `Renders/sh3d-low/` with the version in the file names, then show Zel the overview. For lighting questions use the Blender workflow instead.
 6. Only after Zel approves the previews: Nano Banana renders (mood pictures only; never for lighting).
-7. Update `journal.md`, and `S15-furnishing-notes.md` if design decisions changed.
+7. Update `journal.md`, and `Hrneticka-furnishing-notes.md` if design decisions changed.

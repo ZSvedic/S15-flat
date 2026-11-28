@@ -1,20 +1,20 @@
-# S15 flat: lighting study
+# Hrnetička flat: lighting study
 
-Where should the wall lights go before the electrician drills? This project renders each lighting plan for a flat with real light units and compares them room by room.
+Where should the wall lights go before the electrician drills? This project renders each lighting plan for a flat in Hrnetička street, Zagreb, with real light units and compares them room by room.
 
-**See it in the browser: https://zsvedic.github.io/S15-flat/**
+**See it in the browser: https://zsvedic.github.io/Hrneticka-flat/**
 
-The page has the comparison sheets, the lux table and an interactive light mixer with three light groups (ambient, ceiling, day) in every view.
+The page has the comparison sheets, the lux table and an interactive light mixer with three light groups (ambient, ceiling, day) in every view. It works on a phone too.
 
-![Living room from the sofa corner in the four scenes](Renders/blender-lighting/compare-v21_19-living-from-sofa-corner.jpg)
+![Living room from the sofa corner in the four scenes](Renders/blender-lighting/compare-v22_19-living-from-sofa-corner.jpg)
 
 ## What is in here
 
 | Path | What |
 |---|---|
-| `Renders/blender-lighting/` | Current results (v21): 16 comparison sheets, `light-mixer-v21.html`, `luxmaps-v21.png`, `lux_table-v21.md`, plus two lighting-expert alternatives (`*-v21-lighting-expert*`). Earlier rounds are in the git history. |
-| `S15-Hrneticka-v21.sh3d` | The Sweet Home 3D model (open with Sweet Home 3D 7) |
-| `Claude-vectors/` | Floor plans per version, the wall-light points draft, design notes |
+| `Renders/blender-lighting/` | Current results (v22): 16 comparison sheets, `light-mixer-v22.html`, `luxmaps-v22.png`, `lux_table-v22.md`. Earlier rounds are in the git history. |
+| `Hrneticka-v22.sh3d` | The Sweet Home 3D model (open with Sweet Home 3D 7) |
+| `Claude-vectors/` | Floor plan, the wall-light points draft, design notes, and the files for the electrician in Croatian (`Hrneticka-elektricar-v22.*`: outlet list and a schematic with cable routes) |
 | `Claude-tools/` | Scripts that build each model version and export it |
 | `Claude-tools/blender/` | The Blender pipeline: lamp data, scene builder, comparison sheets, light mixer |
 | `journal.md`, `AGENTS.md` | Work journal and working rules; the project was built with Claude |
@@ -36,4 +36,4 @@ Nothing in Blender is edited by hand, so a change in the model is one rebuild aw
 
 ## Running it yourself
 
-The scripts expect Sweet Home 3D's own `.jar` files in `Claude-tools/jars/`. They are not included here; copy them from a Sweet Home 3D 7 installation. Rendering needs Blender 5 and was run on an Apple M4, at about 30 seconds per view.
+The scripts expect Sweet Home 3D's own `.jar` files in `Claude-tools/jars/`. They are not included here; copy them from a Sweet Home 3D 7 installation. Rendering needs Blender 5 and was run on an Apple M4, at about 30 seconds per view and light group (64 samples).

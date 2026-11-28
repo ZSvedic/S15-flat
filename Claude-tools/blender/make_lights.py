@@ -6,9 +6,12 @@ Bars and strips: each SH3D source stands for 20 cm of LED strip and becomes 4 so
 import sys, json, math, re, xml.etree.ElementTree as ET
 RULES = [  # prefix, set, role
     ('XA:', 'xamb', 'custom'), ('XC:', 'xceil', 'custom'),   # fixtures from build_lightset.py: lamp data in the name, {lm=.. beam=.. k=.. r=..}
-    ('AmbA up', 'wall', 'gu10'), ('AmbA down', 'wall', 'gu10'), ('White light source', 'wall', 'shield'),
+    ('AmbA up', 'wall', 'gu10'), ('AmbA down', 'wall', 'gu10'), ('AmbW down', 'wall', 'gu10wide'),   # AmbW: wide-beam GU10 over the desks (v22)
+    ('AmbL up', 'laundrywall', 'gu10'), ('AmbL down', 'laundrywall', 'gu10'),                           # laundry light 10 on its own switch (v22)
+    ('Top bar', 'wardtop', 'topup'), ('Mirror bar', 'other', 'mirrorbar'),                               # wardrobe-top up-light, mirror border light (v22)
+    ('White light source', 'wall', 'shield'),
     ('ArtE bar', 'artE', 'piclight'), ('ArtH bar', 'artH', 'piclight'), ('ArtS aim', 'artS', 'gu10'), ('ArtS bar', 'artS', 'piclight'), ('ArtD bar', 'artD', 'piclight'), ('Desk aim', 'desk', 'gu10'),
-    ('TV puck', 'tv', 'puck'), ('Kitchen bar', 'kitchen', 'bar'), ('Niche bar', 'niche', 'profile'), ('Shelf bar', 'tvshelf', 'shelfup'), ('HallBench bar', 'hallbench', 'bar'),
+    ('TV puck', 'tv', 'puck'), ('Kitchen bar', 'kitchen', 'bar'), ('Niche bar', 'niche', 'profile'), ('Shelf bar', 'tvshelf', 'shelfup'), ('HallBench bar', 'hallbench', 'hbar'),
     ('Pendant bar', 'pendant', 'pbar'), ('Low bar', 'low', 'lowbar'), ('Low lamp', 'low', 'tablelamp'),
     ('Light: spot – laundry', 'ceiling', 'gu10'), ('Light: spot – hall', 'hallspots', 'spot'), ('Light: spot – corridor', 'corrspots', 'spot'), ('Light: spot', 'ceiling', 'spot'),
     ('Light: ceiling lamp', 'ceiling', 'ceiling'),
@@ -21,9 +24,9 @@ for l in ET.parse(sys.argv[1]).getroot().iter('light'):
     st, role = hit
     if role == 'ceiling' and 'IP44' in name: role = 'bath'
     lampdata = None
-    if role == 'custom':
+    if role == 'custom' or re.search(r'\{[^}]*lm=', name):              # lamp data in the name overrides the role (XA:/XC:, mirror bars)
         kv = dict(re.findall(r'(\w+)=([\d.]+)', re.search(r'\{([^}]*)\}', name).group(1)))
-        lampdata = dict(lumens=float(kv['lm']), kelvin=float(kv.get('k', 2700)), beam=float(kv['beam']) if 'beam' in kv else None, radius=float(kv.get('r', 2)), source='expert fixture')
+        lampdata = dict(lumens=float(kv['lm']), kelvin=float(kv.get('k', 2700)), beam=float(kv['beam']) if 'beam' in kv else None, radius=float(kv.get('r', 2)), source='lamp data in the light name')
     x, y, el = float(a['x']), float(a['y']), float(a.get('elevation', 0))
     w, d, h, ang = float(a['width']), float(a['depth']), float(a['height']), float(a.get('angle', 0))
     aim = re.search(r'-> *([-\d.]+),([-\d.]+),([-\d.]+)$', name)

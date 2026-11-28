@@ -25,17 +25,17 @@
   },
   "puck": {
    "lumens": 180,
-   "kelvin": 3000,
+   "kelvin": 2700,
    "beam": 100,
    "radius": 3,
-   "source": "assumed"
+   "source": "assumed; 2700 K like all ambient lights (Zel, 2026-11-27, row 8)"
   },
   "bar": {
-   "lumens": 30,
-   "kelvin": 3000,
+   "lumens": 45,
+   "kelvin": 2700,
    "beam": 120,
    "radius": 1,
-   "source": "assumed 600 lm per metre (one source per 5 cm): kitchen light bar and the bar under the hall top cabinet"
+   "source": "assumed 900 lm per metre, 2700 K (Zel, 2026-11-27, rows 4 and 8; one source per 5 cm): kitchen light bar under the wall cabinets"
   },
   "spot": {
    "lumens": 400,
@@ -59,11 +59,11 @@
    "source": "assumed"
   },
   "profile": {
-   "lumens": 17.5,
+   "lumens": 10,
    "kelvin": 2700,
    "beam": 120,
    "radius": 1,
-   "source": "assumed 350 lm per metre: LED profile with opal cover under each niche shelf"
+   "source": "assumed 200 lm per metre (Zel, 2026-11-27, row 1): LED profile with opal cover under each niche shelf"
   },
   "piclight": {
    "lumens": 30,
@@ -120,12 +120,40 @@
    "beam": 120,
    "radius": 1,
    "source": "assumed 150 lm per metre (one source per 5 cm): up-light bar behind the raised lip of the TV shelf; dimmer than the niche profile (350 lm/m) because the shelf is 250 long"
+  },
+  "hbar": {
+   "lumens": 15,
+   "kelvin": 2700,
+   "beam": 120,
+   "radius": 1,
+   "source": "assumed 300 lm per metre, 2700 K (Zel, 2026-11-27, rows 2 and 8; one source per 5 cm): light bar under the hall top cabinet"
+  },
+  "gu10wide": {
+   "lumens": 345,
+   "kelvin": 2700,
+   "beam": 60,
+   "radius": 2.5,
+   "source": "assumed: wide-beam GU10, 60 deg, 345 lm (same output as the LEDARE), for the down lamps over the desks (Zel, 2026-11-28, row 11)"
+  },
+  "topup": {
+   "lumens": 15,
+   "kelvin": 2700,
+   "beam": 120,
+   "radius": 1,
+   "source": "assumed 300 lm per metre (one source per 5 cm): up-light bar behind the raised lip of the wardrobe tops (Zel, 2026-11-28, rows 13 and 15)"
+  },
+  "mirrorbar": {
+   "lumens": 10,
+   "kelvin": 3000,
+   "beam": 120,
+   "radius": 1,
+   "source": "mirror border light: the lumens per source are in each light name, about 1,000 lm per mirror (Zel, 2026-11-27, row 5)"
   }
  },
  "groups": [
   {
    "id": "ambient",
-   "label": "1 Ambient: wall lights, picture lights, TV pucks and shelf up-light, kitchen bar, dining pendant, floor/table lamps, hall bar, niche (one switch, one dimmer)",
+   "label": "1 Ambient: wall lights, picture lights, TV pucks and shelf up-light, wardrobe-top up-lights, kitchen bar, dining pendant, floor/table lamps, hall bar, niche (dimmed per area: living + kitchen + hall, bedroom, Sara, guest room)",
    "members": [
     "wall",
     "artE",
@@ -139,19 +167,21 @@
     "niche",
     "tvshelf",
     "artD",
-    "xamb"
+    "xamb",
+    "wardtop"
    ]
   },
   {
    "id": "ceiling",
-   "label": "2 Ceiling lights: room lamps, spots, mirror, desk and terrace lamps",
+   "label": "2 Ceiling lights: room lamps, spots, mirror border lights, desk lamp; terrace and laundry wall lamps (own switches)",
    "members": [
     "ceiling",
     "hallspots",
     "corrspots",
     "desk",
     "other",
-    "xceil"
+    "xceil",
+    "laundrywall"
    ]
   },
   {
@@ -372,6 +402,11 @@
    123,
    309,
    150
+  ],
+  [
+   424,
+   885,
+   160
   ]
  ],
  "sheets": [

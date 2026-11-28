@@ -7,7 +7,7 @@ import sys, os, json, re, io, base64, numpy as np, cv2, matplotlib; matplotlib.u
 from matplotlib.colors import BoundaryNorm
 from PIL import Image, ImageDraw, ImageFont
 HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, HERE); from tm import WB, EV, tone
-OUT, RES = sys.argv[1], sys.argv[2]; TITLE = sys.argv[3] if len(sys.argv) > 3 else 'S15 lighting'
+OUT, RES = sys.argv[1], sys.argv[2]; TITLE = sys.argv[3] if len(sys.argv) > 3 else 'Hrnetička lighting'
 TAG = '-' + sys.argv[4] if len(sys.argv) > 4 else ''
 os.makedirs(RES, exist_ok=True)
 cfg = json.load(open(os.path.join(HERE, 'groups.json'))); GID = [g['id'] for g in cfg['groups']]; GL = {g['id']: g['label'] for g in cfg['groups']}
@@ -25,18 +25,11 @@ if not os.path.exists(FONT):                                          # on the M
 f = ImageFont.truetype(FONT, 20); fs = ImageFont.truetype(FONT, 16)
 
 # ---- comparison sheets ---------------------------------------------------------------------------------------------
-# day pictures: neutral white balance (the lamp white balance would turn daylight blue) and one shorter exposure for all views,
-# so that a sunny room looks about as bright as the room with all lamps on (the eye adapts; lux values stay real)
-DAYK = 1.0
-if DAYG:
-    L = lambda x: (x * [0.2126, 0.7152, 0.0722]).sum(2); r = []
-    for view in cfg['views']:
-        a = [load(g, view) for g in GID]
-        if any(v is None for v in a): continue
-        night = sum(v for g, v in zip(GID, a) if g != DAYG); day = a[GID.index(DAYG)]
-        r.append(np.percentile(L(night), 90) / max(np.percentile(L(day), 90), 1e-9))
-    DAYK = float(np.median(r)) * 0.7 if r else 1.0          # v21: was 1.5 (Zel: day pictures burnt out; the eye adapts)
-    print('day exposure factor', DAYK)
+# day pictures: neutral white balance (the lamp white balance would turn daylight blue) and one shorter exposure, the same for
+# all views and all versions, so day pictures compare between versions (the eye adapts; lux values stay real).
+# v22: fixed at the v21 value (it was computed per version: median over views of night/day 90th percentile x 0.7).
+DAYK = 0.0234
+if DAYG: print('day exposure factor (fixed)', DAYK)
 DAYWB = np.array([1.05, 1.0, 0.9], 'float32') / WB           # neutral, a touch warm: sun 5500 K plus blue sky light
 def prep(g, a): return a * DAYK * DAYWB if g == DAYG else a
 for view in cfg['views']:

@@ -10,3 +10,4 @@ private/
 # generated
 Claude-tools/blender/lights.json
 __pycache__/
+.claude/

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>S15 light mixer</title>
+<title>Hrnetička light mixer</title>
 <style>
 :root{--bg:#15171a;--panel:#1e2125;--line:#2e3238;--text:#e8e6e1;--dim:#9a9a94;--accent:#f2b561}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:14px/1.4 system-ui,-apple-system,"Segoe UI",sans-serif}
@@ -21,18 +21,35 @@ input[type=checkbox]{width:16px;height:16px;accent-color:var(--accent)}input[typ
 .cap{margin:8px 2px;color:var(--dim)}table{border-collapse:collapse;margin-top:10px}td,th{padding:3px 12px 3px 0;text-align:left;font-variant-numeric:tabular-nums}th{color:var(--dim);font-weight:500}
 .legend{display:flex;flex-wrap:wrap;gap:0;margin-top:10px}.legend span{padding:2px 8px;font-size:12px;color:#000}
 .row{display:flex;gap:8px;align-items:center}.row input{flex:1}
+.mbar{display:none}
+select{font:inherit;color:var(--text);background:#2a2e34;border:1px solid var(--line);border-radius:8px;padding:0 10px}
+/* phone (iPhone 15 Plus: 430 px wide, about 740 px tall with the browser bars): dropdowns on top, picture next, groups below */
+@media(max-width:700px){
+ .wrap{display:flex;flex-direction:column;gap:10px;padding:8px}
+ .main{order:-1;min-width:0}.side{padding:10px}
+ .mbar{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
+ .mbar label{font-size:11px;color:var(--dim);display:flex;flex-direction:column;gap:2px;min-width:0}
+ .mbar select{min-height:44px;font-size:16px;width:100%;min-width:0}
+ .views,#presets,#presetsH{display:none}
+ .main canvas{max-height:calc(100dvh - 150px);object-fit:contain}
+ .cap{font-size:12px;margin:6px 2px}
+ .g{grid-template-columns:28px 1fr 96px 40px;min-height:48px}.g input[type=checkbox]{width:24px;height:24px}.g input[type=range]{height:44px}
+ .row input[type=range]{height:44px}
+ h1{font-size:15px}.gd{display:none}
+ table{font-size:13px}td,th{padding:3px 8px 3px 0}
+}
 </style></head><body>
 <div class="wrap">
  <div class="side">
   <h1 id="title"></h1>
   <div class="note">Pick a view, then switch light groups on and off or dim them. Every picture is the exact sum of one render per group, at one fixed camera exposure.</div>
-  <h2>Presets</h2><div class="presets" id="presets"></div>
+  <h2 id="presetsH">Presets</h2><div class="presets" id="presets"></div>
   <h2>Light groups</h2><div id="groups"></div>
   <div class="note" style="margin-top:6px">The day picture uses its own, shorter camera exposure and a neutral white balance, so switch the lamps off when you look at it. Lux values are always real.</div>
   <h2>Camera exposure</h2><div class="row"><input type="range" id="ev" min="-2" max="2" step="0.1" value="0"><output id="evo">0</output></div>
   <div class="note" id="lamp" style="margin-top:12px"></div>
  </div>
- <div class="main"><div class="views" id="views"></div><canvas id="cv" width="1024" height="768"></canvas><div class="cap" id="cap"></div><div id="extra"></div></div>
+ <div class="main"><div class="mbar"><label>Scene<select id="selScene"></select></label><label>View<select id="selView"></select></label></div><div class="views" id="views"></div><canvas id="cv" width="1024" height="768"></canvas><div class="cap" id="cap"></div><div id="extra"></div></div>
 </div>
 <script>
 const D = /*DATA*/null;
@@ -87,20 +104,30 @@ async function draw() {
 function ui() {
   const v = D.views[state.view];
   document.querySelectorAll('#views button').forEach((b, i) => b.classList.toggle('on', i === state.view));
+  $('selView').value = state.view; $('selScene').value = state.preset == null ? '' : state.preset;
   D.groups.forEach(g => { const r = $('g_' + g.id); r.classList.toggle('na', !(g.id in v.g)); r.querySelector('input[type=checkbox]').checked = state.on[g.id]; r.querySelector('input[type=range]').value = state.w[g.id]; r.querySelector('output').textContent = state.w[g.id] + '%'; });
   draw();
 }
 $('title').textContent = D.title; $('lamp').textContent = 'Real lamp data: IKEA LEDARE GU10 (345 lm, 2700 K, 36°, 600 cd), IKEA PILSKOTT pendant (97 cm, 1,100 lm) and floor lamp (112 cm, 700 lm). All other lamps use assumed values.';
-D.presets.forEach(p => { const b = document.createElement('button'); b.textContent = p.id + '  ' + p.label; b.onclick = () => { D.groups.forEach(g => { state.on[g.id] = p.on.includes(g.id); state.w[g.id] = p.w || 100; }); ui(); }; $('presets').appendChild(b); });
+function preset(i) { const p = D.presets[i]; D.groups.forEach(g => { state.on[g.id] = p.on.includes(g.id); state.w[g.id] = p.w || 100; }); state.preset = i; ui(); }
+D.presets.forEach((p, i) => { const b = document.createElement('button'); b.textContent = p.id + '  ' + p.label; b.onclick = () => preset(i); $('presets').appendChild(b);
+  const o = document.createElement('option'); o.value = i; o.textContent = p.id + ' ' + p.label; $('selScene').appendChild(o); });
+{ const o = document.createElement('option'); o.value = ''; o.textContent = 'Own mix'; o.hidden = true; $('selScene').appendChild(o); }
+$('selScene').onchange = e => { if (e.target.value !== '') preset(+e.target.value); };
+state.preset = 0;
 D.groups.forEach(g => { const r = document.createElement('div'); r.className = 'g'; r.id = 'g_' + g.id;
-  r.innerHTML = '<input type="checkbox" id="c_' + g.id + '"><label for="c_' + g.id + '">' + g.label + '<small>' + (g.day ? 'sun + sky' : g.lm + ' lm') + '</small></label><input type="range" min="0" max="100" step="5" aria-label="dim ' + g.label + '"><output></output>';
-  r.querySelector('input[type=checkbox]').onchange = e => { state.on[g.id] = e.target.checked; ui(); };
-  r.querySelector('input[type=range]').oninput = e => { state.w[g.id] = +e.target.value; r.querySelector('output').textContent = e.target.value + '%'; draw(); };
+  r.innerHTML = '<input type="checkbox" id="c_' + g.id + '"><label for="c_' + g.id + '">' + (g.label.includes(': ') ? g.label.split(': ')[0] + '<span class="gd">: ' + g.label.slice(g.label.indexOf(': ') + 2) + '</span>' : g.label) + '<small>' + (g.day ? 'sun + sky' : g.lm + ' lm') + '</small></label><input type="range" min="0" max="100" step="5" aria-label="dim ' + g.label + '"><output></output>';
+  r.querySelector('input[type=checkbox]').onchange = e => { state.on[g.id] = e.target.checked; state.preset = null; ui(); };
+  r.querySelector('input[type=range]').oninput = e => { state.w[g.id] = +e.target.value; r.querySelector('output').textContent = e.target.value + '%'; state.preset = null; $('selScene').value = ''; draw(); };
   $('groups').appendChild(r); });
 let area = '';
 let vrow = null;
-D.views.forEach((v, i) => { if (v.area !== area) { area = v.area; vrow = document.createElement('div'); vrow.className = 'vr'; const a = document.createElement('span'); a.className = 'area'; a.textContent = area; vrow.appendChild(a); $('views').appendChild(vrow); }
+let og = null;
+D.views.forEach((v, i) => { if (v.area !== area) { area = v.area; vrow = document.createElement('div'); vrow.className = 'vr'; const a = document.createElement('span'); a.className = 'area'; a.textContent = area; vrow.appendChild(a); $('views').appendChild(vrow);
+    og = document.createElement('optgroup'); og.label = area; $('selView').appendChild(og); }
+  { const o = document.createElement('option'); o.value = i; o.textContent = v.label; og.appendChild(o); }
   const b = document.createElement('button'); b.textContent = v.label; b.onclick = () => { state.view = i; ui(); }; vrow.appendChild(b); });
+$('selView').onchange = e => { state.view = +e.target.value; ui(); };
 $('ev').oninput = e => { state.ev = +e.target.value; $('evo').textContent = (state.ev > 0 ? '+' : '') + state.ev; draw(); };
 const hp = new URLSearchParams(location.hash.slice(1)); if (hp.get('view')) state.view = Math.max(0, D.views.findIndex(v => v.id === hp.get('view')));
 ui();

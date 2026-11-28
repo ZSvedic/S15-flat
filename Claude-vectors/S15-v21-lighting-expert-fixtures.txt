@@ -1,6 +1,0 @@
-id | action | room | type | x | y | z | lumens | beam | kelvin | aim | group | reason
-C3 | add | Living | FLOOR_LAMP | 1440 | 745 | 150 | 800 | | 2700 | | ambient | L1: shaded reading lamp over the sofa corner instead of the wall-wash bar
-C4 | add | Living | TABLE_LAMP | 1420 | 492 | 95 | 800 | | 2700 | | ambient | L3: 400 to 800 lm, reading light for the sofa's east leg
-C5 | add | Bedroom | WALL_DOWN | 603 | 385 | 125 | 250 | 60 | 2700 | 540,385,90 | ambient | 2: from y 352, z 158; adjustable head with its own switch, inside the bed edge
-C6 | add | Bedroom | WALL_DOWN | 603 | 540 | 125 | 250 | 60 | 2700 | 540,540,90 | ambient | 3: from y 569.5, z 158; same as C5
-C14 | add | Ensuite | STRIP | 54 | 356 | 20 | 100 | 120 | 2700 | 196,356 down | ambient | vanity toe-kick night light; feed through the partition from light 1 (IP44 profile)
